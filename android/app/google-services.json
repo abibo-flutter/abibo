@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058339690244",
+    "project_id": "abibo-ca9da",
+    "storage_bucket": "abibo-ca9da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058339690244:android:8b7ed5d0ebd2a7598b6251",
+        "android_client_info": {
+          "package_name": "com.example.abibo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058339690244-68qdbte5fijq826d5obg68u3gsciba16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKsYlDKQpbis2WFk1kaBCL1gb4mrLO-Ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058339690244-68qdbte5fijq826d5obg68u3gsciba16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
