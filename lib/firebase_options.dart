@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBkJWa_eSRW07T0sZIPlPd5XiubhHHnVMk',
-    appId: '1:1058339690244:web:76329358d19e52148b6251',
-    messagingSenderId: '1058339690244',
-    projectId: 'abibo-ca9da',
-    authDomain: 'abibo-ca9da.firebaseapp.com',
-    storageBucket: 'abibo-ca9da.appspot.com',
-    measurementId: 'G-NJ79NWGLRK',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBKsYlDKQpbis2WFk1kaBCL1gb4mrLO-Ro',
     appId: '1:1058339690244:android:8b7ed5d0ebd2a7598b6251',
@@ -69,15 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'abibo-ca9da.appspot.com',
     iosClientId: '1058339690244-o6t85op9kkk3l99b3sv3e32pvjmro7qk.apps.googleusercontent.com',
     iosBundleId: 'com.example.abibo',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD5zz59ctMi6zskCaiojRT6agSKeO81vcM',
-    appId: '1:1058339690244:ios:67906909deeae2328b6251',
-    messagingSenderId: '1058339690244',
-    projectId: 'abibo-ca9da',
-    storageBucket: 'abibo-ca9da.appspot.com',
-    iosClientId: '1058339690244-3p2ad1sc0v0rbjc144f8at7ocak0uega.apps.googleusercontent.com',
-    iosBundleId: 'com.example.abibo.RunnerTests',
   );
 }

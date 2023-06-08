@@ -29,6 +29,13 @@
             {
               "client_id": "1058339690244-68qdbte5fijq826d5obg68u3gsciba16.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1058339690244-3p2ad1sc0v0rbjc144f8at7ocak0uega.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.abibo.RunnerTests"
+              }
             }
           ]
         }
