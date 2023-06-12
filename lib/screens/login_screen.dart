@@ -37,7 +37,7 @@ class _ScreenLoginState extends State<LoginScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'assets/images/main_screen.png'), // 배경화면으로 사용할 이미지 경로
+                    'assets/images/login_screen.png'), // 배경화면으로 사용할 이미지 경로
                 fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 조절하여 채우도록 설정
               ),
             ),
