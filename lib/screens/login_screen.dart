@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
+import 'package:abibo/screens/signup_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,14 +17,18 @@ void navigateToMainScreen(User user) {
   Get.to(() => MainScreen(user: user));
 }
 
+void navigateToSignupScreen() {
+  Get.to(() => const SignupScreen());
+}
+
 class _ScreenLoginState extends State<LoginScreen> {
   final _authentication = FirebaseAuth.instance;
   String? email;
   String? pw;
-  String errorString = ''; //login error 보려고 만든 String state
+  String errorString = ''; //error 보려고 만든 String state
   bool isButtonPressed = false;
 
-  //firebase auth login 함수, 이멜 + 비번으로 로그인
+  //firebase auth 함수, 이멜 + 비번으로 로그인
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -271,19 +276,24 @@ class _ScreenLoginState extends State<LoginScreen> {
                       SizedBox(
                         height: screenHeight / 944 * 100,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "계정이 없으신가요?",
                             style: ABTextTheme.QuestionNoAccount1,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
-                            "회원가입하기",
-                            style: ABTextTheme.QuestionNoAccount2,
+                          TextButton(
+                            onPressed: () {
+                              navigateToSignupScreen();
+                            },
+                            child: const Text(
+                              "회원가입하기",
+                              style: ABTextTheme.QuestionNoAccount2,
+                            ),
                           ),
                         ],
                       ),
