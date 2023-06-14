@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: screenHeight / 844 * 50,
+                  height: screenHeight / 844 * 54,
                 ),
                 Column(
                   children: [
@@ -117,14 +117,27 @@ class _MainScreenState extends State<MainScreen> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: screenHeight / 844 * 14,
+                                height: screenHeight / 844 * 12,
                               ),
                               Container(
-                                width: screenWidth / 844 * 30,
-                                height: screenHeight / 844 * 2,
+                                width: screenWidth / 844 * 32,
+                                height: 1,
                                 decoration: const BoxDecoration(
                                   color: Colors.black,
                                 ),
+                              ),
+                              SizedBox(
+                                height: screenHeight / 844 * 2,
+                              ),
+                              Container(
+                                width: screenWidth / 844 * 16,
+                                height: 1,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenHeight / 844 * 30,
                               ),
                             ],
                           ),
@@ -136,7 +149,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [],
                     )
                   ],
-                )
+                ),
               ],
             ),
           ),
