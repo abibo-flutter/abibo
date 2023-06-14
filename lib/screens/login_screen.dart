@@ -21,12 +21,13 @@ class _ScreenLoginState extends State<LoginScreen> {
   String? email;
   String? pw;
   String errorString = ''; //login error 보려고 만든 String state
+  bool isButtonPressed = false;
 
   //firebase auth login 함수, 이멜 + 비번으로 로그인
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    bool isButtonPressed = false;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -218,53 +219,51 @@ class _ScreenLoginState extends State<LoginScreen> {
                       SizedBox(
                         height: screenHeight / 944 * 24,
                       ),
-                      Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: screenHeight / 944 * 70,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                if (email != null && pw != null) {
-                                  final userCredential = await _authentication
-                                      .signInWithEmailAndPassword(
-                                    email: email!,
-                                    password: pw!,
-                                  );
-                                  final User? currentUser = userCredential.user;
-                                  if (currentUser != null) {
-                                    navigateToMainScreen(currentUser);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("이메일과 비밀번호를 입력해주세요."),
-                                    ),
-                                  );
+                      SizedBox(
+                        width: double.infinity,
+                        height: screenHeight / 944 * 70,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            try {
+                              if (email != null && pw != null) {
+                                final userCredential = await _authentication
+                                    .signInWithEmailAndPassword(
+                                  email: email!,
+                                  password: pw!,
+                                );
+                                final User? currentUser = userCredential.user;
+                                if (currentUser != null) {
+                                  navigateToMainScreen(currentUser);
                                 }
-                              } catch (err) {
-                                print(err);
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("오류"),
+                                    content: Text("이메일과 비밀번호를 입력해주세요."),
                                   ),
                                 );
                               }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD08FFF),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              elevation: 5,
+                            } catch (err) {
+                              print(err);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("오류"),
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD08FFF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            child: const Text(
-                              "로그인",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            elevation: 5,
+                          ),
+                          child: const Text(
+                            "로그인",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
