@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
+import 'package:abibo/screens/signup_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,17 +17,22 @@ void navigateToMainScreen(User user) {
   Get.to(() => MainScreen(user: user));
 }
 
+void navigateToSignupScreen() {
+  Get.to(() => const SignupScreen());
+}
+
 class _ScreenLoginState extends State<LoginScreen> {
   final _authentication = FirebaseAuth.instance;
   String? email;
   String? pw;
-  String errorString = ''; //login error 보려고 만든 String state
+  String errorString = ''; //error 보려고 만든 String state
+  bool isButtonPressed = false;
 
-  //firebase auth login 함수, 이멜 + 비번으로 로그인
+  //firebase auth 함수, 이멜 + 비번으로 로그인
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    bool isButtonPressed = false;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -218,53 +224,51 @@ class _ScreenLoginState extends State<LoginScreen> {
                       SizedBox(
                         height: screenHeight / 944 * 24,
                       ),
-                      Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: screenHeight / 944 * 70,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                if (email != null && pw != null) {
-                                  final userCredential = await _authentication
-                                      .signInWithEmailAndPassword(
-                                    email: email!,
-                                    password: pw!,
-                                  );
-                                  final User? currentUser = userCredential.user;
-                                  if (currentUser != null) {
-                                    navigateToMainScreen(currentUser);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("이메일과 비밀번호를 입력해주세요."),
-                                    ),
-                                  );
+                      SizedBox(
+                        width: double.infinity,
+                        height: screenHeight / 944 * 70,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            try {
+                              if (email != null && pw != null) {
+                                final userCredential = await _authentication
+                                    .signInWithEmailAndPassword(
+                                  email: email!,
+                                  password: pw!,
+                                );
+                                final User? currentUser = userCredential.user;
+                                if (currentUser != null) {
+                                  navigateToMainScreen(currentUser);
                                 }
-                              } catch (err) {
-                                print(err);
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("오류"),
+                                    content: Text("이메일과 비밀번호를 입력해주세요."),
                                   ),
                                 );
                               }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD08FFF),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              elevation: 5,
+                            } catch (err) {
+                              print(err);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("오류"),
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD08FFF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            child: const Text(
-                              "로그인",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            elevation: 5,
+                          ),
+                          child: const Text(
+                            "로그인",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -272,19 +276,24 @@ class _ScreenLoginState extends State<LoginScreen> {
                       SizedBox(
                         height: screenHeight / 944 * 100,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "계정이 없으신가요?",
                             style: ABTextTheme.QuestionNoAccount1,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
-                            "회원가입하기",
-                            style: ABTextTheme.QuestionNoAccount2,
+                          TextButton(
+                            onPressed: () {
+                              navigateToSignupScreen();
+                            },
+                            child: const Text(
+                              "회원가입하기",
+                              style: ABTextTheme.QuestionNoAccount2,
+                            ),
                           ),
                         ],
                       ),
