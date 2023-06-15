@@ -157,7 +157,7 @@ class _MainScreenState extends State<MainScreen> {
                                 height: screenHeight / 844 * 12,
                               ),
                               Container(
-                                width: screenWidth / 844 * 32,
+                                width: screenWidth / 390 * 16,
                                 height: 1,
                                 decoration: const BoxDecoration(
                                   color: Colors.black,
@@ -167,29 +167,37 @@ class _MainScreenState extends State<MainScreen> {
                                 height: screenHeight / 844 * 2,
                               ),
                               Container(
-                                width: screenWidth / 844 * 16,
+                                width: screenWidth / 390 * 8,
                                 height: 1,
                                 decoration: const BoxDecoration(
                                   color: Colors.black,
                                 ),
                               ),
                               SizedBox(
-                                height: screenHeight / 844 * 22,
+                                height: screenHeight / 844 * 26,
                               ),
                               const Text(
                                 '플랫폼',
                                 style: ABTextTheme.MainWidgetTitle,
                               ),
                               SizedBox(
-                                height: screenHeight / 844 * 2,
+                                height: screenHeight / 844 * 16,
                               ),
                               Container(
-                                width: screenWidth / 844 * 16,
+                                width: screenWidth / 396 * 22,
                                 height: 1,
                                 decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
+                              SizedBox(
+                                height: screenHeight / 844 * 12,
+                              ),
+                              const Text(
+                                '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
+                                style: ABTextTheme.MainWidgetContext,
+                                textAlign: TextAlign.center,
+                              )
                             ],
                           ),
                         ),

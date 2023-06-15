@@ -103,6 +103,14 @@ abstract class ABTextTheme {
     fontSize: 20,
     height: 1.2,
     color: Colors.white,
-    letterSpacing: -0.4,
+    letterSpacing: 0,
+  );
+  static const MainWidgetContext = TextStyle(
+    fontFamily: 'NotoSansKR',
+    fontWeight: FontWeight.w700,
+    fontSize: 10,
+    height: 2,
+    color: Colors.white,
+    letterSpacing: 0,
   );
 }
