@@ -2,7 +2,7 @@ import 'package:abibo/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:abibo/widgets/card.dart';
+import 'package:abibo/widgets/mainmenucard.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
