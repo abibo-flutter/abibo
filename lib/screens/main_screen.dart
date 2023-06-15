@@ -28,6 +28,7 @@ class _CustomUserAccountDrawerHeaderState
   late AnimationController _animationController;
   late Animation<Offset> _animation;
   File? _selectedImage;
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _selectImage() async {
     final imagePicker = ImagePicker();
