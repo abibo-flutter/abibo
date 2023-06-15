@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
 import 'package:abibo/screens/signup_screen.dart';
+import 'package:abibo/screens/resetpw_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +18,10 @@ void navigateToMainScreen() {
   Get.to(() => const MainScreen());
 }
 
+void navigateToResetPWScreen() {
+  Get.to(() => const ResetPWScreen());
+}
+
 void navigateToSignupScreen() {
   Get.to(() => const SignupScreen());
 }
@@ -26,7 +31,7 @@ class _ScreenLoginState extends State<LoginScreen> {
   String? email;
   String? pw;
   String errorString = ''; //error 보려고 만든 String state
-  bool isButtonPressed = false;
+  bool isKeepLoginPressed = false;
 
   //firebase auth 함수, 이멜 + 비번으로 로그인
   @override
@@ -150,11 +155,12 @@ class _ScreenLoginState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
+                            // 로그인 유지
                             children: [
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    isButtonPressed = !isButtonPressed;
+                                    isKeepLoginPressed = !isKeepLoginPressed;
                                   });
                                   // 로그인 상태 유지 버튼 기능
                                 },
@@ -162,12 +168,12 @@ class _ScreenLoginState extends State<LoginScreen> {
                                   padding:
                                       const EdgeInsets.only(left: 5, right: 2),
                                   decoration: BoxDecoration(
-                                    color: isButtonPressed
+                                    color: isKeepLoginPressed
                                         ? Colors.purple
                                         : Colors.transparent, // 배경색
                                   ),
                                   child: Icon(
-                                    isButtonPressed
+                                    isKeepLoginPressed
                                         ? Icons.check_circle_rounded
                                         : Icons.check_circle_outline_outlined,
                                     size: 16, // 아이콘 크기 설정
@@ -183,40 +189,40 @@ class _ScreenLoginState extends State<LoginScreen> {
                             ],
                           ),
                           Row(
+                            //비밀번호 분실
                             children: [
                               InkWell(
                                 onTap: () {
-                                  setState(() {
-                                    isButtonPressed =
-                                        !isButtonPressed; // 버튼 상태 변경
-                                  });
-                                  // 로그인 상태 유지 버튼 기능
+                                  navigateToResetPWScreen();
+                                  // 비밀번호 재설정 페이지로 이동
                                 },
-                                child: Container(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  decoration: BoxDecoration(
-                                    color: isButtonPressed
-                                        ? Colors.purple
-                                        : Colors.transparent, // 배경색
-                                  ),
-                                  child: const Icon(
-                                    Icons.warning_amber_outlined,
-                                    size: 16, // 아이콘 크기 설정
-                                    color: Colors.white,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(right: 2),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.transparent, // 배경색
+                                      ),
+                                      child: const Icon(
+                                        Icons.warning_amber_outlined,
+                                        size: 16, // 아이콘 크기 설정
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 0),
+                                    const Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 1,
+                                        ),
+                                        Text(
+                                          '비밀번호를 잊으셨나요?',
+                                          style: ABTextTheme.LoginStateMaintain,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(width: 0),
-                              const Column(
-                                children: [
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  Text(
-                                    '비밀번호를 잊으셨나요?',
-                                    style: ABTextTheme.LoginStateMaintain,
-                                  ),
-                                ],
                               ),
                             ],
                           ),
