@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 
-class MyWidget extends StatelessWidget {
+class MainMenu extends StatelessWidget {
   final bool topRight;
   final bool topLeft;
   final bool bottomRight;
@@ -10,7 +10,7 @@ class MyWidget extends StatelessWidget {
   final String image;
   final String headline;
   final String text;
-  const MyWidget({
+  const MainMenu({
     super.key,
     required this.color,
     required this.image,

@@ -2,6 +2,7 @@ import 'package:abibo/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/widgets/card.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
@@ -42,6 +43,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -101,8 +103,8 @@ class _MainScreenState extends State<MainScreen> {
             padding: EdgeInsets.only(
               top: screenHeight / 844 * 38,
               bottom: 0,
-              left: screenHeight / 844 * 28,
-              right: screenHeight / 844 * 28,
+              left: screenHeight / 844 * 23,
+              right: screenHeight / 844 * 23,
             ),
             child: Column(
               children: [
@@ -134,78 +136,49 @@ class _MainScreenState extends State<MainScreen> {
                 Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: screenWidth / 390 * 168,
-                          height: screenHeight / 844 * 230,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFC87CFF),
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(60),
-                              bottomLeft: Radius.circular(60),
-                              bottomRight: Radius.circular(60),
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/mainmenu1.png'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              SizedBox(
-                                height: screenHeight / 844 * 12,
-                              ),
-                              Container(
-                                width: screenWidth / 390 * 16,
-                                height: 1,
-                                decoration: const BoxDecoration(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 2,
-                              ),
-                              Container(
-                                width: screenWidth / 390 * 8,
-                                height: 1,
-                                decoration: const BoxDecoration(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 26,
-                              ),
-                              const Text(
-                                '플랫폼',
-                                style: ABTextTheme.MainWidgetTitle,
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 16,
-                              ),
-                              Container(
-                                width: screenWidth / 396 * 22,
-                                height: 1,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 12,
-                              ),
-                              const Text(
-                                '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
-                                style: ABTextTheme.MainWidgetContext,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
+                        const MainMenu(
+                          color: Color(0xFFC87CFF),
+                          image: 'assets/images/mainmenu1.png',
+                          headline: '플랫폼',
+                          text: '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
+                          topLeft: false,
                         ),
-                        Container()
+                        SizedBox(
+                          width: screenWidth / 390 * 6,
+                        ),
+                        const MainMenu(
+                          color: Color(0xFFC87CFF),
+                          image: 'assets/images/mainmenu1.png',
+                          headline: '플랫폼',
+                          text: '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
+                        ),
                       ],
                     ),
-                    const Row(
-                      children: [],
+                    SizedBox(
+                      height: screenHeight / 844 * 6,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const MainMenu(
+                          color: Color(0xFFC87CFF),
+                          image: 'assets/images/mainmenu1.png',
+                          headline: '플랫폼',
+                          text: '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
+                        ),
+                        SizedBox(
+                          width: screenWidth / 390 * 6,
+                        ),
+                        const MainMenu(
+                          color: Color(0xFFC87CFF),
+                          image: 'assets/images/mainmenu1.png',
+                          headline: '플랫폼',
+                          text: '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
+                          bottomRight: false,
+                        ),
+                      ],
                     )
                   ],
                 ),
