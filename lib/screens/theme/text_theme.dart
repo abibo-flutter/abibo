@@ -100,8 +100,8 @@ abstract class ABTextTheme {
   static const MainWidgetTitle = TextStyle(
     fontFamily: 'NotoSansKR',
     fontWeight: FontWeight.w700,
-    fontSize: 14,
-    height: 20,
+    fontSize: 20,
+    height: 1.2,
     color: Colors.white,
     letterSpacing: -0.4,
   );

@@ -173,6 +173,9 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Colors.black,
                                 ),
                               ),
+                              SizedBox(
+                                height: screenHeight / 844 * 22,
+                              ),
                               const Text(
                                 '플랫폼',
                                 style: ABTextTheme.MainWidgetTitle,
@@ -184,7 +187,7 @@ class _MainScreenState extends State<MainScreen> {
                                 width: screenWidth / 844 * 16,
                                 height: 1,
                                 decoration: const BoxDecoration(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
