@@ -32,6 +32,8 @@ dependencies:
   firebase_auth: 
   flutter_bloc:
   google_sign_in:
+  image_picker:
+  image_cropper:
   get:
   flutter:
     sdk: flutter
