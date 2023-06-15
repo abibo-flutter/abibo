@@ -39,7 +39,7 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'assets/images/login_screen.png'), // 배경화면으로 사용할 이미지 경로
+                    'assets/images/signup_screen.png'), // 배경화면으로 사용할 이미지 경로
                 fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 조절하여 채우도록 설정
               ),
             ),
@@ -64,7 +64,23 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: screenHeight / 844 * 58,
+                        height: screenHeight / 844 * 32,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            '아비보에 가입했던 이메일을 입력해주세요.\n비밀번호 재설정 이메일을 보내드립니다.',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.5),
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 84,
                       ),
                       Container(
                         margin: const EdgeInsets.all(5),
@@ -72,14 +88,15 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: screenHeight / 844 * 40,
+                              height: screenHeight / 844 * 30,
                               child: TextField(
                                 style: const TextStyle(
                                     color: Colors.white), // 입력 중 텍스트 스타일
                                 decoration: InputDecoration(
-                                  hintText: '아이디',
+                                  hintText: '이메일 입력',
                                   hintStyle: TextStyle(
                                     color: Colors.white.withOpacity(0.4),
+                                    fontFamily: 'Pretendard',
                                   ),
                                   filled: false,
                                   enabledBorder: const UnderlineInputBorder(
@@ -100,11 +117,11 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: screenHeight / 944 * 57,
+                        height: screenHeight / 844 * 48,
                       ),
                       SizedBox(
                         width: double.infinity,
-                        height: screenHeight / 944 * 70,
+                        height: screenHeight / 844 * 63,
                         child: ElevatedButton(
                           onPressed: () async {
                             try {
@@ -130,7 +147,7 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFD08FFF),
+                            backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -139,36 +156,38 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                           child: const Text(
                             "이메일 전송",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Pretendard',
                             ),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: screenHeight / 944 * 20,
+                        height: screenHeight / 844 * 10,
                       ),
                       SizedBox(
                         width: double.infinity,
-                        height: screenHeight / 944 * 70,
+                        height: screenHeight / 844 * 63,
                         child: ElevatedButton(
                           onPressed: () {
                             navigateToLoginScreen();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFD08FFF),
+                            backgroundColor: Colors.white30,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             elevation: 5,
                           ),
                           child: const Text(
-                            "로그인 화면으로 되돌아가기",
+                            "로그인 하러 가기",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Pretendard',
                             ),
                           ),
                         ),
