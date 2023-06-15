@@ -109,6 +109,7 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                           onPressed: () async {
                             try {
                               if (email != null) {
+                                await _authentication.setLanguageCode("ko");
                                 await _authentication.sendPasswordResetEmail(
                                   email: email!,
                                 );
