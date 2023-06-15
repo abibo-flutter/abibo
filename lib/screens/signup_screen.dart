@@ -110,6 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             SizedBox(
                               height: screenHeight / 844 * 40,
                               child: TextField(
+                                obscureText: true,
                                 style: const TextStyle(
                                   color: Colors.white,
                                 ), // 입력 중 텍스트 스타일
@@ -147,6 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             SizedBox(
                               height: screenHeight / 844 * 40,
                               child: TextField(
+                                obscureText: true,
                                 style: const TextStyle(
                                   color: Colors.white,
                                 ), // 입력 중 텍스트 스타일

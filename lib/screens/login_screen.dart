@@ -13,8 +13,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _ScreenLoginState();
 }
 
-void navigateToMainScreen(User user) {
-  Get.to(() => MainScreen(user: user));
+void navigateToMainScreen() {
+  Get.to(() => const MainScreen());
 }
 
 void navigateToSignupScreen() {
@@ -123,6 +123,7 @@ class _ScreenLoginState extends State<LoginScreen> {
                             SizedBox(
                               height: screenHeight / 844 * 40,
                               child: TextField(
+                                obscureText: true,
                                 style: const TextStyle(
                                     color: Colors.white), // 입력 중 텍스트 스타일
                                 decoration: const InputDecoration(
@@ -153,7 +154,7 @@ class _ScreenLoginState extends State<LoginScreen> {
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    isButtonPressed = true;
+                                    isButtonPressed = !isButtonPressed;
                                   });
                                   // 로그인 상태 유지 버튼 기능
                                 },
@@ -238,7 +239,7 @@ class _ScreenLoginState extends State<LoginScreen> {
                                 );
                                 final User? currentUser = userCredential.user;
                                 if (currentUser != null) {
-                                  navigateToMainScreen(currentUser);
+                                  navigateToMainScreen();
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(

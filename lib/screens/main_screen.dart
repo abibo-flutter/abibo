@@ -1,16 +1,44 @@
+import 'package:abibo/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
-  final User user;
-  const MainScreen({Key? key, required this.user}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
+void navigateToLoginScreen() {
+  Get.to(() => const LoginScreen());
+}
+
 class _MainScreenState extends State<MainScreen> {
+  final _authentication = FirebaseAuth.instance;
+  late User user;
+
+  void getCurrentUser() {
+    try {
+      user = _authentication.currentUser!; //로그인 정보 받아오기
+    } catch (err) {
+      print(err); //실패하면 오류 출력
+    }
+  }
+
+  void logOut() async {
+    await _authentication.signOut();
+    getCurrentUser();
+    navigateToLoginScreen();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -47,6 +75,14 @@ class _MainScreenState extends State<MainScreen> {
               onTap: () {
                 Navigator.pop(context); // Drawer를 닫습니다.
                 // TODO: Settings 화면으로 이동하는 동작을 수행합니다.
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                Navigator.pop(context); // Drawer를 닫습니다.
+                logOut();
               },
             ),
           ],
