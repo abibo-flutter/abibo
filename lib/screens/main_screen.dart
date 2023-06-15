@@ -141,6 +141,16 @@ class _MainScreenState extends State<MainScreen> {
                                 '플랫폼',
                                 style: ABTextTheme.MainWidgetTitle,
                               ),
+                              SizedBox(
+                                height: screenHeight / 844 * 2,
+                              ),
+                              Container(
+                                width: screenWidth / 844 * 16,
+                                height: 1,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                ),
+                              ),
                             ],
                           ),
                         ),
