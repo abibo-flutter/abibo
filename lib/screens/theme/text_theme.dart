@@ -97,4 +97,12 @@ abstract class ABTextTheme {
     color: Color(0xFFB586F6),
     letterSpacing: -0.4,
   );
+  static const MainWidgetTitle = TextStyle(
+    fontFamily: 'NotoSansKR',
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    height: 20,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
 }

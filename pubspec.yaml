@@ -119,7 +119,7 @@ flutter:
           weight: 100
         - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
           weight: 600
-    - family: Noto_Sans_KR
+    - family: NotoSansKR
       fonts:
         - asset: fonts/NotoSansKR/NotoSansKR-Black.otf
           weight: 900

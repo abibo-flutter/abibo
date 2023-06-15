@@ -115,6 +115,7 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                           child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               SizedBox(
                                 height: screenHeight / 844 * 12,
@@ -136,8 +137,9 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(
-                                height: screenHeight / 844 * 30,
+                              const Text(
+                                '플랫폼',
+                                style: ABTextTheme.MainWidgetTitle,
                               ),
                             ],
                           ),
