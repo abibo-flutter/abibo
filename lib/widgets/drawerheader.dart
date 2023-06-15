@@ -63,6 +63,9 @@ class _CustomUserAccountDrawerHeaderState
     return SlideTransition(
       position: _animation,
       child: UserAccountsDrawerHeader(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.2),
+        ),
         accountName: const SizedBox.shrink(),
         accountEmail: Text(widget.user.email!),
         currentAccountPicture: InkWell(

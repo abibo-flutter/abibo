@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:abibo/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,38 +50,46 @@ class _MainScreenState extends State<MainScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      endDrawer: Drawer(
-        backgroundColor: Colors.transparent,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            CustomUserAccountDrawerHeader(user: user),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                // 메뉴 항목을 선택했을 때 수행할 동작을 작성합니다.
-                Navigator.pop(context); // Drawer를 닫습니다.
-                // TODO: Home 화면으로 이동하는 동작을 수행합니다.
-              },
+      endDrawer: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 20,
+            sigmaY: 20,
+          ),
+          child: Drawer(
+            backgroundColor: Colors.white.withOpacity(0.2),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                CustomUserAccountDrawerHeader(user: user),
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    // 메뉴 항목을 선택했을 때 수행할 동작을 작성합니다.
+                    Navigator.pop(context); // Drawer를 닫습니다.
+                    // TODO: Home 화면으로 이동하는 동작을 수행합니다.
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Settings'),
+                  onTap: () {
+                    Navigator.pop(context); // Drawer를 닫습니다.
+                    // TODO: Settings 화면으로 이동하는 동작을 수행합니다.
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Logout'),
+                  onTap: () {
+                    Navigator.pop(context); // Drawer를 닫습니다.
+                    logOut();
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context); // Drawer를 닫습니다.
-                // TODO: Settings 화면으로 이동하는 동작을 수행합니다.
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context); // Drawer를 닫습니다.
-                logOut();
-              },
-            ),
-          ],
+          ),
         ),
       ),
       body: SafeArea(
