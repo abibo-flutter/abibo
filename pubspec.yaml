@@ -34,6 +34,7 @@ dependencies:
   google_sign_in:
   image_picker:
   image_cropper:
+  flutter_secure_keyboard:
   get:
   flutter:
     sdk: flutter

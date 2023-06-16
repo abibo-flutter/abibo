@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'screens/main_screen.dart';
+import 'screens/second_login_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/theme/color_theme.dart';
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.hasData) {
-              return const MainScreen();
+              return const SecondLoginScreen();
             } else {
               return const LoginScreen();
             }
