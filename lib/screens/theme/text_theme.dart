@@ -113,4 +113,12 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: 0,
   );
+  static const MainMainText = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.normal,
+    fontSize: 48,
+    height: 1.2,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
 }

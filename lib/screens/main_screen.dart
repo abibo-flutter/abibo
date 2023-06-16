@@ -50,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      drawerScrimColor: Colors.transparent,
       endDrawer: ClipRRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(
@@ -57,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             sigmaY: 20,
           ),
           child: Drawer(
-            backgroundColor: Colors.white.withOpacity(0.2),
+            backgroundColor: Colors.transparent,
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -128,7 +129,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Text(
                       'Abibo',
-                      style: ABTextTheme.LoginMainText1,
+                      style: ABTextTheme.MainMainText,
                     ),
                   ],
                 ),
