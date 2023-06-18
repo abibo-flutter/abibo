@@ -54,11 +54,11 @@ class _MainScreenState extends State<MainScreen> {
       endDrawer: ClipRRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 20,
-            sigmaY: 20,
+            sigmaX: 30,
+            sigmaY: 30,
           ),
           child: Drawer(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white.withOpacity(0.05),
             child: ListView(
               padding: EdgeInsets.zero,
               children: [

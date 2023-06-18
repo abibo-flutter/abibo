@@ -60,25 +60,30 @@ class _CustomUserAccountDrawerHeaderState
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return SlideTransition(
       position: _animation,
-      child: UserAccountsDrawerHeader(
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.2),
-        ),
-        accountName: const SizedBox.shrink(),
-        accountEmail: Text(widget.user.email!),
-        currentAccountPicture: InkWell(
-          onTap: _selectImage,
-          child: CircleAvatar(
-            backgroundImage:
-                _selectedImage != null ? FileImage(_selectedImage!) : null,
-            child: _selectedImage == null
-                ? GestureDetector(
-                    onTap: _selectImage,
-                    child: const Icon(Icons.person),
-                  )
-                : null,
+      child: SizedBox(
+        width: screenWidth / 390 * 10,
+        child: UserAccountsDrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.00005),
+          ),
+          accountName: const SizedBox.shrink(),
+          accountEmail: Text(widget.user.email!),
+          currentAccountPicture: InkWell(
+            onTap: _selectImage,
+            child: CircleAvatar(
+              radius: 3, // TODO : 크기 설정인데 왠지 모르겠지만 안바뀜
+              backgroundImage:
+                  _selectedImage != null ? FileImage(_selectedImage!) : null,
+              child: _selectedImage == null
+                  ? GestureDetector(
+                      onTap: _selectImage,
+                      child: const Icon(Icons.person),
+                    )
+                  : null,
+            ),
           ),
         ),
       ),
