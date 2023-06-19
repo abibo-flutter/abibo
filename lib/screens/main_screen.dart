@@ -62,7 +62,8 @@ class _MainScreenState extends State<MainScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                CustomUserAccountDrawerHeader(user: user),
+                CustomDrawerHeader(user: user),
+                const SizedBox(height: 0),
                 ListTile(
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
