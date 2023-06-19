@@ -1,5 +1,4 @@
 import 'package:abibo/screens/main_screen.dart';
-import 'package:abibo/screens/real_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
@@ -24,6 +23,12 @@ class _PINScreenState extends State<PINScreen> {
   late SharedPreferences prefs;
   String? PIN;
   String? pin;
+
+  Future<String?> getPIN() async {
+    prefs = await SharedPreferences.getInstance();
+    PIN = prefs.getString('PIN');
+    return PIN;
+  }
 
   @override
   void initState() {
@@ -126,59 +131,61 @@ class _PINScreenState extends State<PINScreen> {
                   SizedBox(
                     width: double.infinity,
                     height: screenHeight / 844 * 70,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          if (pin == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("PIN을 입력해주세요."),
+                    child: FutureBuilder(
+                        future: getPIN(),
+                        builder: (context, snapshot) {
+                          return ElevatedButton(
+                            onPressed: () async {
+                              try {
+                                if (pin == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("PIN을 입력해주세요."),
+                                    ),
+                                  );
+                                } else if (pin!.length != 6) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("PIN이 6자리가 아닙니다."),
+                                    ),
+                                  );
+                                } else if (int.tryParse(pin!) != null) {
+                                  if (PIN == pin) {
+                                    navigateToMainScreen();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("PIN이 올바르지 않습니다."),
+                                      ),
+                                    );
+                                  }
+                                }
+                              } catch (err) {
+                                print(err);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("오류"),
+                                  ),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            );
-                          } else if (pin!.length != 6) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("PIN이 6자리가 아닙니다."),
+                              elevation: 0,
+                            ),
+                            child: const Text(
+                              "메인으로",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          } else if (int.tryParse(pin!) != null) {
-                            prefs = await SharedPreferences.getInstance();
-                            PIN = prefs.getString('PIN');
-                            if (PIN == pin) {
-                              Get.to(() => const RealMainScreen());
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("PIN이 올바르지 않습니다."),
-                                ),
-                              );
-                            }
-                          }
-                        } catch (err) {
-                          print(err);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("오류"),
                             ),
                           );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        "메인으로",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                        }),
                   ),
                   SizedBox(
                     height: screenHeight / 844 * 22,
