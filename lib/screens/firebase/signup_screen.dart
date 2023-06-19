@@ -1,8 +1,9 @@
 //SignupScreen.dart
+/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:abibo/screens/login_screen.dart';
+import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:get/get.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -12,8 +13,8 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
-void navigateToLoginScreen() {
-  Get.to(() => const LoginScreen());
+void navigateToInitPINScreen() {
+  Get.to(() => const InitPINScreen());
 }
 
 class _SignupScreenState extends State<SignupScreen> {
@@ -192,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   email: email!,
                                   password: pw!,
                                 );
-                                navigateToLoginScreen();
+                                navigateToInitPINScreen();
                               } else if (pw != pwCheck) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -243,3 +244,4 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
+*/

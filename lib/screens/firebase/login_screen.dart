@@ -1,10 +1,11 @@
 //LoginScreen.dart
+/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
-import 'package:abibo/screens/signup_screen.dart';
-import 'package:abibo/screens/resetpw_screen.dart';
+import 'package:abibo/screens/firebase/signup_screen.dart';
+import 'package:abibo/screens/firebase/resetpw_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -315,3 +316,4 @@ class _ScreenLoginState extends State<LoginScreen> {
     );
   }
 }
+*/

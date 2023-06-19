@@ -1,51 +1,38 @@
 import 'package:abibo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
 
-class SecondLoginScreen extends StatefulWidget {
-  const SecondLoginScreen({Key? key}) : super(key: key);
+class PINScreen extends StatefulWidget {
+  const PINScreen({Key? key}) : super(key: key);
 
   @override
-  State<SecondLoginScreen> createState() => _SecondLoginScreenState();
+  State<PINScreen> createState() => _PINScreenState();
 }
 
 void navigateToMainScreen() {
   Get.to(() => const MainScreen());
 }
 
-class _SecondLoginScreenState extends State<SecondLoginScreen> {
-  final _authentication = FirebaseAuth.instance;
-  late User user;
+class _PINScreenState extends State<PINScreen> {
   final secureKeyboardController = SecureKeyboardController();
   final pinCodeEditor = TextEditingController();
   final textFieldFocusNode = FocusNode();
-
-  void getCurrentUser() {
-    try {
-      user = _authentication.currentUser!; //로그인 정보 받아오기
-    } catch (err) {
-      print(err); //실패하면 오류 출력
-    }
-  }
-
-  void logOut() async {
-    await _authentication.signOut();
-    getCurrentUser();
-    navigateToLoginScreen();
-  }
+  late SharedPreferences prefs;
+  String? PIN;
+  String? pin;
 
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
 
     return WithSecureKeyboard(
@@ -120,6 +107,7 @@ class _SecondLoginScreenState extends State<SecondLoginScreen> {
                             onDoneKeyPressed: (List<int> charCodes) {
                               pinCodeEditor.text =
                                   String.fromCharCodes(charCodes);
+                              pin = pinCodeEditor.text;
                             },
                           );
                         },
@@ -138,8 +126,41 @@ class _SecondLoginScreenState extends State<SecondLoginScreen> {
                     width: double.infinity,
                     height: screenHeight / 844 * 70,
                     child: ElevatedButton(
-                      onPressed: () {
-                        navigateToMainScreen();
+                      onPressed: () async {
+                        try {
+                          if (pin == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("PIN을 입력해주세요."),
+                              ),
+                            );
+                          } else if (pin!.length != 6) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("PIN이 6자리가 아닙니다."),
+                              ),
+                            );
+                          } else if (int.tryParse(pin!) != null) {
+                            prefs = await SharedPreferences.getInstance();
+                            PIN = prefs.getString('PIN');
+                            if (PIN == pin) {
+                              navigateToMainScreen();
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("PIN이 올바르지 않습니다."),
+                                ),
+                              );
+                            }
+                          }
+                        } catch (err) {
+                          print(err);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("오류"),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

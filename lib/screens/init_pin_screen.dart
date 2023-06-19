@@ -1,30 +1,32 @@
-//ResetPWScreen.dart
-import 'package:firebase_auth/firebase_auth.dart';
+//InitPINScreen.dart
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:abibo/screens/login_screen.dart';
+import 'package:abibo/screens/main_screen.dart';
 import 'package:get/get.dart';
 
-class ResetPWScreen extends StatefulWidget {
-  const ResetPWScreen({super.key});
+class InitPINScreen extends StatefulWidget {
+  const InitPINScreen({super.key});
 
   @override
-  State<ResetPWScreen> createState() => _ResetPWScreenState();
+  State<InitPINScreen> createState() => _InitPINScreenState();
 }
 
-void navigateToLoginScreen() {
-  Get.to(() => const LoginScreen());
+void navigateToMainScreen() {
+  Get.to(() => const MainScreen());
 }
 
-class _ResetPWScreenState extends State<ResetPWScreen> {
-  final _authentication = FirebaseAuth.instance;
-  String? email;
-  String? pw;
-  String? pwCheck;
-  String errorString = ''; //login error 보려고 만든 String state
-  bool isButtonPressed = false;
+class _InitPINScreenState extends State<InitPINScreen> {
+  late SharedPreferences prefs;
+  String? pin;
+  String? pinCheck;
+  String errorString = ''; //error 보려고 만든 String state
 
-  //firebase auth login 함수, 이멜 + 비번으로 로그인
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -58,29 +60,16 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                       const Row(
                         children: [
                           Text(
-                            "비밀번호 재설정하기",
+                            "PIN 설정하기",
                             style: ABTextTheme.LoginMainText2,
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: screenHeight / 844 * 32,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            '아비보에 가입했던 이메일을 입력해주세요.\n비밀번호 재설정 이메일을 보내드립니다.',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
-                              fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                        height: screenHeight / 844 * 58,
                       ),
                       SizedBox(
-                        height: screenHeight / 844 * 84,
+                        height: screenHeight / 944 * 48,
                       ),
                       Container(
                         margin: const EdgeInsets.all(5),
@@ -88,15 +77,18 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: screenHeight / 844 * 30,
+                              height: screenHeight / 844 * 40,
                               child: TextField(
+                                obscureText: true,
+                                keyboardType: TextInputType.number,
+                                maxLength: 6,
                                 style: const TextStyle(
-                                    color: Colors.white), // 입력 중 텍스트 스타일
+                                  color: Colors.white,
+                                ), // 입력 중 텍스트 스타일
                                 decoration: InputDecoration(
-                                  hintText: '이메일 입력',
+                                  hintText: 'PIN',
                                   hintStyle: TextStyle(
                                     color: Colors.white.withOpacity(0.4),
-                                    fontFamily: 'Pretendard',
                                   ),
                                   filled: false,
                                   enabledBorder: const UnderlineInputBorder(
@@ -108,7 +100,7 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                                 ),
                                 onChanged: (value) {
                                   setState(() {
-                                    email = value;
+                                    pin = value;
                                   });
                                 },
                               ),
@@ -117,25 +109,76 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: screenHeight / 844 * 48,
+                        height: screenHeight / 944 * 48,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: screenHeight / 844 * 40,
+                              child: TextField(
+                                obscureText: true,
+                                keyboardType: TextInputType.number,
+                                maxLength: 6,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ), // 입력 중 텍스트 스타일
+                                decoration: InputDecoration(
+                                  hintText: 'PIN 확인',
+                                  hintStyle: TextStyle(
+                                    color: Colors.white.withOpacity(0.4),
+                                  ),
+                                  filled: false,
+                                  enabledBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    pinCheck = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight / 944 * 57,
                       ),
                       SizedBox(
                         width: double.infinity,
-                        height: screenHeight / 844 * 63,
+                        height: screenHeight / 944 * 70,
                         child: ElevatedButton(
                           onPressed: () async {
                             try {
-                              if (email != null) {
-                                await _authentication.setLanguageCode("ko");
-                                await _authentication.sendPasswordResetEmail(
-                                  email: email!,
-                                );
-                              } else {
+                              if (pin == null || pinCheck == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("이메일을 입력해주세요."),
+                                    content: Text("PIN과 PIN 확인을 입력해주세요."),
                                   ),
                                 );
+                              } else if (pin!.length != 6) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("PIN이 6자리가 아닙니다."),
+                                  ),
+                                );
+                              } else if (pin != pinCheck) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("PIN 확인이 올바르지 않습니다."),
+                                  ),
+                                );
+                              } else if (int.tryParse(pin!) != null) {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs.setString('PIN', pin!);
+                                navigateToMainScreen();
                               }
                             } catch (err) {
                               print(err);
@@ -147,47 +190,18 @@ class _ResetPWScreenState extends State<ResetPWScreen> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: const Color(0xFFD08FFF),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             elevation: 5,
                           ),
                           child: const Text(
-                            "이메일 전송",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Pretendard',
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight / 844 * 10,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: screenHeight / 844 * 63,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            navigateToLoginScreen();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white30,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            elevation: 5,
-                          ),
-                          child: const Text(
-                            "로그인 하러 가기",
+                            "PIN 등록하기",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'Pretendard',
                             ),
                           ),
                         ),

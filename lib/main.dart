@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-import 'screens/second_login_screen.dart';
-import 'screens/login_screen.dart';
+import 'screens/pin_screen.dart';
+import 'screens/main_screen.dart';
 import 'screens/theme/color_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  Future<String?> getPIN() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? PIN = prefs.getString('PIN');
+    return PIN;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +32,15 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: FutureBuilder(
-        future: FirebaseAuth.instance.authStateChanges().first,
-        builder: (context, AsyncSnapshot<User?> snapshot) {
+        future: getPIN(),
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.hasData) {
-              return const SecondLoginScreen();
+              return const PINScreen();
             } else {
-              return const LoginScreen();
+              return const MainScreen();
             }
           }
         },
