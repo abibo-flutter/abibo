@@ -1,20 +1,18 @@
+import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 
-class CustomUserAccountDrawerHeader extends StatefulWidget {
-  const CustomUserAccountDrawerHeader({Key? key, required this.user})
-      : super(key: key);
+class CustomDrawerHeader extends StatefulWidget {
+  const CustomDrawerHeader({Key? key, required this.user}) : super(key: key);
   final User user;
 
   @override
-  State<CustomUserAccountDrawerHeader> createState() =>
-      _CustomUserAccountDrawerHeaderState();
+  State<CustomDrawerHeader> createState() => _CustomDrawerHeaderState();
 }
 
-class _CustomUserAccountDrawerHeaderState
-    extends State<CustomUserAccountDrawerHeader>
+class _CustomDrawerHeaderState extends State<CustomDrawerHeader>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _animation;
@@ -40,7 +38,7 @@ class _CustomUserAccountDrawerHeaderState
     );
 
     _animation = Tween<Offset>(
-      begin: const Offset(1.0, 0.0), // 시작 위치 (오른쪽에서)
+      begin: const Offset(2.0, 0.0), // 시작 위치 (오른쪽에서)
       end: Offset.zero, // 종료 위치 (왼쪽으로 이동)
     ).animate(
       CurvedAnimation(
@@ -61,29 +59,27 @@ class _CustomUserAccountDrawerHeaderState
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return SlideTransition(
       position: _animation,
       child: SizedBox(
         width: screenWidth / 390 * 10,
-        child: UserAccountsDrawerHeader(
+        height: screenHeight / 844 * 120,
+        child: DrawerHeader(
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.00005),
           ),
-          accountName: const SizedBox.shrink(),
-          accountEmail: Text(widget.user.email!),
-          currentAccountPicture: InkWell(
-            onTap: _selectImage,
-            child: CircleAvatar(
-              radius: 3, // TODO : 크기 설정인데 왠지 모르겠지만 안바뀜
-              backgroundImage:
-                  _selectedImage != null ? FileImage(_selectedImage!) : null,
-              child: _selectedImage == null
-                  ? GestureDetector(
-                      onTap: _selectImage,
-                      child: const Icon(Icons.person),
-                    )
-                  : null,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(width: 5),
+              Image.asset(
+                'assets/images/logo.png',
+                width: 100,
+                height: 50,
+                color: Colors.white,
+              )
+            ],
           ),
         ),
       ),
