@@ -1,8 +1,8 @@
 import 'dart:ui';
-
-import 'package:abibo/screens/login_screen.dart';
+import 'package:abibo/screens/init_pin_screen.dart';
+import 'package:abibo/screens/change_pin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/widgets/mainmenucard.dart';
 import 'package:abibo/widgets/drawerheader.dart';
@@ -15,32 +15,21 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-void navigateToLoginScreen() {
-  Get.to(() => const LoginScreen());
+void navigateToInitPINScreen() {
+  Get.to(() => const InitPINScreen());
+}
+
+void navigateToChangePINScreen() {
+  Get.to(() => const ChangePINScreen());
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final _authentication = FirebaseAuth.instance;
-  late User user;
-
-  void getCurrentUser() {
-    try {
-      user = _authentication.currentUser!; //로그인 정보 받아오기
-    } catch (err) {
-      print(err); //실패하면 오류 출력
-    }
-  }
-
-  void logOut() async {
-    await _authentication.signOut();
-    getCurrentUser();
-    navigateToLoginScreen();
-  }
+  late SharedPreferences prefs;
+  String? PIN;
 
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
   }
 
   @override
@@ -62,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                CustomDrawerHeader(user: user),
+                const CustomDrawerHeader(),
                 const SizedBox(height: 0),
                 ListTile(
                   leading: const Icon(Icons.home),
@@ -82,11 +71,17 @@ class _MainScreenState extends State<MainScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text('Logout'),
-                  onTap: () {
+                  leading: const Icon(Icons.security),
+                  title: const Text('Set PIN'),
+                  onTap: () async {
                     Navigator.pop(context); // Drawer를 닫습니다.
-                    logOut();
+                    prefs = await SharedPreferences.getInstance();
+                    PIN = prefs.getString('PIN');
+                    if (PIN != null) {
+                      navigateToChangePINScreen();
+                    } else {
+                      navigateToInitPINScreen();
+                    }
                   },
                 ),
               ],

@@ -1,12 +1,9 @@
-import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 
 class CustomDrawerHeader extends StatefulWidget {
-  const CustomDrawerHeader({Key? key, required this.user}) : super(key: key);
-  final User user;
+  const CustomDrawerHeader({Key? key}) : super(key: key);
 
   @override
   State<CustomDrawerHeader> createState() => _CustomDrawerHeaderState();
