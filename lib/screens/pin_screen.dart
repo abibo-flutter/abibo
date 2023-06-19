@@ -1,4 +1,5 @@
 import 'package:abibo/screens/main_screen.dart';
+import 'package:abibo/screens/real_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
@@ -144,7 +145,7 @@ class _PINScreenState extends State<PINScreen> {
                             prefs = await SharedPreferences.getInstance();
                             PIN = prefs.getString('PIN');
                             if (PIN == pin) {
-                              navigateToMainScreen();
+                              Get.to(() => const RealMainScreen());
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
