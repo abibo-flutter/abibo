@@ -1,9 +1,9 @@
-import 'package:abibo/screens/real_main_screen.dart';
+import 'screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'screens/pin_screen.dart';
-import 'screens/main_screen.dart';
+import 'screens/home_screen.dart';
 import 'screens/theme/color_theme.dart';
 
 void main() async {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return const PINScreen();
             } else {
-              return const RealMainScreen();
+              return const MainScreen();
             }
           }
         },
