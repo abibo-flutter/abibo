@@ -28,11 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated
 dependencies:
-  firebase_core: ^2.13.1
-  firebase_auth: 
-  cloud_firestore:
+  shared_preferences:
   flutter_bloc:
-  google_sign_in:
   image_picker:
   image_cropper:
   flutter_secure_keyboard:
