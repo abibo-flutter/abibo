@@ -1,5 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+// 데이터 형식
+//* netflix:: userid1:password1 (2024-02-27)userid2:password2
+
 void savePassword({
   required String platform,
   required String id,
