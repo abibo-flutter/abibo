@@ -150,7 +150,7 @@ class _PINScreenState extends State<PINScreen> {
                             prefs = await SharedPreferences.getInstance();
                             PIN = prefs.getString('PIN');
                             if (PIN == pin) {
-                              Get.to(() => const MainScreen());
+                              Get.offAll(const MainScreen());
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

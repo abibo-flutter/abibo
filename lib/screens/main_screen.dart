@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             extendBodyBehindAppBar: true,
             bottomNavigationBar: SizedBox(
-              height: screenHeight / 844 * 50,
+              height: 0,
               child: TabBar(
                 tabs: const [
                   Tab(
@@ -70,9 +70,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ],
                 indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: Colors.red,
+                indicatorColor: Colors.blue,
                 indicatorWeight: 2,
-                labelColor: Colors.red,
                 unselectedLabelColor: Colors.grey[400],
                 labelStyle: const TextStyle(
                   fontSize: 13,
