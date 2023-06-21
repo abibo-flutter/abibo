@@ -7,11 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 {
   'netflix': [
     {'id': 'asdfgh', 'password': 'asdfgh'},
-    {'id': 'qwerty', 'password': 'qwerty', 'deadline': 20230621},
+    {'id': 'qwerty', 'password': 'qwerty', 'Subscribe': 20230621},
   ],
   'spotify': [
     {'id': 'asdfgh', 'password': 'asdfgh'},
-    {'id': 'qwerty', 'password': 'qwerty', 'deadline': 20230621},
+    {'id': 'qwerty', 'password': 'qwerty', 'Subscribe': 20230621},
   ],
 }
 */
@@ -19,7 +19,9 @@ void savePassword({
   required String platform,
   required String id,
   required String password,
-  int? deadline,
+  int? payDate,
+  int? endDate,
+  int? cost,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String serviceJson = prefs.getString('services') ?? '';
@@ -32,8 +34,14 @@ void savePassword({
     'id': id,
     'password': password,
   };
-  if (deadline != null) {
-    newInfo['deadline'] = deadline;
+  if (payDate != null) {
+    newInfo['payDate'] = payDate;
+  }
+  if (endDate != null) {
+    newInfo['endDate'] = endDate;
+  }
+  if (cost != null) {
+    newInfo['cost'] = cost;
   }
 
   if (serviceList[platform] != null) {
@@ -46,8 +54,12 @@ void savePassword({
 
 Future<List<Map<String, dynamic>>> getPassword({
   String platform = '',
-  int? startRange,
-  int? endRange,
+  int? payDateMin,
+  int? payDateMax,
+  int? endDateMin,
+  int? endDateMax,
+  int? costMin,
+  int? costMax,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String serviceJson = prefs.getString('services') ?? '';
@@ -58,10 +70,19 @@ Future<List<Map<String, dynamic>>> getPassword({
   serviceList = jsonDecode(serviceJson)[platform] ?? [];
 
   for (var service in serviceList) {
-    if ((startRange ?? 0) <= (service['deadline'] ?? 0) &&
-        (service['deadline'] ?? 10e8) <= (endRange ?? 10e8)) {
-      result.add(service);
+    if ((payDateMin ?? 0) > (service['payDate'] ?? 0) ||
+        (service['payDate'] ?? 10e8) > (payDateMax ?? 10e8)) {
+      continue;
     }
+    if ((endDateMin ?? 0) > (service['endDate'] ?? 0) ||
+        (service['endDate'] ?? 10e8) > (endDateMax ?? 10e8)) {
+      continue;
+    }
+    if ((costMin ?? 0) > (service['cost'] ?? 0) ||
+        (service['cost'] ?? 10e8) > (costMax ?? 10e8)) {
+      continue;
+    }
+    result.add(service);
   }
   return result;
 }
