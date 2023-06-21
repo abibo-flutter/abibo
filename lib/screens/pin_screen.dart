@@ -12,10 +12,6 @@ class PINScreen extends StatefulWidget {
   State<PINScreen> createState() => _PINScreenState();
 }
 
-void navigateToMainScreen() {
-  Get.to(() => const MainScreen());
-}
-
 class _PINScreenState extends State<PINScreen> {
   final secureKeyboardController = SecureKeyboardController();
   final pinCodeEditor = TextEditingController();
