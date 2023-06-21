@@ -55,7 +55,6 @@ class _KeyBoardState extends State<KeyBoard> {
           controller: widget.controller,
           onTap: () {
             widget.enterFunc();
-            setState(() {});
           },
           child: const Center(
             child: Icon(

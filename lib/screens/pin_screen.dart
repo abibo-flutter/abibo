@@ -199,7 +199,9 @@ class _PINScreenState extends State<PINScreen> {
                 KeyBoard(
                   controller: pinCodeEditor,
                   enterFunc: () {
-                    onKeyboard = false;
+                    setState(() {
+                      onKeyboard = false;
+                    });
                   },
                 ),
             ],
