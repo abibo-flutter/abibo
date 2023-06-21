@@ -18,6 +18,7 @@ class _PINScreenState extends State<PINScreen> {
   late SharedPreferences prefs;
   String? PIN;
   String? pin;
+  bool onKeyboard = false;
 
   Future<String?> getPIN() async {
     prefs = await SharedPreferences.getInstance();
@@ -87,13 +88,18 @@ class _PINScreenState extends State<PINScreen> {
                       child: Center(
                         child: TextFormField(
                           textAlign: TextAlign.center,
+                          readOnly: true,
                           obscureText: true,
                           obscuringCharacter: '●',
                           decoration:
                               const InputDecoration(border: InputBorder.none),
                           controller: pinCodeEditor,
                           focusNode: textFieldFocusNode,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              onKeyboard = true;
+                            });
+                          },
                           onTapOutside: (event) {
                             Future.delayed(const Duration(milliseconds: 100),
                                 () {
@@ -135,7 +141,7 @@ class _PINScreenState extends State<PINScreen> {
                               prefs = await SharedPreferences.getInstance();
                               PIN = prefs.getString('PIN');
                               if (PIN == pin) {
-                                Get.offAll(const MainScreen());
+                                Get.offAll(() => const MainScreen());
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -189,9 +195,13 @@ class _PINScreenState extends State<PINScreen> {
               const Expanded(
                 child: SizedBox(),
               ),
-              KeyBoard(
-                controller: pinCodeEditor,
-              ),
+              if (onKeyboard)
+                KeyBoard(
+                  controller: pinCodeEditor,
+                  enterFunc: () {
+                    onKeyboard = false;
+                  },
+                ),
             ],
           ),
         ),

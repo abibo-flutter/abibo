@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class KeyBoard extends StatefulWidget {
   final TextEditingController controller;
+  final Function enterFunc;
   const KeyBoard({
     Key? key,
     required this.controller,
+    required this.enterFunc,
   }) : super(key: key);
 
   @override
@@ -12,9 +14,11 @@ class KeyBoard extends StatefulWidget {
 }
 
 class _KeyBoardState extends State<KeyBoard> {
+  late List<Widget> keys;
   @override
-  Widget build(BuildContext context) {
-    List<Widget> keys = [
+  void initState() {
+    super.initState();
+    keys = [
       KeyBoardKey(value: '0', controller: widget.controller),
       KeyBoardKey(value: '1', controller: widget.controller),
       KeyBoardKey(value: '2', controller: widget.controller),
@@ -28,34 +32,42 @@ class _KeyBoardState extends State<KeyBoard> {
     ]
       ..shuffle()
       ..insert(
-          9,
-          KeyBoardAction(
-            controller: widget.controller,
-            onTap: () {
-              String text = widget.controller.text;
-              if (text.isNotEmpty) {
-                widget.controller.text = text.substring(0, text.length - 1);
-              }
-              setState(() {});
-            },
-            child: const Center(
-                child: Icon(
+        9,
+        KeyBoardAction(
+          controller: widget.controller,
+          onTap: () {
+            String text = widget.controller.text;
+            if (text.isNotEmpty) {
+              widget.controller.text = text.substring(0, text.length - 1);
+            }
+            setState(() {});
+          },
+          child: const Center(
+            child: Icon(
               Icons.backspace_outlined,
-            )),
-          ))
+            ),
+          ),
+        ),
+      )
       ..insert(
-          11,
-          KeyBoardAction(
-            controller: widget.controller,
-            onTap: () {
-              setState(() {});
-            },
-            child: const Center(
-                child: Icon(
+        11,
+        KeyBoardAction(
+          controller: widget.controller,
+          onTap: () {
+            widget.enterFunc();
+            setState(() {});
+          },
+          child: const Center(
+            child: Icon(
               Icons.keyboard_return,
-            )),
-          ));
+            ),
+          ),
+        ),
+      );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return GridView.count(
       padding: EdgeInsets.zero,
       crossAxisCount: 3,
