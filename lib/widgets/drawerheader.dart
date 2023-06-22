@@ -66,16 +66,20 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader>
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.00005),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
             children: [
-              const SizedBox(width: 5),
-              Image.asset(
-                'assets/images/logo.png',
-                width: 100,
-                height: 50,
-                color: Colors.white,
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 5),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 100,
+                    height: 50,
+                    color: Colors.white,
+                  )
+                ],
+              ),
             ],
           ),
         ),
