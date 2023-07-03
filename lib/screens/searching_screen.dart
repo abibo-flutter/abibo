@@ -1,11 +1,8 @@
-import 'dart:ui';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:abibo/widgets/mainmenucard.dart';
-import 'package:abibo/widgets/drawerheader.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
