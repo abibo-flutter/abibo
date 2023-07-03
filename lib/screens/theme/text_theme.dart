@@ -121,4 +121,12 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const SearchingText = TextStyle(
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.normal,
+    fontSize: 16,
+    height: 1.2,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
 }

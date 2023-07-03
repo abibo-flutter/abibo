@@ -3,6 +3,7 @@ import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/home_screen.dart';
+import 'package:abibo/screens/searching_screen.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
@@ -43,9 +44,7 @@ class _MainScreenState extends State<MainScreen> {
             body: const TabBarView(
               children: [
                 HomeScreen(),
-                Center(
-                  child: Text('Searching Screen'),
-                ),
+                SearchScreen(),
                 Center(
                   child: Text('Setting Screen'),
                 )
@@ -70,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ],
                 indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: Colors.blue,
+                indicatorColor: const Color(0xFF7443D3),
                 indicatorWeight: 2,
                 unselectedLabelColor: Colors.grey[400],
                 labelStyle: const TextStyle(
