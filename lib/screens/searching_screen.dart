@@ -1,23 +1,12 @@
-import 'package:abibo/screens/init_pin_screen.dart';
-import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
-}
-
-void navigateToInitPINScreen() {
-  Get.to(() => const InitPINScreen());
-}
-
-void navigateToChangePINScreen() {
-  Get.to(() => const ChangePINScreen());
 }
 
 class _SearchScreenState extends State<SearchScreen> {
