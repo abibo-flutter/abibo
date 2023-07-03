@@ -23,7 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-
+    String searching = "";
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -82,9 +82,106 @@ class _SearchScreenState extends State<SearchScreen> {
                       style: ABTextTheme.SearchingText,
                       onChanged: (value) {
                         setState(() {
-                          // searching = value;
+                          searching = value;
                         });
                       },
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: todos.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final todo = todos[index];
+                          final bool isCompleted =
+                              todo['completed'] ?? false; //할 일이 완료되었는지 여부
+                          if (titleLarge.isNotEmpty &&
+                              !todo['title']
+                                  .toLowerCase()
+                                  .contains(searching.toLowerCase())) {
+                            return const SizedBox
+                                .shrink(); // 검색어가 포함되지 않은 항목 숨기기
+                          }
+                          return Dismissible(
+                            key: Key(todo['title']),
+                            direction: DismissDirection.startToEnd, // 오른쪽으로 밀때
+                            onDismissed: (direction) {
+                              // 삭제하기
+                              if (direction == DismissDirection.startToEnd) {
+                                removeTodoItem(index);
+                              }
+                            },
+                            background: Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(10), // 뒷배경 둥글게
+                                color: Colors.red,
+                              ),
+                              alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20), //아이콘 PADDING
+                              child: const Icon(Icons.delete_outline_rounded,
+                                  color: Colors.white),
+                            ),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    10), // 원하는 라운드 모서리 반지름 값 설정
+                                side: BorderSide(
+                                  color: isCompleted
+                                      ? const Color(0xFFF7C34C)
+                                      : Color(kPrimaryColor),
+                                  width: 2,
+                                ), // 원하는 모서리 색상 및 두께 설정
+                              ),
+                              color: Color(kBgColor),
+                              child: ListTile(
+                                leading: IconButton(
+                                  icon: Icon(
+                                    color: isCompleted
+                                        ? Colors.grey
+                                        : Colors.white,
+                                    isCompleted
+                                        ? Icons.check_box_outlined
+                                        : Icons.check_box_outline_blank_rounded,
+                                    size: 35,
+                                  ),
+                                  onPressed: () => toggleTodoCompleted(index),
+                                ),
+                                title: Text(
+                                  todo['title'] ?? '',
+                                  style: TextStyle(
+                                    color: isCompleted
+                                        ? Colors.grey
+                                        : Colors.white,
+                                    decoration: isCompleted
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                                  ),
+                                ), // ?? '' 는 문자열이 null일 경우를 방지해 빈 문자열로 대체
+                                subtitle: Text(
+                                  todo['description'] ?? '',
+                                  style: TextStyle(
+                                    color: isCompleted
+                                        ? Colors.grey
+                                        : Colors.grey[300],
+                                    decoration: isCompleted
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                                  ),
+                                ), // ?? ''
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.delete_outline_rounded,
+                                    color: isCompleted
+                                        ? Colors.grey
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () => removeTodoItem(index),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
