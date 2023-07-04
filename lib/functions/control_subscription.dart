@@ -17,7 +17,6 @@ void setSubscription({
   required String serviceName,
   required String id,
   required String password,
-  required int payDate,
   required int endDate,
   required int cost,
 }) async {
@@ -30,7 +29,6 @@ void setSubscription({
   Map newInfo = {
     'id': id,
     'password': password,
-    'payDate': payDate,
     'endDate': endDate,
     'cost': cost,
   };
@@ -46,8 +44,6 @@ void setSubscription({
 
 Future<List<Map<String, dynamic>>> getSubscription({
   required serviceName,
-  payDateMin = 0,
-  payDateMax = 10e8,
   endDateMin = 0,
   endDateMax = 10e8,
   costMin = 0,
@@ -63,8 +59,7 @@ Future<List<Map<String, dynamic>>> getSubscription({
   serviceList = jsonDecode(serviceJson);
 
   for (var service in serviceList) {
-    if ((payDateMin < service['payDate'] && service['payDate'] < payDateMax) &&
-        (endDateMin < service['endDate'] && service['endDate'] < endDateMax) &&
+    if ((endDateMin < service['endDate'] && service['endDate'] < endDateMax) &&
         (costMin < service['cost'] && service['cost'] < costMax)) {
       result.add(service);
     }

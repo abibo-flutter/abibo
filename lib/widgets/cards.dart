@@ -19,7 +19,30 @@ class PlatformCard extends StatefulWidget {
 class _PlatformCardState extends State<PlatformCard> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: const Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                child: Row(),
+              ),
+              Divider(),
+              Column(),
+            ],
+          ),
+          Divider(),
+          SizedBox(child: Column()),
+          Divider(),
+          SizedBox(
+            child: Column(),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -51,12 +74,12 @@ class MemoCard extends StatefulWidget {
     Key? key,
     required this.type,
     required this.name,
-    required this.obj,
+    required this.text,
   }) : super(key: key);
 
   final String type;
   final String name;
-  final dynamic obj;
+  final String text;
 
   @override
   State<MemoCard> createState() => _MemoCardState();
@@ -65,6 +88,6 @@ class MemoCard extends StatefulWidget {
 class _MemoCardState extends State<MemoCard> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return Text(widget.text);
   }
 }

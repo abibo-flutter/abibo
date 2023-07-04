@@ -101,6 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 todos = await searchTodos(searching);
               }
               setState(() {});
+              print(todos);
             },
           ),
           Expanded(
@@ -122,7 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   return MemoCard(
                     type: type,
                     name: name,
-                    obj: obj,
+                    text: obj,
                   );
                 }
                 if (type == 'subscription') {
