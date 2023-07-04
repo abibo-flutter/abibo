@@ -19,7 +19,7 @@ void setPassword({
   );
 }
 
-Future<String?> getPassword({
+Future<String?> getMemo({
   required String title,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
