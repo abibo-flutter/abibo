@@ -1,3 +1,4 @@
+import 'package:abibo/screens/home_screen.dart';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +31,121 @@ class _PlatformsState extends State<Platforms> {
     super.initState();
   }
 
+  void _showPlatformAddDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+          data: ThemeData(
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: AlertDialog(
+            title: const Text(
+              "Add Todo",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      //  title = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Type Title",
+                    hintStyle: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                        width: 1.5,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black.withOpacity(0.6),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  style: const TextStyle(
+                    // 입력중 text color
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      //  description = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Type description",
+                    hintStyle: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                        width: 1.5,
+                      ),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  style: const TextStyle(
+                    // 입력중 text color
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(Colors.black)),
+                child: const Text("Cancel"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                ),
+                child: const Text("Ok"),
+                onPressed: () {
+                  //setState(() {
+                  // todos.insert(0, {
+                  //'title': title,
+                  // 'description': description,
+                  // 'completed': false, // 'completed' 값을 false로 초기화
+                  // });
+                  //});
+                  // 다이얼로그 닫기
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -50,85 +166,36 @@ class _PlatformsState extends State<Platforms> {
             padding: EdgeInsets.only(
               top: screenHeight / 844 * 38,
               bottom: 0,
-              left: screenHeight / 844 * 23,
-              right: screenHeight / 844 * 23,
+              left: screenHeight / 844 * 30,
+              right: screenHeight / 844 * 30,
             ),
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Builder(builder: (context) {
-                    return IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: const Image(
-                        image: AssetImage('assets/images/button/menu.png'),
-                      ),
-                      iconSize: 20,
-                    );
-                  }),
-                ),
-                const Row(
-                  children: [
-                    Text(
-                      'Abibo',
-                      style: ABTextTheme.MainMainText,
+                SizedBox(
+                  width: screenWidth / 390 * 300,
+                  height: screenHeight / 844 * 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black,
                     ),
-                  ],
+                    onPressed: _showPlatformAddDialog,
+                    child: const Row(
+                      children: [
+                        // Icon(),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  height: screenHeight / 844 * 54,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const MainMenu(
-                          color: Color(0xFFC87CFF),
-                          image: 'assets/images/mainmenu1.png',
-                          headline: '플랫폼',
-                          text: '여기다가 아무거나\n적을거고 이거는\n진짜 아무거나이니까\n나중에 바꾸자',
-                          topLeft: false,
-                        ),
-                        SizedBox(
-                          width: screenWidth / 390 * 6,
-                        ),
-                        const MainMenu(
-                          color: Color(0xFF6153D1),
-                          image: 'assets/images/mainmenu2.png',
-                          headline: 'OTT',
-                          text:
-                              '사용하고 있는 \nOTT 서비스의 아이디와 가입일을\n 입력하고 보다 쉽게 해지일을\n확인하세요!',
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenHeight / 844 * 6,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const MainMenu(
-                          color: Color(0xFF0A033C),
-                          image: 'assets/images/mainmenu3.png',
-                          headline: '보증서',
-                          text: '사실 이만큼 안써도 되고\n그냥 적당히 한두줄만\n써도 됨!',
-                        ),
-                        SizedBox(
-                          width: screenWidth / 390 * 6,
-                        ),
-                        const MainMenu(
-                          color: Color(0xFF7443D3),
-                          image: 'assets/images/mainmenu4.png',
-                          headline: '메모',
-                          text: '여기다가는 그냥 대충\n기능 간단하게 소개할 \n수 있는 문구 넣으면 \n좋을듯',
-                          bottomRight: false,
-                        ),
-                      ],
-                    )
-                  ],
+                  width: 100,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to((const HomeScreen()));
+                    },
+                    child: const Text('돌아가기'),
+                  ),
                 ),
               ],
             ),
