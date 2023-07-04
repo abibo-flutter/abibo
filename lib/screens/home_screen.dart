@@ -86,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: 150,
+                          height: 100,
                           child: ElevatedButton(
                             onPressed: () {
                               Get.to(
@@ -100,8 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: screenWidth / 390 * 6,
                         ),
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: 150,
+                          height: 100,
                           child: ElevatedButton(
                             onPressed: () {
                               Get.to(
@@ -119,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: 150,
+                          height: 100,
                           child: ElevatedButton(
                             onPressed: () {
                               Get.to(
@@ -133,8 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: screenWidth / 390 * 6,
                         ),
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: 150,
+                          height: 100,
                           child: ElevatedButton(
                             onPressed: () {
                               Get.to(
