@@ -51,6 +51,10 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>사용자 인증을 위해 Face ID를 사용합니다.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>사용자 인증을 위해 Touch ID를 사용합니다.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSFaceIDUsageDescription</key>

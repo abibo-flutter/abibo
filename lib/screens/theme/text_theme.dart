@@ -137,4 +137,12 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const FingerPrintLoginDescription = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
+    height: 1.2,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
 }

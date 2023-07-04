@@ -3,6 +3,7 @@ import 'package:abibo/widgets/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/screens/finger_print_screen.dart';
 import 'package:get/get.dart';
 
 class PINScreen extends StatefulWidget {
@@ -51,7 +52,7 @@ class _PINScreenState extends State<PINScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: screenHeight / 844 * 38,
+                  top: screenHeight / 844 * 30,
                   bottom: 0,
                   left: screenHeight / 844 * 23,
                   right: screenHeight / 844 * 23,
@@ -177,15 +178,32 @@ class _PINScreenState extends State<PINScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight / 844 * 22,
+                      height: screenHeight / 844 * 26,
                     ),
-                    TextButton(
-                      onPressed: () {},
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 0),
+                        child: const Text(
+                          'PIN 번호를 분실했습니까?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight / 844 * 16),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const FingerPrintScreen());
+                      },
                       child: const Text(
-                        'PIN 번호를 분실했습니까?',
+                        '지문을 이용하여 보안 인증하기',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
