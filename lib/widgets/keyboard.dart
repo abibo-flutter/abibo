@@ -1,3 +1,4 @@
+import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class KeyBoard extends StatefulWidget {
@@ -51,10 +52,15 @@ class _KeyBoardState extends State<KeyBoard> {
             }
             setState(() {});
           },
-          child: const Center(
-            child: Icon(
-              Icons.backspace_outlined,
-              color: Colors.white,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.08),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.backspace_outlined,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -67,10 +73,15 @@ class _KeyBoardState extends State<KeyBoard> {
             widget.enterFunc();
           },
           right: true,
-          child: const Center(
-            child: Icon(
-              Icons.keyboard_return,
-              color: Colors.white,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.08),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.keyboard_return,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -79,12 +90,17 @@ class _KeyBoardState extends State<KeyBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      childAspectRatio: 1.8,
-      children: keys,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.transparent),
+      ),
+      child: GridView.count(
+        padding: EdgeInsets.zero,
+        crossAxisCount: 3,
+        shrinkWrap: true,
+        childAspectRatio: 1.8,
+        children: keys,
+      ),
     );
   }
 }
@@ -144,16 +160,9 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
             }
           },
           child: Ink(
-            color: Colors.transparent,
+            color: Colors.white.withOpacity(0.08),
             child: Center(
-              child: Text(
-                widget.value,
-                textScaleFactor: 1.7,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                ),
-              ),
+              child: Text(widget.value, style: ABTextTheme.KeyboardNumber),
             ),
           ),
         ),

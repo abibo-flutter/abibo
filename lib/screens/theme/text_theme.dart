@@ -129,4 +129,12 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const KeyboardNumber = TextStyle(
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w100,
+    fontSize: 20,
+    height: 1.2,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
 }
