@@ -38,27 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Padding(
       padding: EdgeInsets.only(
-        top: screenHeight / 844 * 38,
+        top: screenHeight / 844 * 78,
         bottom: 0,
         left: screenHeight / 844 * 23,
         right: screenHeight / 844 * 23,
       ),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Builder(builder: (context) {
-              return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: const Image(
-                  image: AssetImage('assets/images/button/menu.png'),
-                ),
-                iconSize: 20,
-              );
-            }),
-          ),
           const Row(
             children: [
               Text(
