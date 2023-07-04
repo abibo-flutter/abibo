@@ -34,7 +34,6 @@ class _KeyBoardState extends State<KeyBoard> {
                 ? KeyBoardKey(
                     value: '${shuffled[i]}',
                     controller: widget.controller,
-                    bottom: true,
                   )
                 : KeyBoardKey(
                     value: '${shuffled[i]}',
@@ -72,7 +71,6 @@ class _KeyBoardState extends State<KeyBoard> {
           onTap: () {
             widget.enterFunc();
           },
-          right: true,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.08),
@@ -99,7 +97,29 @@ class _KeyBoardState extends State<KeyBoard> {
         crossAxisCount: 3,
         shrinkWrap: true,
         childAspectRatio: 1.8,
-        children: keys,
+        children: List.generate(keys.length, (index) {
+          Widget key = keys[index];
+          key = Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: index < 3
+                    ? BorderSide.none
+                    : const BorderSide(width: 0.5, color: Colors.white),
+                left: index == 0 || index == 3 || index == 6 || index == 9
+                    ? BorderSide.none
+                    : const BorderSide(width: 0.5, color: Colors.white),
+                bottom: index == 9 || index == 10 || index == 11
+                    ? BorderSide.none
+                    : const BorderSide(width: 0.5, color: Colors.white),
+                right: index == 2 || index == 5 || index == 8 || index == 11
+                    ? BorderSide.none
+                    : const BorderSide(width: 0.5, color: Colors.white),
+              ),
+            ),
+            child: key,
+          );
+          return key;
+        }),
       ),
     );
   }
@@ -126,44 +146,18 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
   bool a = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: const BorderSide(
-            width: 1,
-            color: Colors.white,
-          ),
-          left: const BorderSide(
-            width: 1,
-            color: Colors.white,
-          ),
-          bottom: (widget.bottom)
-              ? const BorderSide(
-                  width: 1,
-                  color: Colors.white,
-                )
-              : BorderSide.none,
-          right: (widget.right)
-              ? const BorderSide(
-                  width: 1,
-                  color: Colors.white,
-                )
-              : BorderSide.none,
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            if (widget.controller.text.length < 6) {
-              widget.controller.text += widget.value;
-            }
-          },
-          child: Ink(
-            color: Colors.white.withOpacity(0.08),
-            child: Center(
-              child: Text(widget.value, style: ABTextTheme.KeyboardNumber),
-            ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          if (widget.controller.text.length < 6) {
+            widget.controller.text += widget.value;
+          }
+        },
+        child: Ink(
+          color: Colors.white.withOpacity(0.08),
+          child: Center(
+            child: Text(widget.value, style: ABTextTheme.KeyboardNumber),
           ),
         ),
       ),
@@ -187,35 +181,11 @@ class KeyBoardAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: const BorderSide(
-            width: 1,
-            color: Colors.white,
-          ),
-          bottom: const BorderSide(
-            width: 1,
-            color: Colors.white,
-          ),
-          left: const BorderSide(
-            width: 1,
-            color: Colors.white,
-          ),
-          right: (right)
-              ? const BorderSide(
-                  width: 1,
-                  color: Colors.white,
-                )
-              : BorderSide.none,
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          child: Ink(child: child),
-        ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Ink(child: child),
       ),
     );
   }
