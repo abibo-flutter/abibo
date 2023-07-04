@@ -20,7 +20,7 @@ class _KeyBoardState extends State<KeyBoard> {
     super.initState();
     List shuffled = [
       for (int i = 0; i < 10; i++) i,
-    ];
+    ]..shuffle();
     keys = [
       for (int i = 0; i < 10; i++)
         ({2, 5, 8}.contains(i))
