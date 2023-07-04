@@ -18,19 +18,28 @@ class _KeyBoardState extends State<KeyBoard> {
   @override
   void initState() {
     super.initState();
+    List shuffled = [
+      for (int i = 0; i < 10; i++) i,
+    ];
     keys = [
-      KeyBoardKey(value: '0', controller: widget.controller),
-      KeyBoardKey(value: '1', controller: widget.controller),
-      KeyBoardKey(value: '2', controller: widget.controller),
-      KeyBoardKey(value: '3', controller: widget.controller),
-      KeyBoardKey(value: '4', controller: widget.controller),
-      KeyBoardKey(value: '5', controller: widget.controller),
-      KeyBoardKey(value: '6', controller: widget.controller),
-      KeyBoardKey(value: '7', controller: widget.controller),
-      KeyBoardKey(value: '8', controller: widget.controller),
-      KeyBoardKey(value: '9', controller: widget.controller),
+      for (int i = 0; i < 10; i++)
+        ({2, 5, 8}.contains(i))
+            ? KeyBoardKey(
+                value: '${shuffled[i]}',
+                controller: widget.controller,
+                right: true,
+              )
+            : (i == 9)
+                ? KeyBoardKey(
+                    value: '${shuffled[i]}',
+                    controller: widget.controller,
+                    bottom: true,
+                  )
+                : KeyBoardKey(
+                    value: '${shuffled[i]}',
+                    controller: widget.controller,
+                  )
     ]
-      ..shuffle()
       ..insert(
         9,
         KeyBoardAction(
@@ -45,6 +54,7 @@ class _KeyBoardState extends State<KeyBoard> {
           child: const Center(
             child: Icon(
               Icons.backspace_outlined,
+              color: Colors.white,
             ),
           ),
         ),
@@ -56,9 +66,11 @@ class _KeyBoardState extends State<KeyBoard> {
           onTap: () {
             widget.enterFunc();
           },
+          right: true,
           child: const Center(
             child: Icon(
               Icons.keyboard_return,
+              color: Colors.white,
             ),
           ),
         ),
@@ -71,35 +83,77 @@ class _KeyBoardState extends State<KeyBoard> {
       padding: EdgeInsets.zero,
       crossAxisCount: 3,
       shrinkWrap: true,
-      childAspectRatio: 2.3,
+      childAspectRatio: 1.8,
       children: keys,
     );
   }
 }
 
-class KeyBoardKey extends StatelessWidget {
+class KeyBoardKey extends StatefulWidget {
   final String value;
   final TextEditingController controller;
+  final bool right;
+  final bool bottom;
   const KeyBoardKey({
     Key? key,
     required this.value,
     required this.controller,
+    this.right = false,
+    this.bottom = false,
   }) : super(key: key);
+
+  @override
+  State<KeyBoardKey> createState() => _KeyBoardKeyState();
+}
+
+class _KeyBoardKeyState extends State<KeyBoardKey> {
+  bool a = false;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: () {
-          if (controller.text.length < 6) {
-            controller.text += value;
-          }
-        },
-        child: Ink(
-          color: Colors.transparent,
-          child: Center(
-            child: Text(
-              value,
-              textScaleFactor: 2,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: const BorderSide(
+            width: 1,
+            color: Colors.white,
+          ),
+          left: const BorderSide(
+            width: 1,
+            color: Colors.white,
+          ),
+          bottom: (widget.bottom)
+              ? const BorderSide(
+                  width: 1,
+                  color: Colors.white,
+                )
+              : BorderSide.none,
+          right: (widget.right)
+              ? const BorderSide(
+                  width: 1,
+                  color: Colors.white,
+                )
+              : BorderSide.none,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            if (widget.controller.text.length < 6) {
+              widget.controller.text += widget.value;
+            }
+          },
+          child: Ink(
+            color: Colors.transparent,
+            child: Center(
+              child: Text(
+                widget.value,
+                textScaleFactor: 1.7,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w100,
+                ),
+              ),
             ),
           ),
         ),
@@ -112,19 +166,47 @@ class KeyBoardAction extends StatelessWidget {
   final void Function() onTap;
   final TextEditingController controller;
   final Widget child;
+  final bool right;
+
   const KeyBoardAction({
     Key? key,
     required this.controller,
     required this.onTap,
     required this.child,
+    this.right = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: onTap,
-        child: Ink(child: child),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: const BorderSide(
+            width: 1,
+            color: Colors.white,
+          ),
+          bottom: const BorderSide(
+            width: 1,
+            color: Colors.white,
+          ),
+          left: const BorderSide(
+            width: 1,
+            color: Colors.white,
+          ),
+          right: (right)
+              ? const BorderSide(
+                  width: 1,
+                  color: Colors.white,
+                )
+              : BorderSide.none,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Ink(child: child),
+        ),
       ),
     );
   }

@@ -93,15 +93,14 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             style: ABTextTheme.SearchingText,
-            onChanged: (value) {
-              setState(() async {
-                searching = value.toLowerCase();
-                if (searching.isEmpty) {
-                  todos = [];
-                } else {
-                  todos = await searchTodos(searching);
-                }
-              });
+            onChanged: (value) async {
+              searching = value.toLowerCase();
+              if (searching.isEmpty) {
+                todos = [];
+              } else {
+                todos = await searchTodos(searching);
+              }
+              setState(() {});
             },
           ),
           Expanded(

@@ -41,14 +41,22 @@ class _MainScreenState extends State<MainScreen> {
         child: DefaultTabController(
           length: 3,
           child: Scaffold(
-            body: const TabBarView(
-              children: [
-                HomeScreen(),
-                SearchScreen(),
-                Center(
-                  child: Text('Setting Screen'),
-                )
-              ],
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/main_screen.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: const TabBarView(
+                children: [
+                  HomeScreen(),
+                  SearchScreen(),
+                  Center(
+                    child: Text('Setting Screen'),
+                  )
+                ],
+              ),
             ),
             extendBodyBehindAppBar: true,
             bottomNavigationBar: SizedBox(
@@ -57,11 +65,11 @@ class _MainScreenState extends State<MainScreen> {
                 tabs: const [
                   Tab(
                     icon: Icon(Icons.home_outlined),
-                    text: 'HOME',
+                    text: '  HOME ',
                   ),
                   Tab(
                     icon: Icon(Icons.search),
-                    text: 'SEARCH',
+                    text: ' SEARCH',
                   ),
                   Tab(
                     icon: Icon(Icons.settings),
