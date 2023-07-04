@@ -72,18 +72,22 @@ Future<List<Map<String, dynamic>>> getSubscription({
   return result;
 }
 
+Future<List<String>?> getSubscriptionList() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final List<String>? subscriptions = prefs.getStringList('subscriptions');
+  return subscriptions;
+}
+
 Future<List> getAllSubscription({sorted = true}) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> allServiceName = prefs.getStringList('subscriptions') ?? [];
   List serviceList = [];
   for (var name in allServiceName) {
     if (sorted) {
-      serviceList
-          .addAll(jsonDecode(prefs.getString('subscription-$name')!)); //시간순 정렬
+      serviceList.addAll(await getSubscription(serviceName: name)); //시간순 정렬
       //serviceList = [{...}, {...}, {...}]
     } else {
-      serviceList
-          .add(jsonDecode(prefs.getString('subscription-$name')!)); //사이트별로 그룹화
+      serviceList.add(await getSubscription(serviceName: name)); //사이트별로 그룹화
       // serviceList = [
       //   [{...}, {...}],
       //   [{...}, {...}, {...}],

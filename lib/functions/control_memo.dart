@@ -7,7 +7,7 @@ memo-제목: '내용',
 memo-제목: '내용',
 */
 
-void setPassword({
+void setMemo({
   required String title,
   required String memo,
 }) async {
@@ -30,12 +30,18 @@ Future<String?> getMemo({
   return null;
 }
 
+Future<List?> getMemoList() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final List? memo = prefs.getStringList('memos');
+  return memo;
+}
+
 Future<List> getAllMemo() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> allServiceName = prefs.getStringList('memos') ?? [];
   List serviceList = [];
   for (var name in allServiceName) {
-    serviceList.add(jsonDecode(prefs.getString('memo-$name')!));
+    serviceList.add(await getMemo(title: name));
   }
   return serviceList;
 }

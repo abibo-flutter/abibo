@@ -39,12 +39,17 @@ Future<List<Map<String, dynamic>>> getPlatform({
   return serviceList;
 }
 
-Future<List> getAllPlatform() async {
+Future<List<String>?> getPlatformList() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> allServiceName = prefs.getStringList('platforms') ?? [];
+  final List<String>? platforms = prefs.getStringList('platforms');
+  return platforms;
+}
+
+Future<List> getAllPlatform() async {
+  List<String> allServiceName = await getPlatformList() ?? [];
   List serviceList = [];
   for (var name in allServiceName) {
-    serviceList.add(jsonDecode(prefs.getString('platform-$name')!)); //사이트별로 그룹화
+    serviceList.add(getPlatform(platform: name)); //사이트별로 그룹화
   }
   return serviceList;
 }
