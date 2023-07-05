@@ -20,7 +20,8 @@ void setPlatform({
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   String serviceJson = prefs.getString('platform-$platform') ?? '[]';
-  List<Map<String, dynamic>> serviceList = jsonDecode(serviceJson);
+  List<Map<String, dynamic>> serviceList =
+      jsonDecode(serviceJson).cast<Map<String, dynamic>>();
   serviceList.add({'id': id, 'password': password});
   serviceJson = jsonEncode(serviceList);
   prefs.setString('platform-$platform', serviceJson);
@@ -35,7 +36,8 @@ Future<List<Map<String, dynamic>>> getPlatform({
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String serviceJson = prefs.getString('platform-$platform') ?? '[]';
-  List<Map<String, dynamic>> serviceList = jsonDecode(serviceJson);
+  List<Map<String, dynamic>> serviceList =
+      jsonDecode(serviceJson).cast<Map<String, dynamic>>();
   return serviceList;
 }
 

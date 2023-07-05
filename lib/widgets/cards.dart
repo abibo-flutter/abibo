@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 class PlatformCard extends StatefulWidget {
   const PlatformCard({
     Key? key,
-    required this.type,
     required this.name,
     required this.obj,
   }) : super(key: key);
 
-  final String type;
   final String name;
   final dynamic obj;
 
@@ -23,22 +21,37 @@ class _PlatformCardState extends State<PlatformCard> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
       ),
-      child: const Column(
+      child: Column(
         children: [
-          Row(
-            children: [
-              SizedBox(
-                child: Row(),
-              ),
-              Divider(),
-              Column(),
-            ],
+          const Divider(
+            color: Colors.black,
           ),
-          Divider(),
-          SizedBox(child: Column()),
-          Divider(),
           SizedBox(
-            child: Column(),
+            height: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text('PLATFORM'),
+                const VerticalDivider(),
+                Text(widget.name),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text(widget.obj['id']),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text(widget.obj['password']),
+              ],
+            ),
           ),
         ],
       ),
@@ -49,12 +62,10 @@ class _PlatformCardState extends State<PlatformCard> {
 class SubscriptionCard extends StatefulWidget {
   const SubscriptionCard({
     Key? key,
-    required this.type,
     required this.name,
     required this.obj,
   }) : super(key: key);
 
-  final String type;
   final String name;
   final dynamic obj;
 
@@ -65,19 +76,71 @@ class SubscriptionCard extends StatefulWidget {
 class _SubscriptionCardState extends State<SubscriptionCard> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        children: [
+          const Divider(
+            color: Colors.black,
+          ),
+          SizedBox(
+            height: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text('SUBSCRIPTION'),
+                const VerticalDivider(),
+                Text(widget.name),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text(widget.obj['id']),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text(widget.obj['password']),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text('${widget.obj['endDate']}'),
+              ],
+            ),
+          ),
+          const Divider(),
+          SizedBox(
+            child: Column(
+              children: [
+                Text('${widget.obj['cost']}'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
 class MemoCard extends StatefulWidget {
   const MemoCard({
     Key? key,
-    required this.type,
     required this.name,
     required this.text,
   }) : super(key: key);
 
-  final String type;
   final String name;
   final String text;
 
@@ -88,6 +151,21 @@ class MemoCard extends StatefulWidget {
 class _MemoCardState extends State<MemoCard> {
   @override
   Widget build(BuildContext context) {
-    return Text(widget.text);
+    return Column(
+      children: [
+        const Divider(
+          color: Colors.black,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Text('MEMO'),
+            Text(widget.name),
+          ],
+        ),
+        const Divider(),
+        Text(widget.text),
+      ],
+    );
   }
 }

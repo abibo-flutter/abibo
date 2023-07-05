@@ -114,21 +114,18 @@ class _SearchScreenState extends State<SearchScreen> {
 
                 if (type == 'platform') {
                   return PlatformCard(
-                    type: type,
                     name: name,
                     obj: obj,
                   );
                 }
                 if (type == 'memo') {
                   return MemoCard(
-                    type: type,
                     name: name,
                     text: obj,
                   );
                 }
                 if (type == 'subscription') {
                   return SubscriptionCard(
-                    type: type,
                     name: name,
                     obj: obj,
                   );

@@ -28,7 +28,6 @@ class _KeyBoardState extends State<KeyBoard> {
             ? KeyBoardKey(
                 value: '${shuffled[i]}',
                 controller: widget.controller,
-                right: true,
               )
             : (i == 9)
                 ? KeyBoardKey(
@@ -128,14 +127,10 @@ class _KeyBoardState extends State<KeyBoard> {
 class KeyBoardKey extends StatefulWidget {
   final String value;
   final TextEditingController controller;
-  final bool right;
-  final bool bottom;
   const KeyBoardKey({
     Key? key,
     required this.value,
     required this.controller,
-    this.right = false,
-    this.bottom = false,
   }) : super(key: key);
 
   @override
@@ -143,7 +138,6 @@ class KeyBoardKey extends StatefulWidget {
 }
 
 class _KeyBoardKeyState extends State<KeyBoardKey> {
-  bool a = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -157,7 +151,10 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
         child: Ink(
           color: Colors.white.withOpacity(0.08),
           child: Center(
-            child: Text(widget.value, style: ABTextTheme.KeyboardNumber),
+            child: Text(
+              widget.value,
+              style: ABTextTheme.KeyboardNumber,
+            ),
           ),
         ),
       ),
@@ -169,14 +166,12 @@ class KeyBoardAction extends StatelessWidget {
   final void Function() onTap;
   final TextEditingController controller;
   final Widget child;
-  final bool right;
 
   const KeyBoardAction({
     Key? key,
     required this.controller,
     required this.onTap,
     required this.child,
-    this.right = false,
   }) : super(key: key);
 
   @override

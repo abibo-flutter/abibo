@@ -56,7 +56,7 @@ Future<List<Map<String, dynamic>>> getSubscription({
 
   List<Map<String, dynamic>> serviceList = [];
   //[{'...':object}, {'...':object, '...':object}]
-  serviceList = jsonDecode(serviceJson);
+  serviceList = jsonDecode(serviceJson).cast<Map<String, dynamic>>();
 
   for (var service in serviceList) {
     if ((endDateMin < service['endDate'] && service['endDate'] < endDateMax) &&
