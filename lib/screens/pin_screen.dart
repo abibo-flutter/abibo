@@ -196,7 +196,7 @@ class _PINScreenState extends State<PINScreen> {
                     SizedBox(height: screenHeight / 844 * 16),
                     InkWell(
                       onTap: () {
-                        Get.to(() => const FingerPrintScreen());
+                        Get.offAll(() => const FingerPrintScreen());
                       },
                       child: const Text(
                         '지문을 이용하여 보안 인증하기',
