@@ -7,6 +7,7 @@ import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:abibo/screens/platforms.dart';
 import 'package:abibo/widgets/register_dialog.dart';
+import 'package:abibo/screens/register_info_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     size: 24,
                     color: Color(0xFFF0FF73),
                   ),
-                  onPressed: _showPlatformAddDialog,
+                  onPressed: () => Get.to(() => const RegisterInfoScreen()),
                 ),
               ),
             ],
