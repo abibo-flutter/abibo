@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 데이터 형식
@@ -7,11 +6,25 @@ memo-제목: '내용',
 memo-제목: '내용',
 */
 
-void setMemo({
+Future<void> setMemo({
   required String title,
   required String memo,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('memo-$title', memo);
+  prefs.setStringList(
+    'memos',
+    (prefs.getStringList('memos') ?? [])..add(title),
+  );
+}
+
+Future<void> updateMemo({
+  required String title,
+  required String memo,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (await getMemo(title: title) == null) return;
+
   prefs.setString('memo-$title', memo);
   prefs.setStringList(
     'memos',

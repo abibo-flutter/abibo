@@ -13,18 +13,27 @@ platform-spotify: [
 ],
 */
 
-void setPlatform({
+Future<void> setPlatform({
   required String platform,
   required String id,
   required String password,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   String serviceJson = prefs.getString('platform-$platform') ?? '[]';
-  List<Map<String, dynamic>> serviceList =
-      jsonDecode(serviceJson).cast<Map<String, dynamic>>();
-  serviceList.add({'id': id, 'password': password});
+  List serviceList = jsonDecode(serviceJson);
+
+  Map newInfo = {
+    'id': id,
+    'password': password,
+  };
+
+  if (!serviceList.contains(newInfo)) {
+    serviceList.add(newInfo);
+  }
+
   serviceJson = jsonEncode(serviceList);
   prefs.setString('platform-$platform', serviceJson);
+
   prefs.setStringList(
     'platforms',
     (prefs.getStringList('platforms') ?? [])..add(platform),

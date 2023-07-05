@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:abibo/functions/control_memo.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
-import 'package:abibo/functions/control_memo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterDialog extends StatefulWidget {
-  const RegisterDialog({Key? key}) : super(key: key);
+class EditDialog extends StatefulWidget {
+  const EditDialog({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<RegisterDialog> createState() => _RegisterDialogState();
+  State<EditDialog> createState() => _EditDialogState();
 }
 
-class _RegisterDialogState extends State<RegisterDialog> {
-  List<bool> isSelected = [true, false, false];
+class _EditDialogState extends State<EditDialog> {
   bool isPlatform = true;
   bool isSubscription = false;
   bool isMemo = false;
@@ -23,20 +25,11 @@ class _RegisterDialogState extends State<RegisterDialog> {
   int? endDate;
   int? cost;
 
-  void toggleSelect(index) {
-    isSelected = [false, false, false];
-    isSelected[index] = true;
-    setState(() {
-      isSelected = isSelected;
-      isPlatform = isSelected[0];
-      isSubscription = isSelected[1];
-      isMemo = isSelected[2];
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
+  Future<void> removePlatform({
+    required String platform,
+  }) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('platform-$platform');
   }
 
   @override
@@ -51,38 +44,10 @@ class _RegisterDialogState extends State<RegisterDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ToggleButtons(
-            selectedBorderColor: Colors.blueAccent,
-            isSelected: isSelected,
-            onPressed: toggleSelect,
-            children: const [
-              SizedBox(
-                width: 70,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: Text('플랫폼')),
-                ),
-              ),
-              SizedBox(
-                width: 70,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: Text('구독')),
-                ),
-              ),
-              SizedBox(
-                width: 70,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: Text('메모')),
-                ),
-              ),
-            ],
-          ),
           TextField(
             onChanged: (value) {
               setState(() {
-                name = value;
+                name = value.toLowerCase().removeAllWhitespace;
               });
             },
             decoration: InputDecoration(
@@ -115,7 +80,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  id = value;
+                  id = value.removeAllWhitespace;
                 });
               },
               decoration: InputDecoration(
@@ -149,7 +114,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  password = value;
+                  password = value.removeAllWhitespace;
                 });
               },
               obscureText: true,
@@ -299,16 +264,27 @@ class _RegisterDialogState extends State<RegisterDialog> {
             Navigator.pop(context);
           },
         ),
+        TextButton(
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.black)),
+          child: const Text("Delete"),
+          onPressed: () async {
+            if (name != null) {
+              await removePlatform(platform: name!);
+            }
+            Navigator.pop(context);
+          },
+        ),
         ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.black),
             foregroundColor: MaterialStateProperty.all(Colors.white),
           ),
           child: const Text("Ok"),
-          onPressed: () {
+          onPressed: () async {
             if (name == null) return;
             if (isMemo && text != null) {
-              setMemo(
+              await setMemo(
                 title: name!,
                 memo: text!,
               );
@@ -317,7 +293,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                 password != null &&
                 endDate != null &&
                 cost != null) {
-              setSubscription(
+              await setSubscription(
                 serviceName: name!,
                 id: id!,
                 password: password!,
@@ -325,7 +301,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
                 cost: cost!,
               );
             } else if (isPlatform && id != null && password != null) {
-              setPlatform(
+              await setPlatform(
                 platform: name!,
                 id: id!,
                 password: password!,

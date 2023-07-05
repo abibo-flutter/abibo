@@ -4,6 +4,7 @@ import 'package:abibo/widgets/cards.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
+import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -94,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             style: ABTextTheme.SearchingText,
             onChanged: (value) async {
-              searching = value.toLowerCase();
+              searching = value.toLowerCase().removeAllWhitespace;
               if (searching.isEmpty) {
                 todos = [];
               } else {
@@ -104,34 +105,40 @@ class _SearchScreenState extends State<SearchScreen> {
               print(todos);
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(
-            child: ListView.builder(
-              itemCount: todos.length,
-              itemBuilder: (BuildContext context, int index) {
-                String type = todos[index][0];
-                String name = todos[index][1];
-                dynamic obj = todos[index][2];
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.white30),
+              child: ListView.builder(
+                itemCount: todos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String type = todos[index][0];
+                  String name = todos[index][1];
+                  dynamic obj = todos[index][2];
 
-                if (type == 'platform') {
-                  return PlatformCard(
-                    name: name,
-                    obj: obj,
-                  );
-                }
-                if (type == 'memo') {
-                  return MemoCard(
-                    name: name,
-                    text: obj,
-                  );
-                }
-                if (type == 'subscription') {
-                  return SubscriptionCard(
-                    name: name,
-                    obj: obj,
-                  );
-                }
-                return null;
-              },
+                  if (type == 'platform') {
+                    return PlatformCard(
+                      name: name,
+                      obj: obj,
+                    );
+                  }
+                  if (type == 'memo') {
+                    return MemoCard(
+                      name: name,
+                      text: obj,
+                    );
+                  }
+                  if (type == 'subscription') {
+                    return SubscriptionCard(
+                      name: name,
+                      obj: obj,
+                    );
+                  }
+                  return null;
+                },
+              ),
             ),
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:abibo/widgets/dialog.dart';
+import 'package:abibo/widgets/register_dialog.dart';
 import 'package:get/get.dart';
 
 class Platforms extends StatefulWidget {

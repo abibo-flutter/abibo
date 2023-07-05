@@ -13,7 +13,7 @@ subscription-spotify: [
 ],
 */
 
-void setSubscription({
+Future<void> setSubscription({
   required String serviceName,
   required String id,
   required String password,
@@ -41,6 +41,30 @@ void setSubscription({
     (prefs.getStringList('subscriptions') ?? [])..add(serviceName),
   );
 }
+
+// Future<void> updateSubscription({
+//   required String serviceName,
+//   required String id,
+//   required String password,
+//   required int endDate,
+//   required int cost,
+// }) async {
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   if ((await getSubscription(serviceName: serviceName)).isEmpty) return;
+
+//   Map newInfo = {
+//     'id': id,
+//     'password': password,
+//     'endDate': endDate,
+//     'cost': cost,
+//   };
+
+//   prefs.setString('subscription-$serviceName', memo);
+//   prefs.setStringList(
+//     'subscriptions',
+//     (prefs.getStringList('subscriptions') ?? [])..add(serviceName),
+//   );
+// }
 
 Future<List<Map<String, dynamic>>> getSubscription({
   required serviceName,

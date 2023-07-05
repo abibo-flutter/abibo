@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'edit_dialog.dart';
 
 class PlatformCard extends StatefulWidget {
   const PlatformCard({
@@ -15,45 +17,57 @@ class PlatformCard extends StatefulWidget {
 }
 
 class _PlatformCardState extends State<PlatformCard> {
+  void _showInfoDialog(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const EditDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        children: [
-          const Divider(
-            color: Colors.black,
-          ),
-          SizedBox(
-            height: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text('PLATFORM'),
-                const VerticalDivider(),
-                Text(widget.name),
-              ],
+    return GestureDetector(
+      onTap: () => _showInfoDialog(context),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          children: [
+            const Divider(
+              color: Colors.black,
             ),
-          ),
-          const Divider(),
-          SizedBox(
-            child: Column(
-              children: [
-                Text(widget.obj['id']),
-              ],
+            SizedBox(
+              height: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text('PLATFORM'),
+                  const VerticalDivider(),
+                  Text(widget.name),
+                ],
+              ),
             ),
-          ),
-          const Divider(),
-          SizedBox(
-            child: Column(
-              children: [
-                Text(widget.obj['password']),
-              ],
+            const Divider(),
+            SizedBox(
+              child: Column(
+                children: [
+                  Text(widget.obj['id']),
+                ],
+              ),
             ),
-          ),
-        ],
+            const Divider(),
+            SizedBox(
+              child: Column(
+                children: [
+                  Text(widget.obj['password']),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
