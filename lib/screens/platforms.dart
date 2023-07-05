@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:abibo/widgets/register_dialog.dart';
 import 'package:get/get.dart';
 
 class Platforms extends StatefulWidget {
@@ -13,20 +12,6 @@ class _PlatformsState extends State<Platforms> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void _showPlatformAddDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Theme(
-          data: ThemeData(
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: const RegisterDialog(),
-        );
-      },
-    );
   }
 
   @override
@@ -57,18 +42,6 @@ class _PlatformsState extends State<Platforms> {
                 SizedBox(
                   width: screenWidth / 390 * 300,
                   height: screenHeight / 844 * 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black,
-                    ),
-                    onPressed: _showPlatformAddDialog,
-                    child: const Row(
-                      children: [
-                        // Icon(),
-                      ],
-                    ),
-                  ),
                 ),
                 SizedBox(
                   width: 100,
