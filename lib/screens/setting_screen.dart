@@ -44,13 +44,9 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       child: Column(
         children: [
-          const Row(
-            children: [
-              Text(
-                'Abibo',
-                style: ABTextTheme.MainMainText,
-              ),
-            ],
+          const Text(
+            'Abibo',
+            style: ABTextTheme.MainMainText,
           ),
           SizedBox(
             height: screenHeight / 844 * 54,
