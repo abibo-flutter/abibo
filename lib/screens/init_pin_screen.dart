@@ -197,7 +197,33 @@ class _InitPINScreenState extends State<InitPINScreen> {
                             elevation: 5,
                           ),
                           child: const Text(
-                            "PIN 등록하기",
+                            "PIN 설정하기",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: screenHeight / 844 * 10),
+                      SizedBox(
+                        width: double.infinity,
+                        height: screenHeight / 944 * 70,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Get.back();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(143, 199, 255, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            elevation: 5,
+                          ),
+                          child: const Text(
+                            "뒤로가기",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
