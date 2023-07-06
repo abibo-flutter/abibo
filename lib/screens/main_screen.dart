@@ -1,5 +1,6 @@
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
+import 'package:abibo/screens/setting_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/home_screen.dart';
@@ -32,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
@@ -52,9 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   HomeScreen(),
                   SearchScreen(),
-                  Center(
-                    child: Text('Setting Screen'),
-                  )
+                  SettingScreen(),
                 ],
               ),
             ),
