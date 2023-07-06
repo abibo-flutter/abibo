@@ -37,7 +37,6 @@ dependencies:
   local_auth:
   flutter_native_splash:
   cupertino_icons: 
-  lottie:
   flutter:
     sdk: flutter
 
