@@ -12,24 +12,33 @@ Future<void> setMemo({
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('memo-$title', memo);
-  prefs.setStringList(
-    'memos',
-    (prefs.getStringList('memos') ?? [])..add(title),
-  );
+  if (!(await getMemoList() ?? []).contains(title)) {
+    prefs.setStringList(
+      'memos',
+      (prefs.getStringList('memos') ?? [])..add(title),
+    );
+  }
 }
 
 Future<void> updateMemo({
   required String title,
   required String memo,
 }) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (await getMemo(title: title) == null) return;
+  await removeMemo(title: title);
+  await setMemo(title: title, memo: memo);
+}
 
-  prefs.setString('memo-$title', memo);
-  prefs.setStringList(
+Future<void> removeMemo({
+  required String title,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> nameList = (await getMemoList() ?? []).cast<String>();
+  nameList.remove(title);
+  await prefs.setStringList(
     'memos',
-    (prefs.getStringList('memos') ?? [])..add(title),
+    nameList,
   );
+  await prefs.remove('memo-$title');
 }
 
 Future<String?> getMemo({

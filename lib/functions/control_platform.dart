@@ -27,26 +27,64 @@ Future<void> setPlatform({
     'password': password,
   };
 
-  if (!serviceList.contains(newInfo)) {
+  if (!serviceList.map((e) => e["id"]).contains(id)) {
     serviceList.add(newInfo);
   }
 
   serviceJson = jsonEncode(serviceList);
-  prefs.setString('platform-$platform', serviceJson);
+  await prefs.setString('platform-$platform', serviceJson);
 
-  prefs.setStringList(
-    'platforms',
-    (prefs.getStringList('platforms') ?? [])..add(platform),
+  if (!(await getPlatformList() ?? []).contains(platform)) {
+    await prefs.setStringList(
+      'platforms',
+      (await getPlatformList() ?? [])..add(platform),
+    );
+  }
+}
+
+Future<void> updatePlatform({
+  required String platform,
+  required Map obj,
+  required Map newObj,
+}) async {
+  await removePlatform(platform: platform, obj: obj);
+  await setPlatform(
+    platform: platform,
+    id: newObj['id'],
+    password: newObj['password'],
   );
 }
 
-Future<List<Map<String, dynamic>>> getPlatform({
+Future<void> removePlatform({
+  required String platform,
+  required dynamic obj,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  List platformList = await getPlatform(platform: platform);
+  platformList.removeWhere(
+    (item) => (obj['id'] == item['id']),
+  );
+  if (platformList.isEmpty) {
+    List<String> nameList = (await getPlatformList() ?? []);
+    nameList.remove(platform);
+    await prefs.setStringList(
+      'platforms',
+      nameList,
+    );
+    await prefs.remove('platform-$platform');
+    return;
+  }
+
+  String serviceJson = jsonEncode(platformList);
+  await prefs.setString('platform-$platform', serviceJson);
+}
+
+Future<List> getPlatform({
   required String platform,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String serviceJson = prefs.getString('platform-$platform') ?? '[]';
-  List<Map<String, dynamic>> serviceList =
-      jsonDecode(serviceJson).cast<Map<String, dynamic>>();
+  List serviceList = jsonDecode(serviceJson);
   return serviceList;
 }
 

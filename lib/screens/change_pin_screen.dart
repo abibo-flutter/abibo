@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:abibo/screens/main_screen.dart';
 import 'package:get/get.dart';
 
 class ChangePINScreen extends StatefulWidget {
@@ -14,7 +13,7 @@ class ChangePINScreen extends StatefulWidget {
 }
 
 void navigateToMainScreen() {
-  Get.to(() => const MainScreen());
+  Get.back();
 }
 
 class _ChangePINScreenState extends State<ChangePINScreen> {
@@ -239,10 +238,6 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                     ),
                                   );
                                 }
-                              } else if (int.tryParse(newPIN!) != null) {
-                                prefs = await SharedPreferences.getInstance();
-                                prefs.setString('PIN', newPIN!);
-                                navigateToMainScreen();
                               }
                             } catch (err) {
                               print(err);

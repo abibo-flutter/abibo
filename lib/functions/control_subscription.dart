@@ -33,7 +33,9 @@ Future<void> setSubscription({
     'cost': cost,
   };
 
-  serviceList.add(newInfo);
+  if (!serviceList.map((e) => e['id']).contains(id)) {
+    serviceList.add(newInfo);
+  }
 
   prefs.setString('subscription-$serviceName', jsonEncode(serviceList));
   prefs.setStringList(
@@ -42,29 +44,44 @@ Future<void> setSubscription({
   );
 }
 
-// Future<void> updateSubscription({
-//   required String serviceName,
-//   required String id,
-//   required String password,
-//   required int endDate,
-//   required int cost,
-// }) async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   if ((await getSubscription(serviceName: serviceName)).isEmpty) return;
+Future<void> removeSubscription({
+  required String serviceName,
+  required dynamic obj,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  List serviceList = await getSubscription(serviceName: serviceName);
+  serviceList.removeWhere(
+    (item) => (obj['id'] == item['id']),
+  );
+  if (serviceList.isEmpty) {
+    List<String> nameList = (await getSubscriptionList() ?? []);
+    nameList.remove(serviceName);
+    await prefs.setStringList(
+      'subscriptions',
+      nameList,
+    );
+    await prefs.remove('subscription-$serviceName');
+    return;
+  }
 
-//   Map newInfo = {
-//     'id': id,
-//     'password': password,
-//     'endDate': endDate,
-//     'cost': cost,
-//   };
+  String serviceJson = jsonEncode(serviceList);
+  await prefs.setString('subscription-$serviceName', serviceJson);
+}
 
-//   prefs.setString('subscription-$serviceName', memo);
-//   prefs.setStringList(
-//     'subscriptions',
-//     (prefs.getStringList('subscriptions') ?? [])..add(serviceName),
-//   );
-// }
+Future<void> updateSubscription({
+  required String serviceName,
+  required dynamic obj,
+  required dynamic newObj,
+}) async {
+  await removeSubscription(serviceName: serviceName, obj: obj);
+  await setSubscription(
+    serviceName: serviceName,
+    id: newObj['id'],
+    password: newObj['password'],
+    endDate: newObj['endDate'],
+    cost: newObj['cost'],
+  );
+}
 
 Future<List<Map<String, dynamic>>> getSubscription({
   required serviceName,

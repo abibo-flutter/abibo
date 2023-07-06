@@ -122,18 +122,30 @@ class _SearchScreenState extends State<SearchScreen> {
                     return PlatformCard(
                       name: name,
                       obj: obj,
+                      change: () async {
+                        todos = await searchTodos(searching);
+                        setState(() {});
+                      },
                     );
                   }
                   if (type == 'memo') {
                     return MemoCard(
                       name: name,
                       text: obj,
+                      change: () async {
+                        todos = await searchTodos(searching);
+                        setState(() {});
+                      },
                     );
                   }
                   if (type == 'subscription') {
                     return SubscriptionCard(
                       name: name,
                       obj: obj,
+                      change: () async {
+                        todos = await searchTodos(searching);
+                        setState(() {});
+                      },
                     );
                   }
                   return null;
