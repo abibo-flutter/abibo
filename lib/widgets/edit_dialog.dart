@@ -249,7 +249,6 @@ class _EditDialogState extends State<EditDialog> {
               foregroundColor: MaterialStateProperty.all(Colors.black)),
           child: const Text("Delete"),
           onPressed: () async {
-            print((isPlatform, isSubscription, isMemo));
             if (isPlatform) {
               await removePlatform(
                 platform: widget.name,

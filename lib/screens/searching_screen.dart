@@ -15,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<List> todos = []; //[[type, name, object], [],]
+  String searching = "";
 
   @override
   void initState() {
@@ -49,7 +50,6 @@ class _SearchScreenState extends State<SearchScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    String searching = "";
     return Padding(
       padding: EdgeInsets.only(
         top: screenHeight / 844 * 52,
@@ -102,7 +102,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 todos = await searchTodos(searching);
               }
               setState(() {});
-              print(todos);
             },
           ),
           const SizedBox(
