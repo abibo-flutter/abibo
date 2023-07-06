@@ -43,9 +43,6 @@ class _PlatformCardState extends State<PlatformCard> {
         ),
         child: Column(
           children: [
-            const Divider(
-              color: Colors.black,
-            ),
             SizedBox(
               height: 20,
               child: Row(
@@ -108,9 +105,6 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
         ),
         child: Column(
           children: [
-            const Divider(
-              color: Colors.black,
-            ),
             SizedBox(
               height: 20,
               child: Row(
@@ -190,9 +184,6 @@ class _MemoCardState extends State<MemoCard> {
         ),
         child: Column(
           children: [
-            const Divider(
-              color: Colors.black,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

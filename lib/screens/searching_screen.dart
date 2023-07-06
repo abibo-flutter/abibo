@@ -110,7 +110,13 @@ class _SearchScreenState extends State<SearchScreen> {
           Expanded(
             child: Container(
               decoration: const BoxDecoration(color: Colors.white30),
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Divider(
+                    color: Colors.black,
+                  ),
+                ),
                 itemCount: todos.length,
                 itemBuilder: (BuildContext context, int index) {
                   String type = todos[index][0];
