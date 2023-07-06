@@ -116,14 +116,18 @@ Future<List<String>?> getSubscriptionList() async {
 
 Future<List> getAllSubscription({sorted = true}) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> allServiceName = prefs.getStringList('subscriptions') ?? [];
-  List serviceList = [];
+  List allServiceName = prefs.getStringList('subscriptions') ?? [];
+  List<List> serviceList = [];
+  List service = [];
   for (var name in allServiceName) {
     if (sorted) {
-      serviceList.addAll(await getSubscription(serviceName: name)); //시간순 정렬
+      service = await getSubscription(serviceName: name);
+      serviceList.addAll(List.generate(
+          service.length, (index) => [name, service[index]])); //시간순 정렬
       //serviceList = [{...}, {...}, {...}]
     } else {
-      serviceList.add(await getSubscription(serviceName: name)); //사이트별로 그룹화
+      serviceList
+          .add([name, await getSubscription(serviceName: name)]); //사이트별로 그룹화
       // serviceList = [
       //   [{...}, {...}],
       //   [{...}, {...}, {...}],
@@ -132,7 +136,7 @@ Future<List> getAllSubscription({sorted = true}) async {
     }
   }
   if (sorted) {
-    serviceList.sort((a, b) => a.endDate.compareTo(b.endDate));
+    serviceList.sort((a, b) => a[1]['endDate'].compareTo(b[1]['endDate']));
     // 일단 버블 정렬이고 필요하면 바꿀 수 있음
   }
   return serviceList;

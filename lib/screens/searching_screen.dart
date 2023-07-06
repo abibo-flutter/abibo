@@ -14,7 +14,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<List> todos = []; //[[type, name, object], [],]
+  List<List> infos = []; //[[type, name, object], [],]
   String searching = "";
 
   @override
@@ -22,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
   }
 
-  Future<List<List>> searchTodos(String inputText) async {
+  Future<List<List>> searchInfos(String inputText) async {
     List<List> arr = [];
     for (String name in await getPlatformList() ?? []) {
       if (!name.contains(inputText)) continue;
@@ -97,9 +97,9 @@ class _SearchScreenState extends State<SearchScreen> {
             onChanged: (value) async {
               searching = value.toLowerCase().removeAllWhitespace;
               if (searching.isEmpty) {
-                todos = [];
+                infos = [];
               } else {
-                todos = await searchTodos(searching);
+                infos = await searchInfos(searching);
               }
               setState(() {});
             },
@@ -117,18 +117,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     color: Colors.black,
                   ),
                 ),
-                itemCount: todos.length,
+                itemCount: infos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  String type = todos[index][0];
-                  String name = todos[index][1];
-                  dynamic obj = todos[index][2];
+                  String type = infos[index][0];
+                  String name = infos[index][1];
+                  dynamic obj = infos[index][2];
 
                   if (type == 'platform') {
                     return PlatformCard(
                       name: name,
                       obj: obj,
                       change: () async {
-                        todos = await searchTodos(searching);
+                        infos = await searchInfos(searching);
                         setState(() {});
                       },
                     );
@@ -138,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       name: name,
                       text: obj,
                       change: () async {
-                        todos = await searchTodos(searching);
+                        infos = await searchInfos(searching);
                         setState(() {});
                       },
                     );
@@ -148,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       name: name,
                       obj: obj,
                       change: () async {
-                        todos = await searchTodos(searching);
+                        infos = await searchInfos(searching);
                         setState(() {});
                       },
                     );

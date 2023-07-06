@@ -1,3 +1,7 @@
+import 'package:abibo/functions/control_memo.dart';
+import 'package:abibo/functions/control_platform.dart';
+import 'package:abibo/functions/control_subscription.dart';
+import 'package:abibo/widgets/cards.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +13,24 @@ class Platforms extends StatefulWidget {
 }
 
 class _PlatformsState extends State<Platforms> {
+  List<List> infos = [];
+
+  Future<void> searchTodos() async {
+    infos = [];
+    for (List list in await getAllPlatform()) {
+      infos.add(['platform', list[0], list[1]]);
+    }
+
+    for (List list in await getAllSubscription(sorted: true)) {
+      infos.add(['subscription', list[0], list[1]]);
+    }
+
+    for (List list in await getAllMemo()) {
+      infos.add(['memo', list[0], list[1]]);
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +62,6 @@ class _PlatformsState extends State<Platforms> {
             child: Column(
               children: [
                 SizedBox(
-                  width: screenWidth / 390 * 300,
                   height: screenHeight / 844 * 50,
                 ),
                 SizedBox(
@@ -51,6 +72,45 @@ class _PlatformsState extends State<Platforms> {
                       Get.back();
                     },
                     child: const Text('돌아가기'),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.white30),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        child: Divider(
+                          color: Colors.black,
+                        ),
+                      ),
+                      itemCount: infos.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String type = infos[index][0];
+                        String name = infos[index][1];
+                        dynamic obj = infos[index][2];
+
+                        if (type == 'platform') {
+                          return PlatformCard(
+                            name: name,
+                            obj: obj,
+                            change: searchTodos,
+                          );
+                        }
+                        if (type == 'memo') {
+                          return MemoCard(
+                            name: name,
+                            text: obj,
+                            change: searchTodos,
+                          );
+                        }
+                        if (type == 'subscription') {
+                          return SubscriptionCard(
+                              name: name, obj: obj, change: searchTodos);
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
               ],

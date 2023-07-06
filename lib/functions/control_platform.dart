@@ -94,11 +94,14 @@ Future<List<String>?> getPlatformList() async {
   return platforms;
 }
 
-Future<List> getAllPlatform() async {
-  List<String> allServiceName = await getPlatformList() ?? [];
-  List serviceList = [];
+Future<List<List>> getAllPlatform() async {
+  List allServiceName = await getPlatformList() ?? [];
+  List<List> serviceList = [];
+  List platform;
   for (var name in allServiceName) {
-    serviceList.add(getPlatform(platform: name)); //사이트별로 그룹화
+    platform = await getPlatform(platform: name);
+    serviceList.addAll(
+        List.generate(platform.length, (index) => [name, platform[index]]));
   }
   return serviceList;
 }

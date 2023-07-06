@@ -63,7 +63,7 @@ Future<List> getAllMemo() async {
   List<String> allServiceName = prefs.getStringList('memos') ?? [];
   List serviceList = [];
   for (var name in allServiceName) {
-    serviceList.add(await getMemo(title: name));
+    serviceList.add([name, await getMemo(title: name)]);
   }
   return serviceList;
 }
