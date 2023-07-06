@@ -34,13 +34,11 @@ dependencies:
   image_cropper:
   flutter_secure_keyboard:
   get:
+  local_auth:
+  flutter_native_splash:
+  cupertino_icons: 
   flutter:
     sdk: flutter
-  local_auth:
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +66,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/button/
+    - assets/animations/wave_animation.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
