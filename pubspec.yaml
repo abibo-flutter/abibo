@@ -34,12 +34,12 @@ dependencies:
   image_cropper:
   flutter_secure_keyboard:
   get:
-  flutter:
-    sdk: flutter
   local_auth:
   flutter_native_splash:
   cupertino_icons: 
   lottie:
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
