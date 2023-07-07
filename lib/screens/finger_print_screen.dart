@@ -3,7 +3,6 @@ import 'package:abibo/screens/pin_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 
 class FingerPrintScreen extends StatefulWidget {
@@ -23,7 +22,11 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
       );
       if (authenticated) {
         // 인증 성공한 경우 다음 페이지로 이동하는 로직 추가
-        Get.offAll(() => const MainScreen());
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreen()),
+          (route) => false,
+        );
       } else {
         // 인증 실패한 경우 메시지 표시
         ScaffoldMessenger.of(context).showSnackBar(
@@ -45,7 +48,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    //double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
@@ -104,7 +107,12 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 SizedBox(height: screenHeight / 844 * 24),
                 InkWell(
                   onTap: () {
-                    Get.offAll(() => const PINScreen());
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PINScreen()),
+                      (route) => false,
+                    );
                   },
                   child: const Text(
                     'PIN을 이용하여 보안 인증하기',

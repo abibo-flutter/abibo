@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 import 'package:abibo/screens/platforms.dart';
 import 'package:abibo/widgets/register_dialog.dart';
 import 'package:abibo/screens/register_info_screen.dart';
@@ -14,14 +13,6 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
-}
-
-void navigateToInitPINScreen() {
-  Get.to(() => const InitPINScreen());
-}
-
-void navigateToChangePINScreen() {
-  Get.to(() => const ChangePINScreen());
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -83,7 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(const Platforms());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Platforms()),
+                        );
                       },
                       child: const Text('플랫폼'),
                     ),
@@ -96,7 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(const Platforms());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Platforms()),
+                        );
                       },
                       child: const Text('OTT'),
                     ),
@@ -114,7 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(const Platforms());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Platforms()),
+                        );
                       },
                       child: const Text('보증서'),
                     ),
@@ -127,7 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(const Platforms());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Platforms()),
+                        );
                       },
                       child: const Text('메모'),
                     ),
@@ -151,13 +158,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 child: IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.add,
-                    size: 24,
-                    color: Color(0xFFF0FF73),
-                  ),
-                  onPressed: () => Get.to(() => const RegisterInfoScreen()),
-                ),
+                    icon: const Icon(
+                      CupertinoIcons.add,
+                      size: 24,
+                      color: Color(0xFFF0FF73),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterInfoScreen()),
+                      );
+                    }),
               ),
             ],
           ),

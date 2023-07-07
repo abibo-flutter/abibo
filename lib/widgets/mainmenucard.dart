@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 import 'package:abibo/screens/platforms.dart';
 
 class MainMenu extends StatelessWidget {
@@ -30,7 +29,10 @@ class MainMenu extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        Get.to(() => const Platforms());
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Platforms()),
+        );
       },
       child: Container(
         width: screenWidth / 390 * 168,

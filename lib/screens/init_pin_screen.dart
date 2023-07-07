@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
-import 'package:get/get.dart';
 
 class InitPINScreen extends StatefulWidget {
   const InitPINScreen({super.key});
 
   @override
   State<InitPINScreen> createState() => _InitPINScreenState();
-}
-
-void navigateToMainScreen() {
-  Get.to(() => const MainScreen());
 }
 
 class _InitPINScreenState extends State<InitPINScreen> {
@@ -178,7 +173,11 @@ class _InitPINScreenState extends State<InitPINScreen> {
                               } else if (int.tryParse(pin!) != null) {
                                 prefs = await SharedPreferences.getInstance();
                                 prefs.setString('PIN', pin!);
-                                navigateToMainScreen();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MainScreen()),
+                                );
                               }
                             } catch (err) {
                               print(err);
@@ -212,7 +211,7 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         height: screenHeight / 944 * 70,
                         child: ElevatedButton(
                           onPressed: () async {
-                            Get.back();
+                            Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:

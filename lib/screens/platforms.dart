@@ -3,7 +3,6 @@ import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/widgets/cards.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Platforms extends StatefulWidget {
   const Platforms({Key? key}) : super(key: key);
@@ -72,7 +71,7 @@ class _PlatformsState extends State<Platforms> {
                         height: 30,
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.back();
+                            Navigator.pop(context);
                           },
                           child: const Text('돌아가기'),
                         ),

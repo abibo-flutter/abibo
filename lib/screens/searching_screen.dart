@@ -4,7 +4,6 @@ import 'package:abibo/widgets/cards.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
-import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -95,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             style: ABTextTheme.SearchingText,
             onChanged: (value) async {
-              searching = value.toLowerCase().removeAllWhitespace;
+              searching = value.replaceAll(RegExp(r'\s'), '').toLowerCase();
               if (searching.isEmpty) {
                 infos = [];
               } else {

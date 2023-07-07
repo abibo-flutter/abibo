@@ -2,7 +2,6 @@ import 'screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
 import 'screens/pin_screen.dart';
 import 'screens/theme/color_theme.dart';
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Pretendard',
         primaryColor: AbColor.ABMainColor,

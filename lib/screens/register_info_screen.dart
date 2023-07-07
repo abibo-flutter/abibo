@@ -5,7 +5,6 @@ import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
-import 'package:get/get.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -110,7 +109,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   TextField(
                     onChanged: (value) {
                       setState(() {
-                        name = value.toLowerCase().removeAllWhitespace;
+                        name =
+                            value.replaceAll(RegExp(r'\s'), '').toLowerCase();
                       });
                     },
                     decoration: InputDecoration(
@@ -143,7 +143,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     TextField(
                       onChanged: (value) {
                         setState(() {
-                          id = value.removeAllWhitespace;
+                          id =
+                              value.replaceAll(RegExp(r'\s'), '').toLowerCase();
                         });
                       },
                       decoration: InputDecoration(
@@ -177,7 +178,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     TextField(
                       onChanged: (value) {
                         setState(() {
-                          password = value.removeAllWhitespace;
+                          password =
+                              value.replaceAll(RegExp(r'\s'), '').toLowerCase();
                         });
                       },
                       obscureText: true,

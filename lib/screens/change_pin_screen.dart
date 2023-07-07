@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 
 class ChangePINScreen extends StatefulWidget {
   const ChangePINScreen({super.key});
 
   @override
   State<ChangePINScreen> createState() => _ChangePINScreenState();
-}
-
-void navigateToMainScreen() {
-  Get.back();
 }
 
 class _ChangePINScreenState extends State<ChangePINScreen> {
@@ -230,7 +225,7 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                 if (PIN == pin) {
                                   prefs = await SharedPreferences.getInstance();
                                   prefs.setString('PIN', newPIN!);
-                                  navigateToMainScreen();
+                                  Navigator.pop(context);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -271,7 +266,7 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                         height: screenHeight / 944 * 70,
                         child: ElevatedButton(
                           onPressed: () async {
-                            Get.back();
+                            Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:

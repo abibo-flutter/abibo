@@ -3,21 +3,12 @@ import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
-import 'package:get/get.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
-}
-
-void navigateToInitPINScreen() {
-  Get.to(() => const InitPINScreen());
-}
-
-void navigateToChangePINScreen() {
-  Get.to(() => const ChangePINScreen());
 }
 
 class _SettingScreenState extends State<SettingScreen> {
@@ -65,9 +56,17 @@ class _SettingScreenState extends State<SettingScreen> {
                     prefs = await SharedPreferences.getInstance();
                     PIN = prefs.getString('PIN');
                     if (PIN != null) {
-                      navigateToChangePINScreen();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePINScreen()),
+                      );
                     } else {
-                      navigateToInitPINScreen();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InitPINScreen()),
+                      );
                     }
                   },
                 ),
