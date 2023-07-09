@@ -11,8 +11,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
+        width: screenWidth,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue, Colors.purple],
@@ -27,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'Abibo SplashScreen',
               style: ABTextTheme.MainMainText,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
