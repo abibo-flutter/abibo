@@ -5,12 +5,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/home_screen.dart';
 import 'package:abibo/screens/searching_screen.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
+}
+
+void navigateToInitPINScreen() {
+  Get.to(() => const InitPINScreen());
+}
+
+void navigateToChangePINScreen() {
+  Get.to(() => const ChangePINScreen());
 }
 
 class _MainScreenState extends State<MainScreen> {

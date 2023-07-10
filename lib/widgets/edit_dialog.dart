@@ -2,6 +2,7 @@ import 'package:abibo/functions/control_memo.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditDialog extends StatefulWidget {
   final String type;
@@ -59,7 +60,7 @@ class _EditDialogState extends State<EditDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  id = value.replaceAll(RegExp(r'\s'), '');
+                  id = value.removeAllWhitespace;
                 });
               },
               decoration: InputDecoration(
@@ -93,7 +94,7 @@ class _EditDialogState extends State<EditDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  password = value.replaceAll(RegExp(r'\s'), '');
+                  password = value.removeAllWhitespace;
                 });
               },
               obscureText: true,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
+import 'package:get/get.dart';
 
 class RegisterDialog extends StatefulWidget {
   const RegisterDialog({Key? key}) : super(key: key);
@@ -81,7 +82,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
           TextField(
             onChanged: (value) {
               setState(() {
-                name = value.replaceAll(RegExp(r'\s'), '').toLowerCase();
+                name = value.toLowerCase().removeAllWhitespace;
               });
             },
             decoration: InputDecoration(
@@ -114,7 +115,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  id = value.replaceAll(RegExp(r'\s'), '');
+                  id = value.removeAllWhitespace;
                 });
               },
               decoration: InputDecoration(
@@ -148,7 +149,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  password = value.replaceAll(RegExp(r'\s'), '');
+                  password = value.removeAllWhitespace;
                 });
               },
               obscureText: true,

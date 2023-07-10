@@ -1,9 +1,10 @@
 import 'package:abibo/screens/main_screen.dart';
 import 'package:abibo/screens/pin_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'dart:async';
 
 class FingerPrintScreen extends StatefulWidget {
   const FingerPrintScreen({Key? key}) : super(key: key);
@@ -14,19 +15,25 @@ class FingerPrintScreen extends StatefulWidget {
 
 class _FingerPrintScreenState extends State<FingerPrintScreen> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
-  Future<void> authenticateWithFingerprint() async {
-    bool canCheckBiometrics = await _localAuthentication.canCheckBiometrics;
+
+  @override
+  void initState() {
+    super.initState();
+    authenticateWithFingerprint(context);
+  }
+
+  Future<void> authenticateWithFingerprint(BuildContext context) async {
+    final bool canAuthenticateWithBiometrics =
+        await _localAuthentication.canCheckBiometrics;
+    final bool canCheckBiometrics = canAuthenticateWithBiometrics ||
+        await _localAuthentication.isDeviceSupported();
     if (canCheckBiometrics) {
       bool authenticated = await _localAuthentication.authenticate(
         localizedReason: '지문 인식을 사용하여 인증하세요.',
       );
       if (authenticated) {
         // 인증 성공한 경우 다음 페이지로 이동하는 로직 추가
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-          (route) => false,
-        );
+        Get.offAll(() => const MainScreen());
       } else {
         // 인증 실패한 경우 메시지 표시
         ScaffoldMessenger.of(context).showSnackBar(
@@ -48,7 +55,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    //double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
@@ -83,8 +90,18 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 SizedBox(height: screenHeight / 844 * 270),
                 Center(
                   child: IconButton(
-                    onPressed: () async {
-                      authenticateWithFingerprint();
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext dialogContext) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              authenticateWithFingerprint(context);
+                              return Container();
+                            },
+                          );
+                        },
+                      );
                     },
                     icon: Icon(
                       Icons.fingerprint_sharp,
@@ -107,12 +124,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 SizedBox(height: screenHeight / 844 * 24),
                 InkWell(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PINScreen()),
-                      (route) => false,
-                    );
+                    Get.offAll(() => const PINScreen());
                   },
                   child: const Text(
                     'PIN을 이용하여 보안 인증하기',

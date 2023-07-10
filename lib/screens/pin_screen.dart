@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/finger_print_screen.dart';
+import 'package:get/get.dart';
 
 class PINScreen extends StatefulWidget {
   const PINScreen({Key? key}) : super(key: key);
@@ -141,12 +142,7 @@ class _PINScreenState extends State<PINScreen> {
                               prefs = await SharedPreferences.getInstance();
                               PIN = prefs.getString('PIN');
                               if (PIN == pin) {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MainScreen()),
-                                  (route) => false,
-                                );
+                                Get.offAll(() => const MainScreen());
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -200,12 +196,7 @@ class _PINScreenState extends State<PINScreen> {
                     SizedBox(height: screenHeight / 844 * 16),
                     InkWell(
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const FingerPrintScreen()),
-                          (route) => false,
-                        );
+                        Get.offAll(() => const FingerPrintScreen());
                       },
                       child: const Text(
                         '지문을 이용하여 보안 인증하기',
