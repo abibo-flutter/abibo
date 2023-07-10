@@ -51,6 +51,51 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
     }
   }
 
+  /*Future<void> authenticateWithFace(BuildContext context) async {
+    final bool canAuthenticateWithBiometrics =
+        await _localAuthentication.canCheckBiometrics;
+    final bool canCheckBiometrics = canAuthenticateWithBiometrics ||
+        await _localAuthentication.isDeviceSupported();
+    if (canCheckBiometrics) {
+      final availableBiometrics =
+          await _localAuthentication.getAvailableBiometrics();
+      bool isAuthenticated = false;
+      if (availableBiometrics.contains(BiometricType.face)) {
+        try {
+          isAuthenticated = await _localAuthentication.authenticate(
+            localizedReason: '얼굴 인식을 사용하여 인증하세요.',
+          );
+        } catch (e) {
+          // Handle authentication error
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("얼굴 인식에 실패했습니다."),
+            ),
+          );
+        }
+      }
+
+      if (isAuthenticated) {
+        // Add logic to proceed to the next page after successful authentication
+        Get.offAll(() => const MainScreen());
+      } else {
+        // Display a message for authentication failure
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("얼굴 인식에 실패했습니다."),
+          ),
+        );
+      }
+    } else {
+      // Display a message for unsupported devices
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("얼굴 인식이 지원되지 않는 기기입니다."),
+        ),
+      );
+    }
+  }*/
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -70,8 +115,8 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
             padding: EdgeInsets.only(
               top: screenHeight / 844 * 128,
               bottom: 0,
-              left: screenHeight / 844 * 23,
-              right: screenHeight / 844 * 23,
+              left: screenWidth / 844 * 23,
+              right: screenWidth / 844 * 23,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,32 +132,62 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                   style: ABTextTheme.FingerPrintLoginDescription,
                 ),
                 SizedBox(height: screenHeight / 844 * 270),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext dialogContext) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  authenticateWithFingerprint(context);
-                                  return Container();
-                                },
-                              );
-                            },
-                          );
-                        },
-                        icon: Icon(
-                          Icons.fingerprint_sharp,
-                          size: 50,
-                          color: Colors.white.withOpacity(0.6),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 70,
+                        child: IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext dialogContext) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    authenticateWithFingerprint(context);
+                                    return Container();
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            Icons.fingerprint_sharp,
+                            size: 50,
+                            color: Colors.white.withOpacity(0.6),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 0),
+                      SizedBox(
+                        width: 70,
+                        child: IconButton(
+                          onPressed: () => Get.defaultDialog(
+                              title: '알림', middleText: '얼굴인식은 개발중입니다!'),
+
+                          /*showDialog(
+                              context: context,
+                              builder: (BuildContext dialogContext) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    authenticateWithFace(
+                                        context); // Call the face recognition authentication method
+                                    return Container();
+                                  },
+                                );
+                              },
+                            );*/
+
+                          icon: Icon(
+                            Icons.face_unlock_sharp,
+                            size: 50,
+                            color: Colors.white.withOpacity(0.6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: screenHeight / 844 * 30),
                 InkWell(
