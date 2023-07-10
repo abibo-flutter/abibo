@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // 데이터 형식
 /*
-?사실상 무료 서비스
 platform-netflix: [
   {'id': 'asdfgh', 'password': 'asdfgh'},
 ],

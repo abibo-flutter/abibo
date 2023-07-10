@@ -1,9 +1,6 @@
-import 'package:abibo/functions/control_memo.dart';
 import 'package:abibo/functions/control_platform.dart';
-import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/widgets/cards.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Platforms extends StatefulWidget {
   const Platforms({Key? key}) : super(key: key);
@@ -21,13 +18,13 @@ class _PlatformsState extends State<Platforms> {
       infos.add(['platform', list[0], list[1]]);
     }
 
-    for (List list in await getAllSubscription(sorted: true)) {
+    /*for (List list in await getAllSubscription(sorted: true)) {
       infos.add(['subscription', list[0], list[1]]);
     }
 
     for (List list in await getAllMemo()) {
       infos.add(['memo', list[0], list[1]]);
-    }
+    }*/
     print(infos);
   }
 
@@ -50,7 +47,7 @@ class _PlatformsState extends State<Platforms> {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/main_screen.png'),
+                image: AssetImage('assets/images/signup_screen.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -64,26 +61,15 @@ class _PlatformsState extends State<Platforms> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: screenHeight / 844 * 50,
-                  ),
-                  SizedBox(
-                    width: 100,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: const Text('돌아가기'),
-                    ),
+                    height: screenHeight / 844 * 94,
                   ),
                   Expanded(
                     child: Container(
-                      decoration: const BoxDecoration(color: Colors.white30),
                       child: ListView.separated(
-                        separatorBuilder: (context, index) => const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Divider(
-                            color: Colors.black,
+                        separatorBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: SizedBox(
+                            height: screenHeight / 844 * 24,
                           ),
                         ),
                         itemCount: infos.length,

@@ -1,10 +1,46 @@
 import 'package:flutter/material.dart';
 
-abstract class AbColor {
-  static const ABMainColor = Color(0xFF2EA4AB);
-  static const Gray1 = Color(0xFFD9D9D9);
-  static const Gray2 = Color(0xFFEDEDED);
-  static const Black1 = Color(0xFF101010);
-  static const White1 = Color(0xFFFFFFFF);
-  static const ERROR = Color.fromARGB(255, 229, 57, 57);
+abstract class CircleDesign {
+  static const RedGradient = ShapeDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(1.00, 0.00),
+      end: Alignment(-1, 0),
+      colors: [
+        Colors.black,
+        Color(0xFFA50105),
+        Color(0xFFE10208),
+        Color(0xFFA50105),
+        Colors.black
+      ],
+    ),
+    shape: OvalBorder(),
+  );
+  static const BlueGradient = ShapeDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(1.00, 0.00),
+      end: Alignment(-1, 0),
+      colors: [
+        Color(0xFF070B30),
+        Color(0xFF134EA8),
+        Color(0xFFE4E7EE),
+        Color(0xFF1554B2),
+        Color(0xFF06082B)
+      ],
+    ),
+    shape: OvalBorder(),
+  );
+  static const BlackGradient = ShapeDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(1.00, 0.00),
+      end: Alignment(-1, 0),
+      colors: [
+        Color(0xFF070B30),
+        Color(0xFF383838),
+        Color(0xFFE4E7EE),
+        Color(0xFF474748),
+        Color(0xFF06082B)
+      ],
+    ),
+    shape: OvalBorder(),
+  );
 }

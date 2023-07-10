@@ -151,4 +151,34 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const CardTitle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
+  static final CardFirstStandard = TextStyle(
+    color: Colors.white.withOpacity(0.7),
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
+  static const CardFirstHighlight = TextStyle(
+    color: Colors.white,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
+  static final CardSecondStandard = TextStyle(
+    color: Colors.white.withOpacity(0.7),
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
+  static final CardSecondHighlight = const TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
 }

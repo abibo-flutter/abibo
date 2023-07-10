@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: screenHeight / 844 * 240),
+                SizedBox(height: screenHeight / 844 * 100),
                 Container(
                   width: 60,
                   height: 60,

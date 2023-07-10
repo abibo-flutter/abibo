@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'screens/pin_screen.dart';
-import 'screens/theme/color_theme.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
@@ -28,11 +27,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'Pretendard',
-        primaryColor: AbColor.ABMainColor,
         colorScheme: const ColorScheme.light(
           background: Colors.white,
           brightness: Brightness.light,
-          primary: AbColor.ABMainColor,
         ),
       ),
       home: FutureBuilder(
