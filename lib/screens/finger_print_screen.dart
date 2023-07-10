@@ -19,7 +19,6 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
   @override
   void initState() {
     super.initState();
-    authenticateWithFingerprint(context);
   }
 
   Future<void> authenticateWithFingerprint(BuildContext context) async {
@@ -88,27 +87,32 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                   style: ABTextTheme.FingerPrintLoginDescription,
                 ),
                 SizedBox(height: screenHeight / 844 * 270),
-                Center(
-                  child: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext dialogContext) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              authenticateWithFingerprint(context);
-                              return Container();
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext dialogContext) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  authenticateWithFingerprint(context);
+                                  return Container();
+                                },
+                              );
                             },
                           );
                         },
-                      );
-                    },
-                    icon: Icon(
-                      Icons.fingerprint_sharp,
-                      size: 50,
-                      color: Colors.white.withOpacity(0.6),
+                        icon: Icon(
+                          Icons.fingerprint_sharp,
+                          size: 50,
+                          color: Colors.white.withOpacity(0.6),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 SizedBox(height: screenHeight / 844 * 30),
                 InkWell(
