@@ -53,115 +53,231 @@ class _HomeScreenState extends State<HomeScreen> {
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Padding(
-      padding: EdgeInsets.only(
-        top: screenHeight / 844 * 78,
-        bottom: 0,
-        left: screenHeight / 844 * 23,
-        right: screenHeight / 844 * 23,
-      ),
-      child: Column(
-        children: [
-          const Row(
-            children: [
-              Text(
-                'Abibo',
-                style: ABTextTheme.MainMainText,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: screenHeight / 844 * 54,
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 150,
-                    height: 100,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(const Platforms());
-                      },
-                      child: const Text('플랫폼'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: screenWidth / 390 * 6,
-                  ),
-                  SizedBox(
-                    width: 150,
-                    height: 100,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(const Platforms());
-                      },
-                      child: const Text('OTT'),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: screenHeight / 844 * 6,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 150,
-                    height: 100,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(const Platforms());
-                      },
-                      child: const Text('보증서'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: screenWidth / 390 * 6,
-                  ),
-                  SizedBox(
-                    width: 150,
-                    height: 100,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(const Platforms());
-                      },
-                      child: const Text('메모'),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight / 844 * 240),
-              Container(
-                width: 60,
-                height: 60,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: screenHeight / 844 * 78,
+          bottom: 0,
+          left: screenWidth / 390 * 28,
+          right: screenWidth / 390 * 28,
+        ),
+        child: Column(
+          children: [
+            const Row(
+              children: [
+                Text(
+                  'Abibo',
+                  style: ABTextTheme.MainMainText,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight / 844 * 50,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 4),
+              child: Container(
+                height: screenHeight / 844 * 100,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFD9D9D9).withOpacity(0.3),
-                      spreadRadius: 7,
-                      blurRadius: 0,
-                      offset: const Offset(0, 0),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: screenWidth / 390 * 20,
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('NETFLIX',
+                                style: ABTextTheme.UpcomingIssueStandard),
+                            Row(
+                              children: [
+                                Text('54',
+                                    style: ABTextTheme.UpcomingIssueHighlight),
+                                Text(
+                                  '일 남았어요!',
+                                  style: ABTextTheme.UpcomingIssueStandard,
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        //SizedBox(width: screenWidth / 390 * 60),
+                        const Spacer(),
+                        SizedBox(
+                          height: 60,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.chevron_right_sharp,
+                              color: Colors.black,
+                              size: 45,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth / 390 * 14,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                child: IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.add,
-                    size: 24,
-                    color: Color(0xFFF0FF73),
-                  ),
-                  onPressed: () => Get.to(() => const RegisterInfoScreen()),
-                ),
               ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              height: screenHeight / 844 * 100,
+            ),
+            Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: screenWidth / 390 * 320,
+                      height: screenHeight / 844 * 116,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(const Platforms());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: const Text('플랫폼',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight / 844 * 30,
+                    ),
+                    SizedBox(
+                      width: screenWidth / 390 * 320,
+                      height: screenHeight / 844 * 116,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(const Platforms());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: const Text('구독서비스',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight / 844 * 30,
+                    ),
+                    SizedBox(
+                      width: screenWidth / 390 * 320,
+                      height: screenHeight / 844 * 116,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(const Platforms());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: const Text('보증서',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight / 844 * 30,
+                    ),
+                    SizedBox(
+                      width: screenWidth / 390 * 320,
+                      height: screenHeight / 844 * 116,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(const Platforms());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: const Text('메모',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight / 844 * 240),
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFD9D9D9).withOpacity(0.3),
+                        spreadRadius: 7,
+                        blurRadius: 0,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.add,
+                      size: 24,
+                      color: Color(0xFFF0FF73),
+                    ),
+                    onPressed: () => Get.to(() => const RegisterInfoScreen()),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

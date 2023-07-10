@@ -25,13 +25,19 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
-  static const UpcomingIssue = TextStyle(
-    fontFamily: 'Pretendard',
-    fontWeight: FontWeight.normal,
-    fontSize: 12,
-    height: 1.2,
-    color: Color(0xFF464646),
-    letterSpacing: -0.4,
+  static const UpcomingIssueStandard = TextStyle(
+    color: Colors.black,
+    fontSize: 34,
+    fontFamily: 'Noto Sans KR',
+    fontWeight: FontWeight.w700,
+    height: 1,
+  );
+  static const UpcomingIssueHighlight = TextStyle(
+    color: Color(0xFFD966BB),
+    fontSize: 34,
+    fontFamily: 'Noto Sans KR',
+    fontWeight: FontWeight.w900,
+    height: 1,
   );
   static const BottomNavibarTextSelected = TextStyle(
     fontFamily: 'Pretendard',
