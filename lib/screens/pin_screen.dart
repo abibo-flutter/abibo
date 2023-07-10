@@ -199,7 +199,7 @@ class _PINScreenState extends State<PINScreen> {
                         Get.offAll(() => const FingerPrintScreen());
                       },
                       child: const Text(
-                        '지문을 이용하여 보안 인증하기',
+                        '생체인식을 이용하여 보안 인증하기',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,

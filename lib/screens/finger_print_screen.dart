@@ -28,7 +28,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         await _localAuthentication.isDeviceSupported();
     if (canCheckBiometrics) {
       bool authenticated = await _localAuthentication.authenticate(
-        localizedReason: '지문 인식을 사용하여 인증하세요.',
+        localizedReason: '생체 인식을 사용하여 인증하세요.',
       );
       if (authenticated) {
         // 인증 성공한 경우 다음 페이지로 이동하는 로직 추가
@@ -37,7 +37,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         // 인증 실패한 경우 메시지 표시
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("지문 인식에 실패했습니다."),
+            content: Text("생체 인식에 실패했습니다."),
           ),
         );
       }
@@ -45,13 +45,13 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
       // 지문 인식이 지원되지 않는 기기일 경우 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("지문 인식이 지원되지 않는 기기입니다."),
+          content: Text("생체 인식이 지원되지 않는 기기입니다."),
         ),
       );
     }
   }
 
-  /*Future<void> authenticateWithFace(BuildContext context) async {
+  Future<void> authenticateWithFace(BuildContext context) async {
     final bool canAuthenticateWithBiometrics =
         await _localAuthentication.canCheckBiometrics;
     final bool canCheckBiometrics = canAuthenticateWithBiometrics ||
@@ -63,13 +63,13 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
       if (availableBiometrics.contains(BiometricType.face)) {
         try {
           isAuthenticated = await _localAuthentication.authenticate(
-            localizedReason: '얼굴 인식을 사용하여 인증하세요.',
+            localizedReason: '생체 인식을 사용하여 인증하세요.',
           );
         } catch (e) {
           // Handle authentication error
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("얼굴 인식에 실패했습니다."),
+              content: Text("생체 인식에 실패했습니다."),
             ),
           );
         }
@@ -82,7 +82,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         // Display a message for authentication failure
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("얼굴 인식에 실패했습니다."),
+            content: Text("생체 인식에 실패했습니다."),
           ),
         );
       }
@@ -90,11 +90,11 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
       // Display a message for unsupported devices
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("얼굴 인식이 지원되지 않는 기기입니다."),
+          content: Text("생체 인식이 지원되지 않는 기기입니다."),
         ),
       );
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 ),
                 SizedBox(height: screenHeight / 844 * 90),
                 const Text(
-                  '아비보를 시작하기 위하여 \n지문 인식을 진행해 주세요.',
+                  '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
                   textAlign: TextAlign.center,
                   style: ABTextTheme.FingerPrintLoginDescription,
                 ),
@@ -159,7 +159,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 0),
+                      /*  const SizedBox(width: 0),
                       SizedBox(
                         width: 70,
                         child: IconButton(
@@ -185,7 +185,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                             color: Colors.white.withOpacity(0.6),
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -193,7 +193,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 InkWell(
                   onTap: () {},
                   child: const Text(
-                    '지문인식이 안되나요?',
+                    '생체인식이 안되나요?',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
