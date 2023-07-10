@@ -102,64 +102,63 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/second_login_screen.png'),
-              fit: BoxFit.fill,
-            ),
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/second_login_screen.png'),
+            fit: BoxFit.fill,
           ),
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: screenHeight / 844 * 128,
-              bottom: 0,
-              left: screenWidth / 844 * 23,
-              right: screenWidth / 844 * 23,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Abibo',
-                  style: ABTextTheme.MainMainText,
-                ),
-                SizedBox(height: screenHeight / 844 * 90),
-                const Text(
-                  '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
-                  textAlign: TextAlign.center,
-                  style: ABTextTheme.FingerPrintLoginDescription,
-                ),
-                SizedBox(height: screenHeight / 844 * 270),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 70,
-                        child: IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext dialogContext) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    authenticateWithFingerprint(context);
-                                    return Container();
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          icon: Icon(
-                            Icons.fingerprint_sharp,
-                            size: 50,
-                            color: Colors.white.withOpacity(0.6),
-                          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: screenHeight / 844 * 128,
+            bottom: 0,
+            left: screenWidth / 844 * 23,
+            right: screenWidth / 844 * 23,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Abibo',
+                style: ABTextTheme.MainMainText,
+              ),
+              SizedBox(height: screenHeight / 844 * 90),
+              const Text(
+                '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
+                textAlign: TextAlign.center,
+                style: ABTextTheme.FingerPrintLoginDescription,
+              ),
+              SizedBox(height: screenHeight / 844 * 270),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 70,
+                      child: IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext dialogContext) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  authenticateWithFingerprint(context);
+                                  return Container();
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icon(
+                          Icons.fingerprint_sharp,
+                          size: 50,
+                          color: Colors.white.withOpacity(0.6),
                         ),
                       ),
-                      /*  const SizedBox(width: 0),
+                    ),
+                    /*  const SizedBox(width: 0),
                       SizedBox(
                         width: 70,
                         child: IconButton(
@@ -186,36 +185,35 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                           ),
                         ),
                       ),*/
-                    ],
+                  ],
+                ),
+              ),
+              SizedBox(height: screenHeight / 844 * 30),
+              InkWell(
+                onTap: () {},
+                child: const Text(
+                  '생체인식이 안되나요?',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
                   ),
                 ),
-                SizedBox(height: screenHeight / 844 * 30),
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    '생체인식이 안되나요?',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
+              ),
+              SizedBox(height: screenHeight / 844 * 24),
+              InkWell(
+                onTap: () {
+                  Get.offAll(() => const PINScreen());
+                },
+                child: const Text(
+                  'PIN을 이용하여 보안 인증하기',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFFACA5DF),
+                    decoration: TextDecoration.underline,
                   ),
                 ),
-                SizedBox(height: screenHeight / 844 * 24),
-                InkWell(
-                  onTap: () {
-                    Get.offAll(() => const PINScreen());
-                  },
-                  child: const Text(
-                    'PIN을 이용하여 보안 인증하기',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFACA5DF),
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

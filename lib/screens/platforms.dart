@@ -43,97 +43,95 @@ class _PlatformsState extends State<Platforms> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder(
-            future: searchTodos(),
-            builder: (context, snapshot) {
-              return Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/main_screen.png'),
-                    fit: BoxFit.fill,
+      body: FutureBuilder(
+        future: searchTodos(),
+        builder: (context, snapshot) {
+          return Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/main_screen.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: screenHeight / 844 * 38,
+                bottom: 0,
+                left: screenHeight / 844 * 30,
+                right: screenHeight / 844 * 30,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: screenHeight / 844 * 50,
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenHeight / 844 * 38,
-                    bottom: 0,
-                    left: screenHeight / 844 * 30,
-                    right: screenHeight / 844 * 30,
+                  SizedBox(
+                    width: 100,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text('돌아가기'),
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: screenHeight / 844 * 50,
-                      ),
-                      SizedBox(
-                        width: 100,
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text('돌아가기'),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration:
-                              const BoxDecoration(color: Colors.white30),
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5),
-                              child: Divider(
-                                color: Colors.black,
-                              ),
-                            ),
-                            itemCount: infos.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              String type = infos[index][0];
-                              String name = infos[index][1];
-                              dynamic obj = infos[index][2];
-
-                              if (type == 'platform') {
-                                return PlatformCard(
-                                  name: name,
-                                  obj: obj,
-                                  change: () {
-                                    searchTodos();
-                                    setState(() {});
-                                  },
-                                );
-                              }
-                              if (type == 'memo') {
-                                return MemoCard(
-                                  name: name,
-                                  text: obj,
-                                  change: () {
-                                    searchTodos();
-                                    setState(() {});
-                                  },
-                                );
-                              }
-                              if (type == 'subscription') {
-                                return SubscriptionCard(
-                                  name: name,
-                                  obj: obj,
-                                  change: () {
-                                    searchTodos();
-                                    setState(() {});
-                                  },
-                                );
-                              }
-                              return null;
-                            },
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(color: Colors.white30),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          child: Divider(
+                            color: Colors.black,
                           ),
                         ),
+                        itemCount: infos.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String type = infos[index][0];
+                          String name = infos[index][1];
+                          dynamic obj = infos[index][2];
+
+                          if (type == 'platform') {
+                            return PlatformCard(
+                              name: name,
+                              obj: obj,
+                              change: () {
+                                searchTodos();
+                                setState(() {});
+                              },
+                            );
+                          }
+                          if (type == 'memo') {
+                            return MemoCard(
+                              name: name,
+                              text: obj,
+                              change: () {
+                                searchTodos();
+                                setState(() {});
+                              },
+                            );
+                          }
+                          if (type == 'subscription') {
+                            return SubscriptionCard(
+                              name: name,
+                              obj: obj,
+                              change: () {
+                                searchTodos();
+                                setState(() {});
+                              },
+                            );
+                          }
+                          return null;
+                        },
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

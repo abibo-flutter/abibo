@@ -39,50 +39,48 @@ class _MainScreenState extends State<MainScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return MaterialApp(
-      home: SafeArea(
-        child: DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            body: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/main_screen.png'),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              child: const TabBarView(
-                children: [
-                  HomeScreen(),
-                  SearchScreen(),
-                  SettingScreen(),
-                ],
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/main_screen.png'),
+                fit: BoxFit.fill,
               ),
             ),
-            extendBodyBehindAppBar: true,
-            bottomNavigationBar: SizedBox(
-              height: 0,
-              child: TabBar(
-                tabs: const [
-                  Tab(
-                    icon: Icon(Icons.home_outlined),
-                    text: '  HOME ',
-                  ),
-                  Tab(
-                    icon: Icon(Icons.search),
-                    text: ' SEARCH',
-                  ),
-                  Tab(
-                    icon: Icon(Icons.settings),
-                    text: 'SETTING',
-                  ),
-                ],
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: const Color(0xFF7443D3),
-                indicatorWeight: 2,
-                unselectedLabelColor: Colors.grey[400],
-                labelStyle: const TextStyle(
-                  fontSize: 13,
+            child: const TabBarView(
+              children: [
+                HomeScreen(),
+                SearchScreen(),
+                SettingScreen(),
+              ],
+            ),
+          ),
+          extendBodyBehindAppBar: true,
+          bottomNavigationBar: SizedBox(
+            height: 0,
+            child: TabBar(
+              tabs: const [
+                Tab(
+                  icon: Icon(Icons.home_outlined),
+                  text: '  HOME ',
                 ),
+                Tab(
+                  icon: Icon(Icons.search),
+                  text: ' SEARCH',
+                ),
+                Tab(
+                  icon: Icon(Icons.settings),
+                  text: 'SETTING',
+                ),
+              ],
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: const Color(0xFF7443D3),
+              indicatorWeight: 2,
+              unselectedLabelColor: Colors.grey[400],
+              labelStyle: const TextStyle(
+                fontSize: 13,
               ),
             ),
           ),
