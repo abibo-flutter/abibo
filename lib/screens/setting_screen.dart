@@ -71,6 +71,15 @@ class _SettingScreenState extends State<SettingScreen> {
                     }
                   },
                 ),
+                ElevatedButton(
+                  child: const Text(
+                    '글자 스캔',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: () async {},
+                ),
               ],
             ),
           ),
