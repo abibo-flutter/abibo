@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(
-        top: screenHeight / 844 * 52,
+        top: screenHeight / 844 * 80,
         bottom: 0,
         left: screenHeight / 844 * 23,
         right: screenHeight / 844 * 23,
@@ -137,13 +137,9 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(color: Colors.white30),
               child: ListView.separated(
                 separatorBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Divider(
-                    color: Colors.black,
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 8),
                 ),
                 itemCount: infos.length,
                 itemBuilder: (BuildContext context, int index) {
