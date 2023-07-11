@@ -304,7 +304,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   if (isSubscription || isGuarantee)
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent),
+                        backgroundColor: Colors.transparent,
+                      ),
                       onPressed: _selectDate,
                       child: Center(
                         child: Text(

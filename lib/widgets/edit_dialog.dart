@@ -4,6 +4,7 @@ import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class EditDialog extends StatefulWidget {
   final String type;
@@ -28,13 +29,24 @@ class _EditDialogState extends State<EditDialog> {
   String? product;
   String? model;
   String? text;
-  int? endDate;
+  DateTime? endDate;
   int? cost;
+  DateTime now = DateTime.now();
 
   bool isPlatform = false;
   bool isSubscription = false;
   bool isGuarantee = false;
   bool isMemo = false;
+
+  Future<void> _selectDate() async {
+    endDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year + 100, now.month, now.day),
+    );
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -204,33 +216,13 @@ class _EditDialogState extends State<EditDialog> {
               height: 10,
             ),
           if (isSubscription || isGuarantee)
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  endDate = int.tryParse(value);
-                });
-              },
-              decoration: InputDecoration(
-                hintText: "만료일을 입력하세요",
-                hintStyle: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
-                ),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1.5,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.6),
-                    width: 1.5,
-                  ),
-                ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
               ),
-              style: const TextStyle(
-                // 입력중 text color
-                color: Colors.black,
+              onPressed: _selectDate,
+              child: Center(
+                child: Text(DateFormat('yyyy년 MM월 dd일').format(endDate ?? now)),
               ),
             ),
           if (isSubscription)
