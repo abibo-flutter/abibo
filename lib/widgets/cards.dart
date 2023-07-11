@@ -1,7 +1,9 @@
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'edit_dialog.dart';
+import 'package:flutter/gestures.dart';
 
 void _showInfoDialog(context, widget) {
   showDialog(
@@ -110,6 +112,11 @@ class _PlatformCardState extends State<PlatformCard> {
                       TextSpan(
                         text: widget.obj['id'],
                         style: ABTextTheme.CardSecondHighlight,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['id']));
+                          },
                       ),
                     ],
                   ),
@@ -131,6 +138,11 @@ class _PlatformCardState extends State<PlatformCard> {
                       TextSpan(
                         text: widget.obj['password'],
                         style: ABTextTheme.CardSecondHighlight,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['password']));
+                          },
                       ),
                     ],
                   ),
@@ -309,6 +321,11 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                       TextSpan(
                         text: widget.obj['id'],
                         style: ABTextTheme.CardSecondHighlight,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['id']));
+                          },
                       ),
                     ],
                   ),
@@ -330,6 +347,11 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                       TextSpan(
                         text: widget.obj['password'],
                         style: ABTextTheme.CardSecondHighlight,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['password']));
+                          },
                       ),
                     ],
                   ),
