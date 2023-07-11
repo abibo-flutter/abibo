@@ -1,4 +1,4 @@
-import 'package:abibo/functions/control_gurantee.dart';
+import 'package:abibo/functions/control_guarantee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -20,8 +20,9 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   bool isPlatform = true;
   bool isSubscription = false;
   bool isMemo = false;
-  bool isGurantee = false;
+  bool isGuarantee = false;
   String? name;
+  String? brand;
   String? id;
   String? password;
   String? text;
@@ -34,7 +35,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
       isSelected = isSelected;
       isPlatform = isSelected[0];
       isSubscription = isSelected[1];
-      isGurantee = isSelected[2];
+      isGuarantee = isSelected[2];
       isMemo = isSelected[3];
     });
   }
@@ -124,7 +125,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     },
                     decoration: InputDecoration(
                       hintText:
-                          "${(isMemo || isGurantee) ? '제목' : '서비스 이름'}을 입력하세요",
+                          "${(isMemo) ? '제목' : (isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
                       hintStyle: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                       ),
@@ -214,11 +215,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  if (isPlatform || isSubscription || isGurantee)
+                  if (isSubscription || isGuarantee)
                     const SizedBox(
                       height: 10,
                     ),
-                  if (isSubscription || isGurantee)
+                  if (isSubscription || isGuarantee)
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -282,15 +283,15 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  if (isSubscription)
+                  if (isGuarantee)
                     const SizedBox(
                       height: 10,
                     ),
-                  if (isGurantee)
+                  if (isGuarantee)
                     TextField(
                       onChanged: (value) {
                         setState(() {
-                          id = value.removeAllWhitespace;
+                          brand = value.removeAllWhitespace;
                         });
                       },
                       decoration: InputDecoration(
@@ -316,10 +317,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  if (isMemo || isGurantee)
+                  if (isMemo || isGuarantee)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  if (isMemo || isGuarantee)
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -351,10 +353,9 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  if (isMemo || isGurantee)
-                    const SizedBox(
-                      height: 10,
-                    ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       TextButton(
@@ -401,12 +402,16 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               id: id!,
                               password: password!,
                             );
-                          } else if (isGurantee && id != null && text != null) {
-                            await setGurantee(
-                                serviceName: name!,
-                                id: id!,
-                                endDate: endDate!,
-                                moreMemo: text!);
+                          } else if (isGuarantee &&
+                              brand != null &&
+                              endDate != null &&
+                              text != null) {
+                            await setGuarantee(
+                              brand: brand!,
+                              productName: name!,
+                              endDate: endDate!,
+                              note: text!,
+                            );
                           }
                           Navigator.pop(context);
                         },

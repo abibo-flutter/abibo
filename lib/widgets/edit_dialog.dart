@@ -1,3 +1,4 @@
+import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_memo.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
@@ -24,20 +25,28 @@ class EditDialog extends StatefulWidget {
 class _EditDialogState extends State<EditDialog> {
   String? id;
   String? password;
+  String? product;
   String? text;
   int? endDate;
   int? cost;
 
   bool isPlatform = false;
   bool isSubscription = false;
+  bool isGuarantee = false;
   bool isMemo = false;
 
   @override
   void initState() {
     super.initState();
-    if (widget.type == 'platform') isPlatform = true;
-    if (widget.type == 'subscription') isSubscription = true;
-    if (widget.type == 'memo') isMemo = true;
+    if (widget.type == 'platform') {
+      isPlatform = true;
+    } else if (widget.type == 'subscription') {
+      isSubscription = true;
+    } else if (widget.type == 'guarantee') {
+      isGuarantee = true;
+    } else if (widget.type == 'memo') {
+      isMemo = true;
+    }
   }
 
   @override
@@ -121,11 +130,45 @@ class _EditDialogState extends State<EditDialog> {
                 color: Colors.black,
               ),
             ),
-          if (isPlatform || isSubscription)
+          if (isGuarantee)
             const SizedBox(
               height: 10,
             ),
-          if (isSubscription)
+          if (isGuarantee)
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  product = value.removeAllWhitespace;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "제품명을 입력하세요",
+                hintStyle: TextStyle(
+                  color: Colors.black.withOpacity(0.6),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 1.5,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.6),
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              style: const TextStyle(
+                // 입력중 text color
+                color: Colors.black,
+              ),
+            ),
+          if (isSubscription || isGuarantee)
+            const SizedBox(
+              height: 10,
+            ),
+          if (isSubscription || isGuarantee)
             TextField(
               onChanged: (value) {
                 setState(() {
@@ -189,15 +232,11 @@ class _EditDialogState extends State<EditDialog> {
                 color: Colors.black,
               ),
             ),
-          if (isSubscription)
+          if (isMemo || isGuarantee)
             const SizedBox(
               height: 10,
             ),
-          if (isMemo)
-            const SizedBox(
-              height: 10,
-            ),
-          if (isMemo)
+          if (isMemo || isGuarantee)
             TextField(
               onChanged: (value) {
                 setState(() {
@@ -229,10 +268,9 @@ class _EditDialogState extends State<EditDialog> {
                 color: Colors.black,
               ),
             ),
-          if (isMemo)
-            const SizedBox(
-              height: 10,
-            ),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
       actions: [
@@ -257,6 +295,11 @@ class _EditDialogState extends State<EditDialog> {
             } else if (isSubscription) {
               await removeSubscription(
                 serviceName: widget.name,
+                obj: widget.obj,
+              );
+            } else if (isGuarantee) {
+              await removeGuarantee(
+                brand: widget.name,
                 obj: widget.obj,
               );
             } else if (isMemo) {
@@ -295,13 +338,26 @@ class _EditDialogState extends State<EditDialog> {
                   'cost': cost,
                 },
               );
+            } else if (isGuarantee &&
+                product != null &&
+                endDate != null &&
+                text != null) {
+              await updateGuarantee(
+                brand: widget.name,
+                obj: widget.obj,
+                newObj: {
+                  'name': product,
+                  'endDate': endDate,
+                  'note': text,
+                },
+              );
             } else if (isPlatform && id != null && password != null) {
               await updatePlatform(
                 platform: widget.name,
                 obj: widget.obj,
                 newObj: {
-                  'id': id!,
-                  'password': password!,
+                  'id': id,
+                  'password': password,
                 },
               );
             }

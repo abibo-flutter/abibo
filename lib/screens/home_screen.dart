@@ -10,7 +10,7 @@ import 'package:abibo/widgets/register_dialog.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/screens/subservices.dart';
 import 'package:abibo/screens/memos.dart';
-import 'package:abibo/screens/gurantees.dart';
+import 'package:abibo/screens/guarantees.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,20 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void _showPlatformAddDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Theme(
-          data: ThemeData(
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: const RegisterDialog(),
-        );
-      },
-    );
   }
 
   @override
@@ -202,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight / 844 * 116,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(() => const Gurantees());
+                          Get.to(() => const Guarantees());
                         },
                         style: ButtonStyle(
                           backgroundColor:

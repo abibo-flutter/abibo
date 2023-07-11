@@ -343,8 +343,8 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
   }
 }
 
-class GuranteeCard extends StatefulWidget {
-  const GuranteeCard({
+class GuaranteeCard extends StatefulWidget {
+  const GuaranteeCard({
     Key? key,
     required this.name,
     required this.obj,
@@ -354,13 +354,13 @@ class GuranteeCard extends StatefulWidget {
   final String name;
   final dynamic obj;
   final Function change;
-  final String type = 'Gurantee';
+  final String type = 'guarantee';
 
   @override
-  State<GuranteeCard> createState() => _GuranteeCardState();
+  State<GuaranteeCard> createState() => _GuaranteeCardState();
 }
 
-class _GuranteeCardState extends State<GuranteeCard> {
+class _GuaranteeCardState extends State<GuaranteeCard> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -428,21 +428,13 @@ class _GuranteeCardState extends State<GuranteeCard> {
                           child: Column(
                             children: [
                               Text(
-                                '결재금액',
+                                '제품명',
                                 style: ABTextTheme.CardFirstStandard,
                               ),
                               Text.rich(
                                 TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: "${widget.obj['cost']}",
-                                      style: ABTextTheme.CardFirstHighlight,
-                                    ),
-                                    TextSpan(
-                                      text: '원/월',
-                                      style: ABTextTheme.CardFirstStandard,
-                                    ),
-                                  ],
+                                  text: "${widget.obj['name']}",
+                                  style: ABTextTheme.CardFirstHighlight,
                                 ),
                               )
                             ],
@@ -496,41 +488,8 @@ class _GuranteeCardState extends State<GuranteeCard> {
               children: [
                 Text.rich(
                   TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '아이디',
-                        style: ABTextTheme.CardSecondStandard,
-                      ),
-                      TextSpan(
-                        text: '    ',
-                        style: ABTextTheme.CardSecondStandard,
-                      ),
-                      TextSpan(
-                        text: widget.obj['id'],
-                        style: ABTextTheme.CardSecondHighlight,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight / 844 * 4,
-                ),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '비밀번호',
-                        style: ABTextTheme.CardSecondStandard,
-                      ),
-                      TextSpan(
-                        text: '    ',
-                        style: ABTextTheme.CardSecondStandard,
-                      ),
-                      TextSpan(
-                        text: widget.obj['password'],
-                        style: ABTextTheme.CardSecondHighlight,
-                      ),
-                    ],
+                    text: widget.obj['note'],
+                    style: ABTextTheme.CardSecondStandard,
                   ),
                 ),
               ],

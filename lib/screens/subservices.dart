@@ -12,20 +12,8 @@ class SubServices extends StatefulWidget {
 class _SubServicesState extends State<SubServices> {
   List<List> infos = [];
 
-  Future<void> searchTodos() async {
-    infos = [];
-    /*for (List list in await getAllPlatform()) {
-      infos.add(['platform', list[0], list[1]]);
-    }*/
-
-    for (List list in await getAllSubscription(sorted: true)) {
-      infos.add(['subscription', list[0], list[1]]);
-    }
-
-    /*for (List list in await getAllMemo()) {
-      infos.add(['memo', list[0], list[1]]);
-    }*/
-    print(infos);
+  Future<void> searchInfo() async {
+    infos = await getAllSubscription();
   }
 
   @override
@@ -41,7 +29,7 @@ class _SubServicesState extends State<SubServices> {
 
     return Scaffold(
       body: FutureBuilder(
-        future: searchTodos(),
+        future: searchInfo(),
         builder: (context, snapshot) {
           return Container(
             width: double.infinity,
@@ -64,53 +52,27 @@ class _SubServicesState extends State<SubServices> {
                     height: screenHeight / 844 * 94,
                   ),
                   Expanded(
-                    child: Container(
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: SizedBox(
-                            height: screenHeight / 844 * 24,
-                          ),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: SizedBox(
+                          height: screenHeight / 844 * 24,
                         ),
-                        itemCount: infos.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String type = infos[index][0];
-                          String name = infos[index][1];
-                          dynamic obj = infos[index][2];
-
-                          if (type == 'platform') {
-                            return PlatformCard(
-                              name: name,
-                              obj: obj,
-                              change: () {
-                                searchTodos();
-                                setState(() {});
-                              },
-                            );
-                          }
-                          if (type == 'memo') {
-                            return MemoCard(
-                              name: name,
-                              text: obj,
-                              change: () {
-                                searchTodos();
-                                setState(() {});
-                              },
-                            );
-                          }
-                          if (type == 'subscription') {
-                            return SubscriptionCard(
-                              name: name,
-                              obj: obj,
-                              change: () {
-                                searchTodos();
-                                setState(() {});
-                              },
-                            );
-                          }
-                          return null;
-                        },
                       ),
+                      itemCount: infos.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String name = infos[index][0];
+                        dynamic obj = infos[index][1];
+
+                        return SubscriptionCard(
+                          name: name,
+                          obj: obj,
+                          change: () {
+                            searchInfo();
+                            setState(() {});
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:abibo/functions/control_guarantee.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/widgets/cards.dart';
@@ -35,8 +36,12 @@ class _SearchScreenState extends State<SearchScreen> {
         arr.add(['platform', list[0], list[1]]);
       }
 
-      for (List list in await getAllSubscription(sorted: true)) {
+      for (List list in await getAllSubscription()) {
         arr.add(['subscription', list[0], list[1]]);
+      }
+
+      for (List list in await getAllGuarantee()) {
+        arr.add(['guarantee', list[0], list[1]]);
       }
 
       for (List list in await getAllMemo()) {
@@ -54,6 +59,13 @@ class _SearchScreenState extends State<SearchScreen> {
         if (!name.contains(inputText)) continue;
         for (var obj in await getSubscription(serviceName: name)) {
           arr.add(['subscription', name, obj]);
+        }
+      }
+
+      for (String name in await getGuaranteeList() ?? []) {
+        if (!name.contains(inputText)) continue;
+        for (var obj in await getGuarantee(brand: name)) {
+          arr.add(['guarantee', name, obj]);
         }
       }
 
@@ -160,6 +172,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                   if (type == 'subscription') {
                     return SubscriptionCard(
+                      name: name,
+                      obj: obj,
+                      change: () async {
+                        infos = await searchInfos(searching);
+                        setState(() {});
+                      },
+                    );
+                  }
+                  if (type == 'guarantee') {
+                    return GuaranteeCard(
                       name: name,
                       obj: obj,
                       change: () async {

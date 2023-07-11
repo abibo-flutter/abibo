@@ -1,19 +1,19 @@
-import 'package:abibo/functions/control_memo.dart';
+import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/widgets/cards.dart';
 import 'package:flutter/material.dart';
 
-class Memos extends StatefulWidget {
-  const Memos({Key? key}) : super(key: key);
+class Guarantees extends StatefulWidget {
+  const Guarantees({Key? key}) : super(key: key);
 
   @override
-  State<Memos> createState() => _MemosState();
+  State<Guarantees> createState() => _GuaranteesState();
 }
 
-class _MemosState extends State<Memos> {
+class _GuaranteesState extends State<Guarantees> {
   List<List> infos = [];
 
   Future<void> searchInfos() async {
-    infos = await getAllMemo();
+    infos = await getAllGuarantee();
   }
 
   @override
@@ -52,28 +52,26 @@ class _MemosState extends State<Memos> {
                     height: screenHeight / 844 * 94,
                   ),
                   Expanded(
-                    child: Container(
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: SizedBox(
-                            height: screenHeight / 844 * 24,
-                          ),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: SizedBox(
+                          height: screenHeight / 844 * 24,
                         ),
-                        itemCount: infos.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String name = infos[index][0];
-                          dynamic obj = infos[index][1];
-                          return MemoCard(
-                            name: name,
-                            text: obj,
-                            change: () {
-                              searchInfos();
-                              setState(() {});
-                            },
-                          );
-                        },
                       ),
+                      itemCount: infos.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String brand = infos[index][0];
+                        dynamic obj = infos[index][1];
+                        return GuaranteeCard(
+                          name: brand,
+                          obj: obj,
+                          change: () {
+                            searchInfos();
+                            setState(() {});
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],

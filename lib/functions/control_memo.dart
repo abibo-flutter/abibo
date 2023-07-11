@@ -58,10 +58,10 @@ Future<List?> getMemoList() async {
   return memo;
 }
 
-Future<List> getAllMemo() async {
+Future<List<List>> getAllMemo() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> allServiceName = prefs.getStringList('memos') ?? [];
-  List serviceList = [];
+  List<List> serviceList = [];
   for (var name in allServiceName) {
     serviceList.add([name, await getMemo(title: name)]);
   }
