@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:abibo/screens/platforms.dart';
-import 'package:abibo/widgets/register_dialog.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/screens/subservices.dart';
 import 'package:abibo/screens/memos.dart';

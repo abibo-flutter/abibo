@@ -17,7 +17,7 @@ Future<void> setSubscription({
   required String serviceName,
   required String id,
   required String password,
-  required int endDate,
+  required String endDate,
   required int cost,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -89,10 +89,6 @@ Future<void> updateSubscription({
 
 Future<List<Map<String, dynamic>>> getSubscription({
   required serviceName,
-  endDateMin = 0,
-  endDateMax = 10e8,
-  costMin = 0,
-  costMax = 10e8,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String serviceJson =
@@ -104,10 +100,7 @@ Future<List<Map<String, dynamic>>> getSubscription({
   serviceList = jsonDecode(serviceJson).cast<Map<String, dynamic>>();
 
   for (var service in serviceList) {
-    if ((endDateMin < service['endDate'] && service['endDate'] < endDateMax) &&
-        (costMin < service['cost'] && service['cost'] < costMax)) {
-      result.add(service);
-    }
+    result.add(service);
   }
   return result;
 }

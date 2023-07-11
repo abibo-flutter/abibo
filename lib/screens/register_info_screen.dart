@@ -6,6 +6,7 @@ import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -27,9 +28,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   String? id;
   String? password;
   String? text;
-  int? endDate;
+  DateTime? endDate;
   int? cost;
-  void toggleSelect(index) {
+  DateTime now = DateTime.now();
+
+  void _toggleSelect(index) {
     isSelected = [false, false, false, false];
     isSelected[index] = true;
     setState(() {
@@ -39,6 +42,16 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
       isGuarantee = isSelected[2];
       isMemo = isSelected[3];
     });
+  }
+
+  Future<void> _selectDate() async {
+    endDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year + 100, now.month, now.day),
+    );
+    setState(() {});
   }
 
   @override
@@ -85,7 +98,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   ToggleButtons(
                     selectedBorderColor: Colors.white,
                     isSelected: isSelected,
-                    onPressed: toggleSelect,
+                    onPressed: _toggleSelect,
                     children: const [
                       SizedBox(
                         width: 70,
@@ -289,33 +302,13 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                       height: 10,
                     ),
                   if (isSubscription || isGuarantee)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          endDate = int.tryParse(value);
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "만료일을 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent),
+                      onPressed: _selectDate,
+                      child: Center(
+                        child: Text(
+                            DateFormat('yyyy년 MM월 dd일').format(endDate ?? now)),
                       ),
                     ),
                   if (isSubscription)
@@ -426,7 +419,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               serviceName: name!,
                               id: id!,
                               password: password!,
-                              endDate: endDate!,
+                              endDate:
+                                  DateFormat("yyyy/MM/dd").format(endDate!),
                               cost: cost!,
                             );
                           } else if (isPlatform &&
@@ -446,7 +440,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               brand: brand!,
                               productName: name!,
                               model: model!,
-                              endDate: endDate!,
+                              endDate:
+                                  DateFormat("yyyy/MM/dd").format(endDate!),
                               note: text!,
                             );
                           }

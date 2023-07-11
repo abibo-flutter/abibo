@@ -12,7 +12,7 @@ guarantee-apple: [
 Future<void> setGuarantee({
   required String brand,
   required String productName,
-  required int endDate,
+  required String endDate,
   required String note,
   required String model,
 }) async {
@@ -81,8 +81,6 @@ Future<void> updateGuarantee({
 
 Future<List<Map<String, dynamic>>> getGuarantee({
   required brand,
-  endDateMin = 0,
-  endDateMax = 10e8,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String productJson = prefs.getString('guarantee-$brand') ?? '[]';
@@ -93,9 +91,7 @@ Future<List<Map<String, dynamic>>> getGuarantee({
   productList = jsonDecode(productJson).cast<Map<String, dynamic>>();
 
   for (var product in productList) {
-    if (endDateMin < product['endDate'] && product['endDate'] < endDateMax) {
-      result.add(product);
-    }
+    result.add(product);
   }
   return result;
 }
