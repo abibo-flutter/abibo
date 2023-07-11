@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'edit_dialog.dart';
 import 'package:flutter/gestures.dart';
+import 'package:intl/intl.dart';
 
 void _showInfoDialog(context, widget) {
   showDialog(
@@ -42,6 +43,7 @@ class _PlatformCardState extends State<PlatformCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
+    final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () => _showInfoDialog(context, widget),
       child: Column(
@@ -72,6 +74,16 @@ class _PlatformCardState extends State<PlatformCard> {
                         Text(
                           widget.name.toUpperCase(),
                           style: ABTextTheme.CardTitle,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['password']));
+                          },
+                          icon: Icon(
+                            Icons.copy_rounded,
+                            color: Colors.white.withOpacity(0.7),
+                          ),
                         ),
                       ],
                     ),
@@ -179,6 +191,7 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
+    final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () => _showInfoDialog(context, widget),
       child: Column(
@@ -209,6 +222,16 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                         Text(
                           widget.name.toUpperCase(),
                           style: ABTextTheme.CardTitle,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Clipboard.setData(
+                                ClipboardData(text: widget.obj['password']));
+                          },
+                          icon: Icon(
+                            Icons.copy_rounded,
+                            color: Colors.white.withOpacity(0.7),
+                          ),
                         ),
                       ],
                     ),
@@ -241,14 +264,15 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                           child: Column(
                             children: [
                               Text(
-                                '결재금액',
+                                '결제금액',
                                 style: ABTextTheme.CardFirstStandard,
                               ),
                               Text.rich(
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "${widget.obj['cost']}",
+                                      text:
+                                          formatter.format(widget.obj['cost']),
                                       style: ABTextTheme.CardFirstHighlight,
                                     ),
                                     TextSpan(
