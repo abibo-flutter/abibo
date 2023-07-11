@@ -34,7 +34,6 @@ class _SettingScreenState extends State<SettingScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: EdgeInsets.only(
         top: screenHeight / 844 * 78,
@@ -70,15 +69,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       navigateToInitPINScreen();
                     }
                   },
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    '글자 스캔',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  onPressed: () async {},
                 ),
               ],
             ),
