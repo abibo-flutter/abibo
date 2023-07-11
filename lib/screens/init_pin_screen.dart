@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class InitPINScreen extends StatefulWidget {
   const InitPINScreen({super.key});
@@ -157,22 +158,25 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         onPressed: () async {
                           try {
                             if (pin == null || pinCheck == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("PIN과 PIN 확인을 입력해주세요."),
-                                ),
+                              Fluttertoast.showToast(
+                                msg: "PIN과 PIN확인을 입력해주세요.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                fontSize: 20,
                               );
                             } else if (pin!.length != 6) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("PIN이 6자리가 아닙니다."),
-                                ),
+                              Fluttertoast.showToast(
+                                msg: "PIN이 6글자가 아닙니다.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                fontSize: 20,
                               );
                             } else if (pin != pinCheck) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("PIN 확인이 올바르지 않습니다."),
-                                ),
+                              Fluttertoast.showToast(
+                                msg: "PIN재확인이 올바르지 않습니다.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                fontSize: 20,
                               );
                             } else if (int.tryParse(pin!) != null) {
                               prefs = await SharedPreferences.getInstance();
@@ -181,10 +185,11 @@ class _InitPINScreenState extends State<InitPINScreen> {
                             }
                           } catch (err) {
                             print(err);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("오류"),
-                              ),
+                            Fluttertoast.showToast(
+                              msg: "오류가 발생했습니다, 다시 시도해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              fontSize: 20,
                             );
                           }
                         },

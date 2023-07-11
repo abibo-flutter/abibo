@@ -5,6 +5,7 @@ import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'dart:async';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FingerPrintScreen extends StatefulWidget {
   const FingerPrintScreen({Key? key}) : super(key: key);
@@ -34,19 +35,20 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         // 인증 성공한 경우 다음 페이지로 이동하는 로직 추가
         Get.offAll(() => const MainScreen());
       } else {
-        // 인증 실패한 경우 메시지 표시
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("생체 인식에 실패했습니다."),
-          ),
+        Fluttertoast.showToast(
+          msg: "생체인식에 실패했습니다.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          fontSize: 20,
         );
       }
     } else {
       // 지문 인식이 지원되지 않는 기기일 경우 메시지 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("생체 인식이 지원되지 않는 기기입니다."),
-        ),
+      Fluttertoast.showToast(
+        msg: "생체인식이 지원하지 않느 기기이거나, 정보가 등록되어있지 않습니다",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 20,
       );
     }
   }
@@ -67,10 +69,11 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
           );
         } catch (e) {
           // Handle authentication error
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("생체 인식에 실패했습니다."),
-            ),
+          Fluttertoast.showToast(
+            msg: "오류가 발생했습니다, 다시 시도해주세요.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            fontSize: 20,
           );
         }
       }
@@ -80,18 +83,20 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         Get.offAll(() => const MainScreen());
       } else {
         // Display a message for authentication failure
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("생체 인식에 실패했습니다."),
-          ),
+        Fluttertoast.showToast(
+          msg: "생체인식에 실패했습니다.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          fontSize: 20,
         );
       }
     } else {
       // Display a message for unsupported devices
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("생체 인식이 지원되지 않는 기기입니다."),
-        ),
+      Fluttertoast.showToast(
+        msg: "생체인식이 지원하지 않는 기기이거나, 정보가 등록되어있지 않습니다.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 20,
       );
     }
   }
