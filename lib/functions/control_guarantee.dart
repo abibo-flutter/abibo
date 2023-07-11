@@ -14,6 +14,7 @@ Future<void> setGuarantee({
   required String productName,
   required int endDate,
   required String note,
+  required String model,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String productJson = prefs.getString('guarantee-$brand') ?? '[]';
@@ -70,6 +71,7 @@ Future<void> updateGuarantee({
 }) async {
   await removeGuarantee(brand: brand, obj: obj);
   await setGuarantee(
+    model: newObj['model'],
     brand: brand,
     productName: newObj['name'],
     endDate: newObj['endDate'],

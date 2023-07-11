@@ -62,7 +62,7 @@ class _EditDialogState extends State<EditDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.name),
+          Text(widget.name.toUpperCase()),
           const SizedBox(
             height: 10,
           ),
