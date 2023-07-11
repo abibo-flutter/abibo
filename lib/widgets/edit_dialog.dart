@@ -361,7 +361,7 @@ class _EditDialogState extends State<EditDialog> {
                 newObj: {
                   'id': id,
                   'password': password,
-                  'endDate': endDate,
+                  'endDate': DateFormat('yyyy/MM/dd').format(endDate!),
                   'cost': cost,
                 },
               );
@@ -376,7 +376,7 @@ class _EditDialogState extends State<EditDialog> {
                 newObj: {
                   'name': product,
                   'model': model,
-                  'endDate': endDate,
+                  'endDate': DateFormat('yyyy/MM/dd').format(endDate!),
                   'note': text,
                 },
               );
