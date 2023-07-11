@@ -22,6 +22,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   bool isMemo = false;
   bool isGuarantee = false;
   String? name;
+  String? model;
   String? brand;
   String? id;
   String? password;
@@ -249,6 +250,40 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
+                  if (isGuarantee)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  if (isGuarantee)
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          model = value.removeAllWhitespace;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: "모델명을 입력하세요",
+                        hintStyle: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white.withOpacity(0.6),
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                        // 입력중 text color
+                        color: Colors.white,
+                      ),
+                    ),
                   if (isSubscription || isGuarantee)
                     const SizedBox(
                       height: 10,
@@ -404,11 +439,13 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                             );
                           } else if (isGuarantee &&
                               brand != null &&
+                              model != null &&
                               endDate != null &&
                               text != null) {
                             await setGuarantee(
                               brand: brand!,
                               productName: name!,
+                              model: model!,
                               endDate: endDate!,
                               note: text!,
                             );

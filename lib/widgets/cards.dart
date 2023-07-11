@@ -490,6 +490,22 @@ class _GuaranteeCardState extends State<GuaranteeCard> {
                           child: Column(
                             children: [
                               Text(
+                                '모델명',
+                                style: ABTextTheme.CardFirstStandard,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  text: "${widget.obj['model']}",
+                                  style: ABTextTheme.CardFirstHighlight,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
                                 '예상 해지일',
                                 style: ABTextTheme.CardFirstStandard,
                               ),

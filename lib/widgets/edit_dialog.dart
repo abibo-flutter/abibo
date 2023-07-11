@@ -26,6 +26,7 @@ class _EditDialogState extends State<EditDialog> {
   String? id;
   String? password;
   String? product;
+  String? model;
   String? text;
   int? endDate;
   int? cost;
@@ -53,7 +54,7 @@ class _EditDialogState extends State<EditDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text(
-        "Add Todo",
+        "정보 수정하기",
         style: TextStyle(
           color: Colors.black,
         ),
@@ -143,6 +144,40 @@ class _EditDialogState extends State<EditDialog> {
               },
               decoration: InputDecoration(
                 hintText: "제품명을 입력하세요",
+                hintStyle: TextStyle(
+                  color: Colors.black.withOpacity(0.6),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 1.5,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.6),
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              style: const TextStyle(
+                // 입력중 text color
+                color: Colors.black,
+              ),
+            ),
+          if (isGuarantee)
+            const SizedBox(
+              height: 10,
+            ),
+          if (isGuarantee)
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  model = value.removeAllWhitespace;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "모델명을 입력하세요",
                 hintStyle: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                 ),
@@ -340,6 +375,7 @@ class _EditDialogState extends State<EditDialog> {
               );
             } else if (isGuarantee &&
                 product != null &&
+                model != null &&
                 endDate != null &&
                 text != null) {
               await updateGuarantee(
@@ -347,6 +383,7 @@ class _EditDialogState extends State<EditDialog> {
                 obj: widget.obj,
                 newObj: {
                   'name': product,
+                  'model': model,
                   'endDate': endDate,
                   'note': text,
                 },
