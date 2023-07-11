@@ -29,10 +29,13 @@ Future<void> setGuarantee({
   productList.add(newInfo);
 
   prefs.setString('guarantee-$brand', jsonEncode(productList));
-  prefs.setStringList(
-    'guarantees',
-    (prefs.getStringList('guarantees') ?? [])..add(brand),
-  );
+
+  if (!(await getGuaranteeList() ?? []).contains(brand)) {
+    prefs.setStringList(
+      'guarantees',
+      (prefs.getStringList('guarantees') ?? [])..add(brand),
+    );
+  }
 }
 
 Future<void> removeGuarantee({

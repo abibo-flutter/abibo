@@ -37,11 +37,14 @@ Future<void> setSubscription({
     serviceList.add(newInfo);
   }
 
-  prefs.setString('subscription-$serviceName', jsonEncode(serviceList));
-  prefs.setStringList(
-    'subscriptions',
-    (prefs.getStringList('subscriptions') ?? [])..add(serviceName),
-  );
+  await prefs.setString('subscription-$serviceName', jsonEncode(serviceList));
+
+  if (!(await getSubscriptionList() ?? []).contains(serviceName)) {
+    prefs.setStringList(
+      'subscriptions',
+      (prefs.getStringList('subscriptions') ?? [])..add(serviceName),
+    );
+  }
 }
 
 Future<void> removeSubscription({
@@ -55,6 +58,7 @@ Future<void> removeSubscription({
   );
   if (serviceList.isEmpty) {
     List<String> nameList = (await getSubscriptionList() ?? []);
+    nameList.remove(serviceName);
     nameList.remove(serviceName);
     await prefs.setStringList(
       'subscriptions',
