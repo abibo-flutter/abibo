@@ -20,59 +20,47 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    initTodos();
   }
 
-  Future<List<List>> searchTodos() async {
-    List<List> arr = [];
-    for (List list in await getAllPlatform()) {
-      arr.add(['platform', list[0], list[1]]);
-    }
-
-    for (List list in await getAllSubscription(sorted: true)) {
-      arr.add(['subscription', list[0], list[1]]);
-    }
-
-    for (List list in await getAllMemo()) {
-      arr.add(['memo', list[0], list[1]]);
-    }
-    return arr;
-  }
-
-  Future<List<List>> initTodos() async {
-    List<List> arr = [];
-    for (List list in await getAllPlatform()) {
-      arr.add(['platform', list[0], list[1]]);
-    }
-
-    for (List list in await getAllSubscription(sorted: true)) {
-      arr.add(['subscription', list[0], list[1]]);
-    }
-
-    for (List list in await getAllMemo()) {
-      arr.add(['memo', list[0], list[1]]);
-    }
-    return arr;
+  Future<void> initTodos() async {
+    infos = await searchInfos('');
+    setState(() {});
   }
 
   Future<List<List>> searchInfos(String inputText) async {
     List<List> arr = [];
-    for (String name in await getPlatformList() ?? []) {
-      if (!name.contains(inputText)) continue;
-      for (var obj in await getPlatform(platform: name)) {
-        arr.add(['platform', name, obj]);
+    if (searching.isEmpty) {
+      for (List list in await getAllPlatform()) {
+        arr.add(['platform', list[0], list[1]]);
       }
-    }
 
-    for (String name in await getSubscriptionList() ?? []) {
-      if (!name.contains(inputText)) continue;
-      for (var obj in await getSubscription(serviceName: name)) {
-        arr.add(['subscription', name, obj]);
+      for (List list in await getAllSubscription(sorted: true)) {
+        arr.add(['subscription', list[0], list[1]]);
       }
-    }
 
-    for (String name in await getMemoList() ?? []) {
-      if (!name.contains(inputText)) continue;
-      arr.add(['memo', name, await getMemo(title: name)]);
+      for (List list in await getAllMemo()) {
+        arr.add(['memo', list[0], list[1]]);
+      }
+    } else {
+      for (String name in await getPlatformList() ?? []) {
+        if (!name.contains(inputText)) continue;
+        for (var obj in await getPlatform(platform: name)) {
+          arr.add(['platform', name, obj]);
+        }
+      }
+
+      for (String name in await getSubscriptionList() ?? []) {
+        if (!name.contains(inputText)) continue;
+        for (var obj in await getSubscription(serviceName: name)) {
+          arr.add(['subscription', name, obj]);
+        }
+      }
+
+      for (String name in await getMemoList() ?? []) {
+        if (!name.contains(inputText)) continue;
+        arr.add(['memo', name, await getMemo(title: name)]);
+      }
     }
     return arr;
   }
@@ -128,11 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
             style: ABTextTheme.SearchingText,
             onChanged: (value) async {
               searching = value.toLowerCase().removeAllWhitespace;
-              if (searching.isEmpty) {
-                infos = await searchTodos();
-              } else {
-                infos = await searchInfos(searching);
-              }
+              infos = await searchInfos(searching);
               setState(() {});
             },
           ),
@@ -154,69 +138,35 @@ class _SearchScreenState extends State<SearchScreen> {
                   String type = infos[index][0];
                   String name = infos[index][1];
                   dynamic obj = infos[index][2];
-                  if (searching == '') {
-                    if (type == 'platform') {
-                      return PlatformCard(
-                        name: name,
-                        obj: obj,
-                        change: () async {
-                          searchTodos();
-                          setState(() {});
-                        },
-                      );
-                    }
-                    if (type == 'memo') {
-                      return MemoCard(
-                        name: name,
-                        text: obj,
-                        change: () async {
-                          searchTodos();
-                          setState(() {});
-                        },
-                      );
-                    }
-                    if (type == 'subscription') {
-                      return SubscriptionCard(
-                        name: name,
-                        obj: obj,
-                        change: () async {
-                          searchTodos();
-                          setState(() {});
-                        },
-                      );
-                    }
-                  } else {
-                    if (type == 'platform') {
-                      return PlatformCard(
-                        name: name,
-                        obj: obj,
-                        change: () async {
-                          infos = await searchInfos(searching);
-                          setState(() {});
-                        },
-                      );
-                    }
-                    if (type == 'memo') {
-                      return MemoCard(
-                        name: name,
-                        text: obj,
-                        change: () async {
-                          infos = await searchInfos(searching);
-                          setState(() {});
-                        },
-                      );
-                    }
-                    if (type == 'subscription') {
-                      return SubscriptionCard(
-                        name: name,
-                        obj: obj,
-                        change: () async {
-                          infos = await searchInfos(searching);
-                          setState(() {});
-                        },
-                      );
-                    }
-                    return null;
+                  if (type == 'platform') {
+                    return PlatformCard(
+                      name: name,
+                      obj: obj,
+                      change: () async {
+                        infos = await searchInfos(searching);
+                        setState(() {});
+                      },
+                    );
+                  }
+                  if (type == 'memo') {
+                    return MemoCard(
+                      name: name,
+                      text: obj,
+                      change: () async {
+                        infos = await searchInfos(searching);
+                        setState(() {});
+                      },
+                    );
+                  }
+                  if (type == 'subscription') {
+                    return SubscriptionCard(
+                      name: name,
+                      obj: obj,
+                      change: () async {
+                        infos = await searchInfos(searching);
+                        setState(() {});
+                      },
+                    );
                   }
                   return null;
                 },
