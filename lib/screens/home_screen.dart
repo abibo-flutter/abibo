@@ -10,6 +10,7 @@ import 'package:abibo/widgets/register_dialog.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/screens/subservices.dart';
 import 'package:abibo/screens/memos.dart';
+import 'package:abibo/screens/gurantees.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -145,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight / 844 * 116,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(const Platforms());
+                          Get.to(() => const Platforms());
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -173,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight / 844 * 116,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(const SubServices());
+                          Get.to(() => const SubServices());
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -201,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight / 844 * 116,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(const Platforms());
+                          Get.to(() => const Gurantees());
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -229,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight / 844 * 116,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(const Memos());
+                          Get.to(() => const Memos());
                         },
                         style: ButtonStyle(
                           backgroundColor:

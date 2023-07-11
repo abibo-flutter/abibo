@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:abibo/functions/control_gurantee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -16,10 +16,11 @@ class RegisterInfoScreen extends StatefulWidget {
 
 class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   late SharedPreferences prefs;
-  List<bool> isSelected = [true, false, false];
+  List<bool> isSelected = [true, false, false, false];
   bool isPlatform = true;
   bool isSubscription = false;
   bool isMemo = false;
+  bool isGurantee = false;
   String? name;
   String? id;
   String? password;
@@ -27,13 +28,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   int? endDate;
   int? cost;
   void toggleSelect(index) {
-    isSelected = [false, false, false];
+    isSelected = [false, false, false, false];
     isSelected[index] = true;
     setState(() {
       isSelected = isSelected;
       isPlatform = isSelected[0];
       isSubscription = isSelected[1];
-      isMemo = isSelected[2];
+      isGurantee = isSelected[2];
+      isMemo = isSelected[3];
     });
   }
 
@@ -101,6 +103,13 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         width: 70,
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
+                          child: Center(child: Text('보증서')),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Center(child: Text('메모')),
                         ),
                       ),
@@ -114,7 +123,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: "${(isMemo) ? '제목' : '서비스 이름'}을 입력하세요",
+                      hintText:
+                          "${(isMemo || isGurantee) ? '제목' : '서비스 이름'}을 입력하세요",
                       hintStyle: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                       ),
@@ -204,11 +214,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  if (isPlatform || isSubscription)
+                  if (isPlatform || isSubscription || isGurantee)
                     const SizedBox(
                       height: 10,
                     ),
-                  if (isSubscription)
+                  if (isSubscription || isGurantee)
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -276,11 +286,40 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                  if (isMemo)
-                    const SizedBox(
-                      height: 10,
+                  if (isGurantee)
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          id = value.removeAllWhitespace;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: "브랜드를 입력하세요",
+                        hintStyle: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white.withOpacity(0.6),
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                        // 입력중 text color
+                        color: Colors.white,
+                      ),
                     ),
-                  if (isMemo)
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (isMemo || isGurantee)
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -312,7 +351,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         color: Colors.white,
                       ),
                     ),
-                  if (isMemo)
+                  if (isMemo || isGurantee)
                     const SizedBox(
                       height: 10,
                     ),
@@ -362,6 +401,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               id: id!,
                               password: password!,
                             );
+                          } else if (isGurantee && id != null && text != null) {
+                            await setGurantee(
+                                serviceName: name!,
+                                id: id!,
+                                endDate: endDate!,
+                                moreMemo: text!);
                           }
                           Navigator.pop(context);
                         },
