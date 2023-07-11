@@ -390,7 +390,7 @@ class _GuaranteeCardState extends State<GuaranteeCard> {
                         Container(
                           width: 42,
                           height: 42,
-                          decoration: CircleDesign.BlueGradient,
+                          decoration: CircleDesign.PurpleGradient,
                         ),
                         SizedBox(width: screenWidth / 390 * 16),
                         Text(

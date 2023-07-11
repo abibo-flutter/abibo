@@ -43,4 +43,18 @@ abstract class CircleDesign {
     ),
     shape: OvalBorder(),
   );
+  static const PurpleGradient = ShapeDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(1.00, 0.00),
+      end: Alignment(-1, 0),
+      colors: [
+        Color(0xFF12062B),
+        Color(0xFFC178F6),
+        Color(0xFFE4E7EE),
+        Color(0xFFC178F6),
+        Color(0xFF11062B)
+      ],
+    ),
+    shape: OvalBorder(),
+  );
 }
