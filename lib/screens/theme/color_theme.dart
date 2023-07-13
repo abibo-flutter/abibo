@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+abstract class ABColors {
+  static const MAIN_THEME = Color(0xFF6B19DC);
+}
+
 abstract class CircleDesign {
   static const RedGradient = ShapeDecoration(
     gradient: LinearGradient(

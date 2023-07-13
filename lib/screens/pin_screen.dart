@@ -6,6 +6,7 @@ import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/finger_print_screen.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'theme/color_theme.dart';
 
 class PINScreen extends StatefulWidget {
   const PINScreen({Key? key}) : super(key: key);
@@ -42,26 +43,18 @@ class _PINScreenState extends State<PINScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/second_login_screen.png'),
-            fit: BoxFit.fill,
-          ),
-        ),
+        decoration: const BoxDecoration(color: ABColors.MAIN_THEME),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top: screenHeight / 844 * 30,
+                top: screenHeight / 844 * 157,
                 bottom: 0,
                 left: screenHeight / 844 * 23,
                 right: screenHeight / 844 * 23,
               ),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: screenHeight / 844 * 83,
-                  ),
                   const Text(
                     'Abibo',
                     style: ABTextTheme.LoginMainText1,
@@ -70,7 +63,7 @@ class _PINScreenState extends State<PINScreen> {
                     height: screenHeight / 844 * 12,
                   ),
                   const Text(
-                    'PIN 번호 6자리를 입력해주세요!',
+                    'PIN 번호를 입력해주세요!',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -196,7 +189,7 @@ class _PINScreenState extends State<PINScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight / 844 * 16),
+                  SizedBox(height: screenHeight / 844 * 10),
                   InkWell(
                     onTap: () {
                       Get.offAll(() => const FingerPrintScreen());

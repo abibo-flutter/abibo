@@ -55,6 +55,14 @@ abstract class ABTextTheme {
     color: Color(0xFF999999),
     letterSpacing: -0.4,
   );
+  static const SplashScreenMain = TextStyle(
+    color: Colors.white,
+    fontSize: 48,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.normal,
+    height: -0.4,
+    letterSpacing: -0.4,
+  );
   static const LoginMainText1 = TextStyle(
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.normal,
@@ -175,7 +183,7 @@ abstract class ABTextTheme {
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w700,
   );
-  static final CardSecondHighlight = const TextStyle(
+  static const CardSecondHighlight = TextStyle(
     color: Colors.white,
     fontSize: 16,
     fontFamily: 'Pretendard',

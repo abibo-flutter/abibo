@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
+import 'theme/color_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,22 +12,33 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    // ignore: unused_local_variable
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
+        width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue, Colors.purple],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          color: ABColors.MAIN_THEME,
         ),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Abibo SplashScreen',
+            SizedBox(height: screenHeight / 844 * 375),
+            const Text(
+              'Abibo',
               style: ABTextTheme.MainMainText,
+            ),
+            SizedBox(height: screenHeight / 844 * 180),
+            Text(
+              '2023.@All rights reserved',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.30000001192092896),
+                fontSize: 12,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w700,
+                height: 20,
+              ),
             ),
           ],
         ),

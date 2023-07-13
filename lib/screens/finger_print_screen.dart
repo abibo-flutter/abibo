@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'theme/color_theme.dart';
 
 class FingerPrintScreen extends StatefulWidget {
   const FingerPrintScreen({Key? key}) : super(key: key);
@@ -110,14 +111,11 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/second_login_screen.png'),
-            fit: BoxFit.fill,
-          ),
+          color: ABColors.MAIN_THEME,
         ),
         child: Padding(
           padding: EdgeInsets.only(
-            top: screenHeight / 844 * 128,
+            top: screenHeight / 844 * 162,
             bottom: 0,
             left: screenWidth / 844 * 23,
             right: screenWidth / 844 * 23,
@@ -129,13 +127,13 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 'Abibo',
                 style: ABTextTheme.MainMainText,
               ),
-              SizedBox(height: screenHeight / 844 * 90),
+              SizedBox(height: screenHeight / 844 * 42),
               const Text(
                 '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
                 textAlign: TextAlign.center,
                 style: ABTextTheme.FingerPrintLoginDescription,
               ),
-              SizedBox(height: screenHeight / 844 * 270),
+              SizedBox(height: screenHeight / 844 * 300),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
