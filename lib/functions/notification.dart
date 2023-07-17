@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
 
 final notifications = FlutterLocalNotificationsPlugin();
+late List<int> DateDiffs;
 
 initNotification() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
   AndroidInitializationSettings androidSetting =
       const AndroidInitializationSettings('notification_icon');
 
@@ -23,9 +30,12 @@ initNotification() async {
     initializationSettings,
     onDidReceiveNotificationResponse: (payload) {},
   );
+
+  DateDiffs =
+      jsonDecode(prefs.getString('period') ?? '[1, 7, 14, 30]').cast<int>();
 }
 
-showNotification({
+registerNotification({
   required String type,
   required String name,
   required String detail,
@@ -46,10 +56,11 @@ showNotification({
     presentSound: true,
   );
 
-  DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
-  date.subtract(Duration(minutes: dateDiff));
+  DateTime date = DateTime.now();
+  // DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
+  date = date.add(Duration(minutes: dateDiff));
   // date.subtract(Duration(days: dateDiff));
-  int notificationId = '$type $name $detail'.hashCode;
+  int notificationId = '$type $name $detail $dateDiff'.hashCode;
 
   tz.initializeTimeZones();
 
@@ -61,6 +72,7 @@ showNotification({
     NotificationDetails(android: androidDetails, iOS: iosDetails),
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
+    androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     matchDateTimeComponents: DateTimeComponents.time,
   );
 }
@@ -70,6 +82,8 @@ cancelNotification({
   required String name,
   required String detail,
 }) async {
-  int notificationId = '$type $name $detail'.hashCode;
-  notifications.cancel(notificationId);
+  for (int dateDiff in DateDiffs) {
+    int notificationId = '$type $name $detail $dateDiff'.hashCode;
+    notifications.cancel(notificationId);
+  }
 }

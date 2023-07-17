@@ -1,3 +1,5 @@
+import 'package:abibo/functions/notification.dart';
+
 import 'screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _loadData();
+    initNotification();
   }
 
   Future<void> _loadData() async {
