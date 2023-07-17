@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:abibo/functions/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 데이터 형식
@@ -23,6 +24,7 @@ Future<void> setGuarantee({
 
   Map newInfo = {
     'name': productName,
+    'model': model,
     'endDate': endDate,
     'note': note,
   };
@@ -30,6 +32,16 @@ Future<void> setGuarantee({
   productList.add(newInfo);
 
   prefs.setString('guarantee-$brand', jsonEncode(productList));
+
+  for (int date in [1, 2, 3, 4, 5, 6, 7]) {
+    await showNotification(
+      type: "guarantee",
+      name: brand,
+      detail: productName,
+      endDate: endDate,
+      dateDiff: date,
+    );
+  }
 
   if (!(await getGuaranteeList() ?? []).contains(brand)) {
     prefs.setStringList(
@@ -44,11 +56,19 @@ Future<void> removeGuarantee({
   required dynamic obj,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+
   List productList = await getGuarantee(brand: brand);
   productList.removeWhere(
     (item) =>
         (obj['name'] == item['name'] && obj['endDate'] == item['endDate']),
   );
+
+  await cancelNotification(
+    type: "guarantee",
+    name: brand,
+    detail: obj["name"],
+  );
+
   if (productList.isEmpty) {
     List<String> brandList = (await getGuaranteeList() ?? []);
     brandList.remove(brand);

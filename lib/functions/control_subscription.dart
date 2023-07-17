@@ -1,15 +1,15 @@
 import 'dart:convert';
+import 'package:abibo/functions/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 데이터 형식
 /*
-?사실상 구독 서비스
 subscription-netflix: [
-  {'id': 'qwerty', 'password': 'qwerty', 'payDate': 20230621, 'endDate': 20240621, 'cost': 10000},
+  {'id': 'qwerty', 'password': 'qwerty', 'endDate': 2024/06/21, 'cost': 10000},
 ],
 subscription-spotify: [
-  {'id': 'qwerty', 'password': 'qwerty', 'payDate': 20230621, 'endDate': 20240621, 'cost': 10000},
-  {'id': 'asdfgh', 'password': 'asdfgh', 'payDate': 20220621, 'endDate': 20230621, 'cost': 7000},
+  {'id': 'qwerty', 'password': 'qwerty', 'endDate': 2024/06/21, 'cost': 10000},
+  {'id': 'asdfgh', 'password': 'asdfgh', 'endDate': 2023/06/21, 'cost': 7000},
 ],
 */
 
@@ -37,6 +37,16 @@ Future<void> setSubscription({
     serviceList.add(newInfo);
   }
 
+  for (int date in [1, 2, 3, 4, 5, 6, 7]) {
+    await showNotification(
+      type: "subscription",
+      name: serviceName,
+      detail: id,
+      endDate: endDate,
+      dateDiff: date,
+    );
+  }
+
   await prefs.setString('subscription-$serviceName', jsonEncode(serviceList));
 
   if (!(await getSubscriptionList() ?? []).contains(serviceName)) {
@@ -56,9 +66,15 @@ Future<void> removeSubscription({
   serviceList.removeWhere(
     (item) => (obj['id'] == item['id']),
   );
+
+  cancelNotification(
+    type: "subscription",
+    name: serviceName,
+    detail: obj["id"],
+  );
+
   if (serviceList.isEmpty) {
     List<String> nameList = (await getSubscriptionList() ?? []);
-    nameList.remove(serviceName);
     nameList.remove(serviceName);
     await prefs.setStringList(
       'subscriptions',
@@ -120,7 +136,13 @@ Future<List<List>> getAllSubscription() async {
     service = await getSubscription(serviceName: name);
     serviceList.addAll(List.generate(
         service.length, (index) => [name, service[index]])); //시간순 정렬
-    //serviceList = [{...}, {...}, {...}]
+    /*
+    serviceList = [
+      [name, {...}], 
+      [name, {...}], 
+      [name, {...}], 
+      ]
+    */
   }
   serviceList.sort((a, b) => a[1]['endDate'].compareTo(b[1]['endDate']));
   // 일단 버블 정렬이고 필요하면 바꿀 수 있음
