@@ -26,12 +26,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _loadData();
-    initNotification();
   }
 
   Future<void> _loadData() async {
+    await initNotification();
     await Future.delayed(
-        const Duration(seconds: 3)); // splash screen이 표시될 시간(초)
+        const Duration(seconds: 2)); // splash screen이 표시될 시간(초)
     setState(() {
       _showSplashScreen = false;
     });

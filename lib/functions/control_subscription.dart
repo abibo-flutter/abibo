@@ -37,7 +37,7 @@ Future<void> setSubscription({
     serviceList.add(newInfo);
   }
 
-  for (int date in DateDiffs) {
+  for (String date in DateDiffs) {
     await registerNotification(
       type: "subscription",
       name: serviceName,

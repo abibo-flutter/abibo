@@ -8,9 +8,10 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
 
 final notifications = FlutterLocalNotificationsPlugin();
-late List<int> DateDiffs;
+late List<String> DateDiffs;
+List<int> months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-initNotification() async {
+Future<void> initNotification() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   AndroidInitializationSettings androidSetting =
@@ -31,16 +32,18 @@ initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  DateDiffs =
-      jsonDecode(prefs.getString('period') ?? '[1, 7, 14, 30]').cast<int>();
+  DateDiffs = jsonDecode(prefs.getString('period') ??
+          "['1d', '2d', '3d', '4d', '5d', '6d', '1w', '2w', '3w', '1m', '2m', '3m']")
+      .cast<String>();
 }
 
-registerNotification({
+qwerty() {}
+Future<void> registerNotification({
   required String type,
   required String name,
   required String detail,
   required String endDate,
-  required int dateDiff,
+  required String dateDiff,
 }) async {
   var androidDetails = const AndroidNotificationDetails(
     'ID',
@@ -56,10 +59,17 @@ registerNotification({
     presentSound: true,
   );
 
-  DateTime date = DateTime.now();
-  // DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
-  date = date.add(Duration(minutes: dateDiff));
-  // date.subtract(Duration(days: dateDiff));
+  DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
+  int diff = int.parse(dateDiff.substring(0, dateDiff.length - 1));
+
+  if (dateDiff.endsWith('d')) {
+    date.subtract(Duration(days: diff));
+  } else if (dateDiff.endsWith('w')) {
+    date.subtract(Duration(days: diff * 7));
+  } else if (dateDiff.endsWith('m')) {
+    date.subtract(Duration(days: diff * months[date.month - 2]));
+  }
+
   int notificationId = '$type $name $detail $dateDiff'.hashCode;
 
   tz.initializeTimeZones();
@@ -77,12 +87,12 @@ registerNotification({
   );
 }
 
-cancelNotification({
+Future<void> cancelNotification({
   required String type,
   required String name,
   required String detail,
 }) async {
-  for (int dateDiff in DateDiffs) {
+  for (String dateDiff in DateDiffs) {
     int notificationId = '$type $name $detail $dateDiff'.hashCode;
     notifications.cancel(notificationId);
   }

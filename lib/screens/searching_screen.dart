@@ -32,10 +32,6 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<List>> searchInfos(String inputText) async {
     List<List> arr = [];
     if (searching.isEmpty) {
-      for (List list in await getAllPlatform()) {
-        arr.add(['platform', list[0], list[1]]);
-      }
-
       for (List list in await getAllSubscription()) {
         arr.add(['subscription', list[0], list[1]]);
       }
@@ -44,17 +40,16 @@ class _SearchScreenState extends State<SearchScreen> {
         arr.add(['guarantee', list[0], list[1]]);
       }
 
+      arr.sort((a, b) => a[2]['endDate'].compareTo(b[2]['endDate']));
+
+      for (List list in await getAllPlatform()) {
+        arr.add(['platform', list[0], list[1]]);
+      }
+
       for (List list in await getAllMemo()) {
         arr.add(['memo', list[0], list[1]]);
       }
     } else {
-      for (String name in await getPlatformList() ?? []) {
-        if (!name.contains(inputText)) continue;
-        for (var obj in await getPlatform(platform: name)) {
-          arr.add(['platform', name, obj]);
-        }
-      }
-
       for (String name in await getSubscriptionList() ?? []) {
         if (!name.contains(inputText)) continue;
         for (var obj in await getSubscription(serviceName: name)) {
@@ -66,6 +61,15 @@ class _SearchScreenState extends State<SearchScreen> {
         if (!name.contains(inputText)) continue;
         for (var obj in await getGuarantee(brand: name)) {
           arr.add(['guarantee', name, obj]);
+        }
+      }
+
+      arr.sort((a, b) => a[2]['endDate'].compareTo(b[2]['endDate']));
+
+      for (String name in await getPlatformList() ?? []) {
+        if (!name.contains(inputText)) continue;
+        for (var obj in await getPlatform(platform: name)) {
+          arr.add(['platform', name, obj]);
         }
       }
 
