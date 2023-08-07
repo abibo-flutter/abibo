@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:abibo/screens/theme/color_theme.dart';
 
 abstract class ABTextTheme {
   static const MenuBar = TextStyle(
@@ -133,6 +134,14 @@ abstract class ABTextTheme {
     fontSize: 48,
     height: 1.2,
     color: Colors.white,
+    letterSpacing: -0.4,
+  );
+  static const RegisterInfoMainText = TextStyle(
+    fontFamily: 'NotoSansKR',
+    fontWeight: FontWeight.normal,
+    fontSize: 32,
+    height: 1.2,
+    color: ABColors.MAIN_THEME,
     letterSpacing: -0.4,
   );
   static const SearchingText = TextStyle(
