@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class ABColors {
   static const MAIN_THEME = Color(0xFF6B19DC);
+  static const Regi_Hint_Color = Color(0xFFD7D5D5);
 }
 
 abstract class CircleDesign {

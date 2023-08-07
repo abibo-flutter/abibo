@@ -7,6 +7,7 @@ import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/control_memo.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:abibo/screens/theme/color_theme.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class RegisterInfoScreen extends StatefulWidget {
 
 class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   late SharedPreferences prefs;
-  List<bool> isSelected = [true, false, false, false];
+  List<bool> isSelected = [true, false, false];
   bool isPlatform = true;
   bool isSubscription = false;
   bool isMemo = false;
@@ -33,14 +34,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   DateTime now = DateTime.now();
 
   void _toggleSelect(index) {
-    isSelected = [false, false, false, false];
+    isSelected = [false, false, false];
     isSelected[index] = true;
     setState(() {
       isSelected = isSelected;
       isPlatform = isSelected[0];
       isSubscription = isSelected[1];
       isGuarantee = isSelected[2];
-      isMemo = isSelected[3];
+      //isMemo = isSelected[3];
     });
   }
 
@@ -67,335 +68,384 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/main_screen.png'),
-            fit: BoxFit.fill,
-          ),
-        ),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Padding(
           padding: EdgeInsets.only(
-            top: screenHeight / 844 * 78,
+            top: screenHeight / 844 * 60,
             bottom: 0,
-            left: screenHeight / 844 * 26,
-            right: screenHeight / 844 * 26,
+            left: screenWidth / 390 * 30,
+            right: screenWidth / 390 * 30,
           ),
           child: Column(
             children: [
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: ABColors.MAIN_THEME,
+                      size: 30,
+                    ),
+                  ),
+                  const Text(
                     '정보 등록하기',
-                    style: ABTextTheme.MainMainText,
+                    style: ABTextTheme.RegisterInfoMainText,
                   ),
                 ],
               ),
               SizedBox(
-                height: screenHeight / 844 * 54,
+                height: screenHeight / 844 * 34,
               ),
               Column(
                 children: [
                   ToggleButtons(
                     selectedBorderColor: Colors.white,
+                    disabledBorderColor: Colors.white,
                     isSelected: isSelected,
                     onPressed: _toggleSelect,
-                    children: const [
-                      SizedBox(
-                        width: 70,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Center(child: Text('플랫폼')),
                         ),
                       ),
-                      SizedBox(
-                        width: 70,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Center(child: Text('구독')),
                         ),
                       ),
-                      SizedBox(
-                        width: 70,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Center(child: Text('보증서')),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 70,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Center(child: Text('메모')),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        name = value.toLowerCase().removeAllWhitespace;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText:
-                          "${(isMemo) ? '제목' : (isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
-                      hintStyle: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF4F4F4),
+                      border: Border.all(
+                        color: const Color(0xFFD6D4D4),
+                        width: 0.5,
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white.withOpacity(0.6),
-                          width: 1.5,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 0.5,
+                          blurRadius: 10,
+                          offset: const Offset(0, 0),
                         ),
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 1.5,
-                        ),
-                      ),
+                      ],
                     ),
-                    style: const TextStyle(
-                      // 입력중 text color
-                      color: Colors.white,
+                    padding: EdgeInsets.only(
+                      left: screenWidth / 390 * 30,
+                      right: screenWidth / 390 * 30,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: screenHeight / 844 * 24),
+                        Row(
+                          children: [
+                            Text(
+                                (isMemo)
+                                    ? '제목'
+                                    : (isGuarantee)
+                                        ? '제품명'
+                                        : '서비스 이름',
+                                style: ABTextTheme.RegiEachTitle),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                name = value.toLowerCase().removeAllWhitespace;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText:
+                                  "${(isMemo) ? '제목' : (isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
+                              hintStyle: const TextStyle(
+                                color: ABColors.Regi_Hint_Color,
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ABColors.Regi_Hint_Color,
+                                  width: 1.5,
+                                ),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ABColors.Regi_Hint_Color,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(
+                              // 입력중 text color
+                              color: Color(0xFF818181),
+                            ),
+                          ),
+                        ),
+                        if (isPlatform || isSubscription)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('아이디', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      id = value.removeAllWhitespace;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: "아이디를 입력하세요",
+                                    hintStyle: TextStyle(
+                                        color: ABColors.Regi_Hint_Color),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (isPlatform || isSubscription)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('비밀번호',
+                                      style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      password = value.removeAllWhitespace;
+                                    });
+                                  },
+                                  obscureText: true,
+                                  decoration: const InputDecoration(
+                                    hintText: "비밀번호를 입력하세요",
+                                    hintStyle: TextStyle(
+                                        color: ABColors.Regi_Hint_Color),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (isGuarantee)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('브랜드', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      brand = value.removeAllWhitespace;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: "브랜드를 입력하세요",
+                                    hintStyle: TextStyle(
+                                      color: ABColors.Regi_Hint_Color,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (isGuarantee)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('모델명', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      model = value.removeAllWhitespace;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: "모델명을 입력하세요",
+                                    hintStyle: TextStyle(
+                                      color: ABColors.Regi_Hint_Color,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (isSubscription)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('금액', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      cost = int.tryParse(value);
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: "금액을 입력하세요",
+                                    hintStyle: TextStyle(
+                                        color: ABColors.Regi_Hint_Color),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (isSubscription || isGuarantee)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('구독일', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(height: screenHeight / 844 * 10),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: ABColors.MAIN_THEME,
+                                ),
+                                onPressed: _selectDate,
+                                child: Center(
+                                  child: Text(DateFormat('yyyy년 MM월 dd일')
+                                      .format(endDate ?? now)),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        SizedBox(height: screenHeight / 844 * 20),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  if (isPlatform || isSubscription)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          id = value.removeAllWhitespace;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "아이디를 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  if (isPlatform || isSubscription)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isPlatform || isSubscription)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          password = value.removeAllWhitespace;
-                        });
-                      },
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: "비밀번호를 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  if (isGuarantee)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isGuarantee)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          brand = value.removeAllWhitespace;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "브랜드를 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  if (isGuarantee)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isGuarantee)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          model = value.removeAllWhitespace;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "모델명을 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  if (isSubscription || isGuarantee)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isSubscription || isGuarantee)
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                      ),
-                      onPressed: _selectDate,
-                      child: Center(
-                        child: Text(
-                            DateFormat('yyyy년 MM월 dd일').format(endDate ?? now)),
-                      ),
-                    ),
-                  if (isSubscription)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isSubscription)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          cost = int.tryParse(value);
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "금액을 입력하세요",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  if (isMemo || isGuarantee)
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  if (isMemo || isGuarantee)
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          text = value;
-                        });
-                      },
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: "내용을 입력하세요\n\n\n\n",
-                        hintStyle: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      style: const TextStyle(
-                        // 입력중 text color
-                        color: Colors.white,
-                      ),
-                    ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: screenHeight / 844 * 16),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(
-                        style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.white)),
-                        child: const Text("Cancel"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
@@ -403,7 +453,22 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           foregroundColor:
                               MaterialStateProperty.all(Colors.black),
                         ),
-                        child: const Text("Ok"),
+                        child: const Text("취소"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(ABColors.MAIN_THEME),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                        ),
+                        child: const Text("완료"),
                         onPressed: () async {
                           if (name == null) return;
                           if (isMemo && text != null) {

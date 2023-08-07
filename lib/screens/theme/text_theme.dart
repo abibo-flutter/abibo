@@ -27,17 +27,17 @@ abstract class ABTextTheme {
     letterSpacing: -0.4,
   );
   static const UpcomingIssueStandard = TextStyle(
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 34,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w700,
     height: 1,
   );
   static const UpcomingIssueHighlight = TextStyle(
-    color: Color(0xFFFFE27B),
+    color: Color(0xFFD966BB),
     fontSize: 34,
     fontFamily: 'Noto Sans KR',
-    fontWeight: FontWeight.w800,
+    fontWeight: FontWeight.w900,
     height: 1,
   );
   static const BottomNavibarTextSelected = TextStyle(
@@ -131,9 +131,17 @@ abstract class ABTextTheme {
   static const MainMainText = TextStyle(
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.normal,
-    fontSize: 24,
+    fontSize: 48,
     height: 1.2,
     color: Colors.white,
+    letterSpacing: -0.4,
+  );
+  static const RegiEachTitle = TextStyle(
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.normal,
+    fontSize: 16,
+    height: 1.2,
+    color: Colors.black,
     letterSpacing: -0.4,
   );
   static const RegisterInfoMainText = TextStyle(
