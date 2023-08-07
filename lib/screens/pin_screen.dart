@@ -47,165 +47,165 @@ class _PINScreenState extends State<PINScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                top: screenHeight / 844 * 157,
-                bottom: 0,
-                left: screenHeight / 844 * 23,
-                right: screenHeight / 844 * 23,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Abibo',
-                    style: ABTextTheme.LoginMainText1,
-                  ),
-                  SizedBox(
-                    height: screenHeight / 844 * 12,
-                  ),
-                  const Text(
-                    'PIN 번호를 입력해주세요!',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
+                padding: EdgeInsets.only(
+                  top: screenHeight / 844 * 157,
+                  bottom: 0,
+                  left: screenWidth / 390 * 30,
+                  right: screenWidth / 390 * 30,
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Abibo',
+                      style: ABTextTheme.LoginMainText1,
                     ),
-                  ),
-                  SizedBox(
-                    height: screenHeight / 844 * 63,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: screenHeight / 844 * 60,
-                    decoration: BoxDecoration(
-                      color: Colors.white10,
-                      borderRadius: BorderRadius.circular(15),
+                    SizedBox(
+                      height: screenHeight / 844 * 12,
                     ),
-                    child: Center(
-                      child: TextFormField(
-                        textAlign: TextAlign.center,
-                        readOnly: true,
-                        obscureText: true,
-                        obscuringCharacter: '●',
-                        decoration:
-                            const InputDecoration(border: InputBorder.none),
-                        controller: pinCodeEditor,
-                        focusNode: textFieldFocusNode,
-                        onTap: () {
-                          setState(() {
-                            onKeyboard = true;
-                          });
-                        },
-                        onTapOutside: (event) {
-                          Future.delayed(const Duration(milliseconds: 100), () {
+                    const Text(
+                      'PIN 번호를 입력해주세요!',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight / 844 * 63,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: screenHeight / 844 * 60,
+                      decoration: BoxDecoration(
+                        color: Colors.white10,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          readOnly: true,
+                          obscureText: true,
+                          obscuringCharacter: '●',
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
+                          controller: pinCodeEditor,
+                          focusNode: textFieldFocusNode,
+                          onTap: () {
                             setState(() {
-                              pin = pinCodeEditor.text;
+                              onKeyboard = true;
                             });
-                          });
-                        },
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          },
+                          onTapOutside: (event) {
+                            Future.delayed(const Duration(milliseconds: 100),
+                                () {
+                              setState(() {
+                                pin = pinCodeEditor.text;
+                              });
+                            });
+                          },
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: screenHeight / 844 * 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: screenHeight / 844 * 70,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          if (pin == null) {
-                            Fluttertoast.showToast(
-                              msg: "PIN을 입력해주세요.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
-                            );
-                          } else if (pin!.length != 6) {
-                            Fluttertoast.showToast(
-                              msg: "PIN이 6자리가 아닙니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
-                            );
-                          } else if (int.tryParse(pin!) != null) {
-                            prefs = await SharedPreferences.getInstance();
-                            PIN = prefs.getString('PIN');
-                            if (PIN == pin) {
-                              Get.offAll(() => const MainScreen());
-                            } else {
+                    SizedBox(
+                      height: screenHeight / 844 * 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: screenHeight / 844 * 70,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          try {
+                            if (pin == null) {
                               Fluttertoast.showToast(
-                                msg: "PIN이 올바르지 않습니다.",
+                                msg: "PIN을 입력해주세요.",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 fontSize: 20,
                               );
+                            } else if (pin!.length != 6) {
+                              Fluttertoast.showToast(
+                                msg: "PIN이 6자리가 아닙니다.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                fontSize: 20,
+                              );
+                            } else if (int.tryParse(pin!) != null) {
+                              prefs = await SharedPreferences.getInstance();
+                              PIN = prefs.getString('PIN');
+                              if (PIN == pin) {
+                                Get.offAll(() => const MainScreen());
+                              } else {
+                                Fluttertoast.showToast(
+                                  msg: "PIN이 올바르지 않습니다.",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  fontSize: 20,
+                                );
+                              }
                             }
+                          } catch (err) {
+                            print(err);
+                            Fluttertoast.showToast(
+                              msg: "오류가 발생했습니다, 다시 시도해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              fontSize: 20,
+                            );
                           }
-                        } catch (err) {
-                          print(err);
-                          Fluttertoast.showToast(
-                            msg: "오류가 발생했습니다, 다시 시도해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            fontSize: 20,
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          elevation: 0,
                         ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        "메인으로",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        child: const Text(
+                          "메인으로",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: screenHeight / 844 * 26,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 0),
+                    SizedBox(
+                      height: screenHeight / 844 * 16,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 0),
+                        child: const Text(
+                          'PIN 번호를 분실했습니까?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight / 844 * 10),
+                    InkWell(
+                      onTap: () {
+                        Get.offAll(() => const FingerPrintScreen());
+                      },
                       child: const Text(
-                        'PIN 번호를 분실했습니까?',
+                        '생체인식을 이용하여 보안 인증하기',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: screenHeight / 844 * 10),
-                  InkWell(
-                    onTap: () {
-                      Get.offAll(() => const FingerPrintScreen());
-                    },
-                    child: const Text(
-                      '생체인식을 이용하여 보안 인증하기',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                )),
             const Expanded(
               child: SizedBox(),
             ),
@@ -218,6 +218,7 @@ class _PINScreenState extends State<PINScreen> {
                   });
                 },
               ),
+            SizedBox(height: screenHeight / 844 * 44),
           ],
         ),
       ),
