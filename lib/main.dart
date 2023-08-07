@@ -1,11 +1,11 @@
 import 'package:abibo/functions/notification.dart';
-
 import 'screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/pin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +45,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFF6B19DC),
+      statusBarIconBrightness: Brightness.dark,
+    ));
+
     return GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'Pretendard',

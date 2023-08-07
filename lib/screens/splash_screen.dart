@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBox(height: screenHeight / 844 * 180),
             Text(
-              '2023.@All rights reserved',
+              'Copyright 2023. Abibo All rights reserved',
               style: TextStyle(
                 color: Colors.white.withOpacity(0.30000001192092896),
                 fontSize: 12,

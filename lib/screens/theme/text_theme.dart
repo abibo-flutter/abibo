@@ -148,7 +148,7 @@ abstract class ABTextTheme {
     fontWeight: FontWeight.w100,
     fontSize: 20,
     height: 1.2,
-    color: Colors.white,
+    color: Colors.black,
     letterSpacing: -0.4,
   );
   static const FingerPrintLoginDescription = TextStyle(

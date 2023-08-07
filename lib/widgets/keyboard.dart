@@ -16,6 +16,7 @@ class KeyBoard extends StatefulWidget {
 
 class _KeyBoardState extends State<KeyBoard> {
   late List<Widget> keys;
+
   @override
   void initState() {
     super.initState();
@@ -51,13 +52,13 @@ class _KeyBoardState extends State<KeyBoard> {
             setState(() {});
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+            decoration: const BoxDecoration(
+              color: Colors.white,
             ),
             child: const Center(
               child: Icon(
                 Icons.backspace_outlined,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -71,13 +72,13 @@ class _KeyBoardState extends State<KeyBoard> {
             widget.enterFunc();
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+            decoration: const BoxDecoration(
+              color: Colors.white,
             ),
             child: const Center(
               child: Icon(
                 Icons.keyboard_return,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -87,15 +88,21 @@ class _KeyBoardState extends State<KeyBoard> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    // ignore: unused_local_variable
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.transparent),
       ),
+      width: screenWidth / 390 * 335,
+      height: screenHeight / 844 * 250,
       child: GridView.count(
         padding: EdgeInsets.zero,
         crossAxisCount: 3,
         shrinkWrap: true,
-        childAspectRatio: 1.8,
+        childAspectRatio: 1.9,
         children: List.generate(keys.length, (index) {
           Widget key = keys[index];
           key = Container(
@@ -103,16 +110,16 @@ class _KeyBoardState extends State<KeyBoard> {
               border: Border(
                 top: index < 3
                     ? BorderSide.none
-                    : const BorderSide(width: 0.5, color: Colors.white),
+                    : const BorderSide(width: 0.3, color: Colors.black),
                 left: index == 0 || index == 3 || index == 6 || index == 9
                     ? BorderSide.none
-                    : const BorderSide(width: 0.5, color: Colors.white),
+                    : const BorderSide(width: 0.3, color: Colors.black),
                 bottom: index == 9 || index == 10 || index == 11
                     ? BorderSide.none
-                    : const BorderSide(width: 0.5, color: Colors.white),
+                    : const BorderSide(width: 0.3, color: Colors.black),
                 right: index == 2 || index == 5 || index == 8 || index == 11
                     ? BorderSide.none
-                    : const BorderSide(width: 0.5, color: Colors.white),
+                    : const BorderSide(width: 0.3, color: Colors.black),
               ),
             ),
             child: key,
@@ -149,7 +156,7 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
           }
         },
         child: Ink(
-          color: Colors.white.withOpacity(0.08),
+          color: Colors.white,
           child: Center(
             child: Text(
               widget.value,
