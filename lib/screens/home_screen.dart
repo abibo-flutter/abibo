@@ -1,7 +1,6 @@
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
@@ -27,9 +26,6 @@ void navigateToChangePINScreen() {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late SharedPreferences prefs;
-  String? PIN;
-
   @override
   void initState() {
     super.initState();
@@ -38,88 +34,99 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
 
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
-          top: screenHeight / 844 * 78,
+          top: screenHeight / 844 * 35,
           bottom: 0,
-          left: screenWidth / 390 * 28,
-          right: screenWidth / 390 * 28,
+          left: screenWidth / 390 * 32,
+          right: screenWidth / 390 * 32,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
-                Text(
+                const Text(
                   'Abibo',
                   style: ABTextTheme.MainMainText,
+                ),
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                SizedBox(
+                  width: screenWidth / 390 * 36,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                    foregroundColor: const Color(0xFF6B19DC),
+                    child: const Icon(
+                      Icons.notifications,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: screenWidth / 390 * 12,
+                ),
+                SizedBox(
+                  width: screenWidth / 390 * 36,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    elevation: 0,
+                    backgroundColor: Colors.white,
+                    foregroundColor: const Color(0xFF6B19DC),
+                    child: const Icon(
+                      Icons.search,
+                    ),
+                  ),
                 ),
               ],
             ),
             SizedBox(
-              height: screenHeight / 844 * 50,
+              height: screenHeight / 844 * 33,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 4),
-              child: Container(
-                height: screenHeight / 844 * 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: screenWidth / 390 * 20,
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('NETFLIX',
-                                style: ABTextTheme.UpcomingIssueStandard),
-                            Row(
-                              children: [
-                                Text('54',
-                                    style: ABTextTheme.UpcomingIssueHighlight),
-                                Text(
-                                  '일 남았어요!',
-                                  style: ABTextTheme.UpcomingIssueStandard,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        //SizedBox(width: screenWidth / 390 * 60),
-                        const Spacer(),
-                        SizedBox(
-                          height: 60,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.chevron_right_sharp,
-                              color: Colors.black,
-                              size: 45,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth / 390 * 14,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            const Text(
+              '구독 서비스',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(
-              height: screenHeight / 844 * 100,
+              height: screenHeight / 390 * 11,
+            ),
+            const Text('NETFLIX', style: ABTextTheme.UpcomingIssueStandard),
+            Row(
+              children: [
+                const Text('54', style: ABTextTheme.UpcomingIssueHighlight),
+                const Text(
+                  '일 남았어요!',
+                  style: ABTextTheme.UpcomingIssueStandard,
+                ),
+                const Spacer(),
+                SizedBox(
+                  height: 60,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.white,
+                      size: 45,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight / 844 * 32,
+            ),
+            const Row(
+              children: [],
             ),
             Column(
               children: [
