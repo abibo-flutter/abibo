@@ -33,11 +33,10 @@ Future<void> initNotification() async {
   );
 
   DateDiffs = jsonDecode(prefs.getString('period') ??
-          "['1d', '2d', '3d', '4d', '5d', '6d', '1w', '2w', '3w', '1m', '2m', '3m']")
+          '["1d", "2d", "3d", "4d", "5d", "6d", "1w", "2w", "3w", "1m", "2m", "3m"]')
       .cast<String>();
 }
 
-qwerty() {}
 Future<void> registerNotification({
   required String type,
   required String name,

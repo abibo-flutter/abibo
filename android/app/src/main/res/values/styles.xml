@@ -15,14 +15,4 @@
     <style name="NormalTheme"
         parent="@android:style/Theme.Light.NoTitleBar">
     </style>
-
-    <style name="Widget.Android.AppWidget.Container"
-        parent="android:Widget">
-        <item name="android:id">@android:id/background</item>
-    </style>
-
-    <style name="Widget.Android.AppWidget.text"
-        parent="android:Widget">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
 </resources>
