@@ -44,10 +44,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           body: Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/main_screen.png'),
-                fit: BoxFit.fill,
-              ),
+              color: Color(0xFF6B19DC),
             ),
             child: const TabBarView(
               children: [

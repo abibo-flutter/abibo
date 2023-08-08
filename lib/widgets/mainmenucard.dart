@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
-import 'package:abibo/screens/platforms.dart';
+import 'package:abibo/widgets/platforms.dart';
 
 class MainMenu extends StatelessWidget {
   final bool topRight;
