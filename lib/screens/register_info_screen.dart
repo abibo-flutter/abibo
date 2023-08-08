@@ -430,8 +430,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 ),
                                 onPressed: _selectDate,
                                 child: Center(
-                                  child: Text(DateFormat('yyyy년 MM월 dd일')
-                                      .format(endDate ?? now)),
+                                  child: Text((endDate!=null) ? DateFormat('yyyy년 MM월 dd일')
+                                      .format(endDate!) : "날짜를 선택하세요",),
                                 ),
                               ),
                               const SizedBox(

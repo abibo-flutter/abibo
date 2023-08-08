@@ -72,18 +72,21 @@ Future<void> registerNotification({
   int notificationId = '$type $name $detail $dateDiff'.hashCode;
 
   tz.initializeTimeZones();
-
-  notifications.zonedSchedule(
-    notificationId,
-    name,
-    '$detail  $dateDiff일 남았어요!',
-    tz.TZDateTime.from(date, tz.local),
-    NotificationDetails(android: androidDetails, iOS: iosDetails),
-    uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
-    androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    matchDateTimeComponents: DateTimeComponents.time,
-  );
+  try {
+    await notifications.zonedSchedule(
+      notificationId,
+      name,
+      '$detail  $dateDiff일 남았어요!',
+      tz.TZDateTime.from(date, tz.local),
+      NotificationDetails(android: androidDetails, iOS: iosDetails),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  } catch (e) {
+    print(e);
+  }
 }
 
 Future<void> cancelNotification({
@@ -91,8 +94,12 @@ Future<void> cancelNotification({
   required String name,
   required String detail,
 }) async {
-  for (String dateDiff in DateDiffs) {
-    int notificationId = '$type $name $detail $dateDiff'.hashCode;
-    notifications.cancel(notificationId);
+  try {
+    for (String dateDiff in DateDiffs) {
+      int notificationId = '$type $name $detail $dateDiff'.hashCode;
+      await notifications.cancel(notificationId);
+    }
+  } catch (e) {
+    print(e);
   }
 }
