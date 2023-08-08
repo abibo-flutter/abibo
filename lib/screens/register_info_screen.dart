@@ -245,6 +245,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: screenHeight / 844 * 24),
+                        Row(
+                          children: [
+                            Text((isGuarantee) ? '제품명' : '서비스 이름',
+                                style: ABTextTheme.RegiEachTitle),
+                          ],
+                        ),
                         SizedBox(
                           height: 30,
                           child: TextField(
