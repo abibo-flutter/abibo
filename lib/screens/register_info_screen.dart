@@ -29,7 +29,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   String? brand;
   String? id;
   String? password;
-  String? text;
+  String text = '';
   DateTime? endDate;
   int? cost;
   DateTime now = DateTime.now();
@@ -414,6 +414,48 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               ),
                             ],
                           ),
+                        if (isGuarantee)
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight / 844 * 24),
+                              const Row(
+                                children: [
+                                  Text('메모', style: ABTextTheme.RegiEachTitle),
+                                ],
+                              ),
+                              SizedBox(
+                                child: TextField(
+                                  maxLines: 3,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      text = value;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: "메모를 입력하세요",
+                                    hintStyle: TextStyle(
+                                        color: ABColors.Regi_Hint_Color),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ABColors.Regi_Hint_Color,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  style: const TextStyle(
+                                    // 입력중 text color
+                                    color: Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         if (isSubscription || isGuarantee)
                           Column(
                             children: [
@@ -430,8 +472,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 ),
                                 onPressed: _selectDate,
                                 child: Center(
-                                  child: Text((endDate!=null) ? DateFormat('yyyy년 MM월 dd일')
-                                      .format(endDate!) : "날짜를 선택하세요",),
+                                  child: Text(
+                                    (endDate != null)
+                                        ? DateFormat('yyyy년 MM월 dd일')
+                                            .format(endDate!)
+                                        : "날짜를 선택하세요",
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -472,12 +518,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         child: const Text("완료"),
                         onPressed: () async {
                           if (name == null) return;
-                          if (isMemo && text != null) {
-                            await setMemo(
-                              title: name!,
-                              memo: text!,
-                            );
-                          } else if (isSubscription &&
+                          if (isSubscription &&
                               id != null &&
                               password != null &&
                               endDate != null &&
@@ -501,15 +542,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           } else if (isGuarantee &&
                               brand != null &&
                               model != null &&
-                              endDate != null &&
-                              text != null) {
+                              endDate != null) {
                             await setGuarantee(
                               brand: brand!,
                               productName: name!,
                               model: model!,
                               endDate:
                                   DateFormat("yyyy/MM/dd").format(endDate!),
-                              note: text!,
+                              note: text,
                             );
                           } else {
                             return;
