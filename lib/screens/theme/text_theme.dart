@@ -177,10 +177,22 @@ abstract class ABTextTheme {
     letterSpacing: -0.4,
   );
   static const CardTitle = TextStyle(
-    color: Colors.white,
-    fontSize: 24,
-    fontFamily: 'Pretendard',
+    color: Colors.black,
+    fontSize: 16,
+    fontFamily: 'Inter',
     fontWeight: FontWeight.w700,
+  );
+  static final CardMidSeperate = TextStyle(
+    color: Colors.black.withOpacity(0.7),
+    fontSize: 12,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+  );
+  static final CardDescription = TextStyle(
+    color: Colors.black.withOpacity(0.5),
+    fontSize: 10,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w900,
   );
   static final CardFirstStandard = TextStyle(
     color: Colors.white.withOpacity(0.7),
