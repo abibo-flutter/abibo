@@ -1,7 +1,6 @@
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/register_info_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
@@ -336,40 +335,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Icon(
                   Icons.add,
                 ),
-              ),
-            ),
-            Container(
-              height: screenHeight / 844 * 83,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                  top: BorderSide(
-                    color: Color(0xFFEAEAEA),
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.abc,
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const ImageIcon(
-                      AssetImage("assets/images/home_icon.png"),
-                      color: Color(0xFF6B19DC),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.menu),
-                  ),
-                ],
               ),
             ),
           ],
