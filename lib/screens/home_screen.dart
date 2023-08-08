@@ -1,5 +1,3 @@
-import 'package:abibo/screens/init_pin_screen.dart';
-import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -15,12 +13,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-void navigateToInitPINScreen() {
-  Get.to(() => const InitPINScreen());
-}
-
-void navigateToChangePINScreen() {
-  Get.to(() => const ChangePINScreen());
+void openRegisterInfoScreen() {
+  Get.to(() => const RegisterInfoScreen());
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -326,7 +320,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: FloatingActionButton(
                 heroTag: 'add_info',
-                onPressed: () => Get.to(const RegisterInfoScreen()),
+                onPressed: () {
+                  openRegisterInfoScreen();
+                },
                 elevation: 0,
                 backgroundColor: const Color(0xFF6B19DC),
                 foregroundColor: Colors.white,
