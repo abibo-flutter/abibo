@@ -326,9 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: FloatingActionButton(
                 heroTag: 'add_info',
-                onPressed: () {
-                  Get.to(() => const RegisterInfoScreen());
-                },
+                onPressed: () => Get.to(const RegisterInfoScreen()),
                 elevation: 0,
                 backgroundColor: const Color(0xFF6B19DC),
                 foregroundColor: Colors.white,

@@ -514,8 +514,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           } else {
                             return;
                           }
-
-                          Get.offAll(const MainScreen());
+                          Get.offAll(() => const MainScreen());
                         },
                       ),
                     ],
