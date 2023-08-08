@@ -1,4 +1,5 @@
 import 'package:abibo/functions/control_guarantee.dart';
+import 'package:abibo/screens/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -419,7 +420,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               SizedBox(height: screenHeight / 844 * 24),
                               const Row(
                                 children: [
-                                  Text('구독일', style: ABTextTheme.RegiEachTitle),
+                                  Text('해지일', style: ABTextTheme.RegiEachTitle),
                                 ],
                               ),
                               SizedBox(height: screenHeight / 844 * 10),
@@ -510,8 +511,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   DateFormat("yyyy/MM/dd").format(endDate!),
                               note: text!,
                             );
+                          } else {
+                            return;
                           }
-                          Navigator.pop(context);
+
+                          Get.offAll(const MainScreen());
                         },
                       ),
                     ],
