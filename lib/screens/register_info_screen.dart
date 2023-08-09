@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
-import 'package:abibo/functions/control_memo.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
@@ -19,10 +18,8 @@ class RegisterInfoScreen extends StatefulWidget {
 
 class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   late SharedPreferences prefs;
-  List<bool> isSelected = [true, false, false];
   bool isPlatform = true;
   bool isSubscription = false;
-  bool isMemo = false;
   bool isGuarantee = false;
   String? name;
   String? model;
@@ -34,15 +31,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   int? cost;
   DateTime now = DateTime.now();
 
-  void _toggleSelect(index) {
-    isSelected = [false, false, false];
-    isSelected[index] = true;
+  void select(type) {
     setState(() {
-      isSelected = isSelected;
-      isPlatform = isSelected[0];
-      isSubscription = isSelected[1];
-      isGuarantee = isSelected[2];
-      //isMemo = isSelected[3];
+      isPlatform = false;
+      isSubscription = false;
+      isGuarantee = false;
+      if (type == 'platform') isPlatform = true;
+      if (type == 'subscription') isSubscription = true;
+      if (type == 'guarantee') isGuarantee = true;
     });
   }
 
@@ -102,31 +98,124 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
               ),
               Column(
                 children: [
-                  ToggleButtons(
-                    selectedBorderColor: Colors.white,
-                    disabledBorderColor: Colors.white,
-                    isSelected: isSelected,
-                    onPressed: _toggleSelect,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Center(child: Text('플랫폼')),
+                      Container(
+                        width: screenWidth / 390 * 100,
+                        height: screenHeight / 844 * 34,
+                        decoration: BoxDecoration(
+                          color: (isSubscription)
+                              ? const Color(0xFF6B19DC)
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: (isSubscription)
+                                ? const Color(0xFF561CA7)
+                                : const Color(0xFF818181),
+                            width: 0.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 0.3,
+                              blurRadius: 10,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () => select("subscription"),
+                          child: Center(
+                            child: Text(
+                              '구독 서비스',
+                              style: TextStyle(
+                                color: (isSubscription)
+                                    ? Colors.white
+                                    : const Color(0xFF818181),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Center(child: Text('구독')),
+                      SizedBox(
+                        width: screenWidth / 390 * 13,
+                      ),
+                      Container(
+                        width: screenWidth / 390 * 100,
+                        height: screenHeight / 844 * 34,
+                        decoration: BoxDecoration(
+                          color: (isPlatform)
+                              ? const Color(0xFF6B19DC)
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: (isPlatform)
+                                ? const Color(0xFF561CA7)
+                                : const Color(0xFF818181),
+                            width: 0.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 0.3,
+                              blurRadius: 10,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () => select("platform"),
+                          child: Center(
+                            child: Text(
+                              '플랫폼',
+                              style: TextStyle(
+                                color: (isPlatform)
+                                    ? Colors.white
+                                    : const Color(0xFF818181),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Center(child: Text('보증서')),
+                      SizedBox(
+                        width: screenWidth / 390 * 13,
+                      ),
+                      Container(
+                        width: screenWidth / 390 * 100,
+                        height: screenHeight / 844 * 34,
+                        decoration: BoxDecoration(
+                          color: (isGuarantee)
+                              ? const Color(0xFF6B19DC)
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: (isGuarantee)
+                                ? const Color(0xFF561CA7)
+                                : const Color(0xFF818181),
+                            width: 0.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 0.3,
+                              blurRadius: 10,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () => select("guarantee"),
+                          child: Center(
+                            child: Text(
+                              '보증서',
+                              style: TextStyle(
+                                color: (isGuarantee)
+                                    ? Colors.white
+                                    : const Color(0xFF818181),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -158,12 +247,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         SizedBox(height: screenHeight / 844 * 24),
                         Row(
                           children: [
-                            Text(
-                                (isMemo)
-                                    ? '제목'
-                                    : (isGuarantee)
-                                        ? '제품명'
-                                        : '서비스 이름',
+                            Text((isGuarantee) ? '제품명' : '서비스 이름',
                                 style: ABTextTheme.RegiEachTitle),
                           ],
                         ),
@@ -177,7 +261,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                             },
                             decoration: InputDecoration(
                               hintText:
-                                  "${(isMemo) ? '제목' : (isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
+                                  "${(isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
                               hintStyle: const TextStyle(
                                 color: ABColors.Regi_Hint_Color,
                               ),
