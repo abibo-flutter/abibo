@@ -10,11 +10,13 @@ void _showInfoDialog(context, widget) {
   showDialog(
     context: context,
     builder: (context) {
-      return EditDialog(
-        type: widget.type,
-        name: widget.name,
-        obj: widget.obj,
-        change: widget.change,
+      return Scaffold(
+        body: EditDialog(
+          type: widget.type,
+          name: widget.name,
+          obj: widget.obj,
+          change: widget.change,
+        ),
       );
     },
   );

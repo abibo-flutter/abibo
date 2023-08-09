@@ -41,13 +41,15 @@ class _SubServicesState extends State<SubServices> {
               String name = infos[index][0];
               dynamic obj = infos[index][1];
 
-              return SubscriptionCard(
-                name: name,
-                obj: obj,
-                change: () {
-                  searchInfo();
-                  setState(() {});
-                },
+              return Scaffold(
+                body: SubscriptionCard(
+                  name: name,
+                  obj: obj,
+                  change: () {
+                    searchInfo();
+                    setState(() {});
+                  },
+                ),
               );
             },
           );

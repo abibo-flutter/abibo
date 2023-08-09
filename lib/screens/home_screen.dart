@@ -294,9 +294,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: screenHeight / 844 * 16,
-                      ),
                       if (selected == 'subscription') const SubServices(),
                       if (selected == 'platform') const Platforms(),
                       if (selected == 'guarantee') const Guarantees(),
