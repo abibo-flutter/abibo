@@ -40,71 +40,85 @@ class PlatformCard extends StatefulWidget {
 }
 
 class _PlatformCardState extends State<PlatformCard> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
     final NumberFormat formatter = NumberFormat('#,###');
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => PlatformTouchedCard(
-                    name: widget.name,
-                    obj: widget.obj,
-                    change: widget.change,
-                  )),
-        );
-      },
-      child: Hero(
-        tag: 'platformhero-${widget.name}',
-        child: Column(
-          children: [
-            Container(
-              width: screenWidth / 390 * 326,
-              height: screenHeight / 844 * 100,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: screenHeight / 844 * 17),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return IntrinsicWidth(
+      child: IntrinsicHeight(
+        child: Navigator(
+          key: _navigatorKey,
+          onGenerateRoute: (setting) {
+            return MaterialPageRoute(
+              builder: (context) => GestureDetector(
+                onTap: () {
+                  _navigatorKey.currentState?.push(
+                    MaterialPageRoute(
+                      builder: (context) => PlatformTouchedCard(
+                        name: widget.name,
+                        obj: widget.obj,
+                        change: widget.change,
+                      ),
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: 'platformhero-${widget.name}',
+                  child: Column(
                     children: [
-                      const SizedBox(width: 16),
                       Container(
-                        width: 40,
-                        height: 40,
-                        decoration: CircleDesign.RedGradient,
+                        width: screenWidth / 390 * 326,
+                        height: screenHeight / 844 * 100,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(14)),
+                          color: Color(0x3FEFEFEF),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(height: screenHeight / 844 * 17),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(width: 16),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: CircleDesign.RedGradient,
+                                ),
+                                const SizedBox(width: 12),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 12),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          widget.name.toUpperCase(),
+                                          style: ABTextTheme.CardTitle,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: screenHeight / 844 * 25),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Text(
-                                widget.name.toUpperCase(),
-                                style: ABTextTheme.CardTitle,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 844 * 25),
-                        ],
-                      ),
+                      SizedBox(height: screenHeight / 844 * 10),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(height: screenHeight / 844 * 10),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -137,14 +151,7 @@ class _PlatformTouchedCardState extends State<PlatformTouchedCard> {
     final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => PlatformCard(
-                    name: widget.name,
-                    obj: widget.obj,
-                    change: widget.change,
-                  )),
-        );
+        Navigator.of(context).pop();
       },
       child: Hero(
         tag: 'platformhero-${widget.name}',
@@ -673,105 +680,6 @@ class _GuaranteeCardState extends State<GuaranteeCard> {
                   TextSpan(
                     text: widget.obj['note'],
                     style: ABTextTheme.CardSecondStandard,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MemoCard extends StatefulWidget {
-  const MemoCard({
-    Key? key,
-    required this.name,
-    required this.text,
-    required this.change,
-  }) : super(key: key);
-
-  final String name;
-  final String text;
-  final dynamic obj = 0;
-  final Function change;
-  final String type = 'memo';
-
-  @override
-  State<MemoCard> createState() => _MemoCardState();
-}
-
-class _MemoCardState extends State<MemoCard> {
-  @override
-  Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
-    double screenWidth = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: () => _showInfoDialog(context, widget),
-      child: Column(
-        children: [
-          Container(
-            width: screenWidth / 390 * 330,
-            height: screenHeight / 844 * 83,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-              color: Color(0x3FEFEFEF),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: screenWidth / 390 * 16),
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: CircleDesign.BlackGradient,
-                        ),
-                        SizedBox(width: screenWidth / 390 * 16),
-                        Text(
-                          widget.name,
-                          style: ABTextTheme.CardTitle,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: screenWidth / 390 * 330,
-            height: 3,
-            color: Colors.white.withOpacity(0.3),
-            margin: const EdgeInsets.symmetric(vertical: 0),
-          ),
-          Container(
-            width: screenWidth / 390 * 330,
-            height: screenHeight / 844 * 102,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
-              color: Color(0x3FEFEFEF),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: widget.text,
-                        style: ABTextTheme.CardSecondStandard,
-                      ),
-                    ],
                   ),
                 ),
               ],

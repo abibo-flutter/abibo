@@ -4,7 +4,6 @@ import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/widgets/cards.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
-import 'package:abibo/functions/control_memo.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -45,10 +44,6 @@ class _SearchScreenState extends State<SearchScreen> {
       for (List list in await getAllPlatform()) {
         arr.add(['platform', list[0], list[1]]);
       }
-
-      for (List list in await getAllMemo()) {
-        arr.add(['memo', list[0], list[1]]);
-      }
     } else {
       for (String name in await getSubscriptionList() ?? []) {
         if (!name.contains(inputText)) continue;
@@ -71,11 +66,6 @@ class _SearchScreenState extends State<SearchScreen> {
         for (var obj in await getPlatform(platform: name)) {
           arr.add(['platform', name, obj]);
         }
-      }
-
-      for (String name in await getMemoList() ?? []) {
-        if (!name.contains(inputText)) continue;
-        arr.add(['memo', name, await getMemo(title: name)]);
       }
     }
     return arr;
@@ -154,16 +144,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     return PlatformCard(
                       name: name,
                       obj: obj,
-                      change: () async {
-                        infos = await searchInfos(searching);
-                        setState(() {});
-                      },
-                    );
-                  }
-                  if (type == 'memo') {
-                    return MemoCard(
-                      name: name,
-                      text: obj,
                       change: () async {
                         infos = await searchInfos(searching);
                         setState(() {});
