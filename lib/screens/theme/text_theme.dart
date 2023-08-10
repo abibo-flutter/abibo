@@ -176,6 +176,22 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const SettingMainText = TextStyle(
+    height: 1.2,
+    letterSpacing: -0.4,
+    color: Color(0xFF6B19DC),
+    fontSize: 28,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
+  static const SettingMenuTitle = TextStyle(
+    height: 1.2,
+    letterSpacing: -0.4,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+    fontSize: 26,
+  );
   static final SearchingHintText = TextStyle(
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.normal,
