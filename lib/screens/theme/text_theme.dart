@@ -28,14 +28,14 @@ abstract class ABTextTheme {
   );
   static const UpcomingIssueStandard = TextStyle(
     color: Colors.white,
-    fontSize: 34,
+    fontSize: 28,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w700,
     height: 1,
   );
   static const UpcomingIssueHighlight = TextStyle(
     color: Color(0xFFFFE27B),
-    fontSize: 34,
+    fontSize: 28,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w900,
     height: 1,
