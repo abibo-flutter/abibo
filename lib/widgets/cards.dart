@@ -23,7 +23,7 @@ void _showInfoDialog(context, widget) {
 }
 
 class PlatformCard extends StatefulWidget {
-  const PlatformCard({
+  PlatformCard({
     Key? key,
     required this.name,
     required this.obj,
@@ -33,92 +33,127 @@ class PlatformCard extends StatefulWidget {
   final String name;
   final dynamic obj;
   final Function change;
-  final String type = 'platform';
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   State<PlatformCard> createState() => _PlatformCardState();
 }
 
 class _PlatformCardState extends State<PlatformCard> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicWidth(
+      child: IntrinsicHeight(
+        child: Navigator(
+          key: widget.navigatorKey,
+          onGenerateRoute: (setting) {
+            return PageRouteBuilder(
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+              pageBuilder: (context, anim1, anim2) => PlatformInitialCard(
+                name: widget.name,
+                obj: widget.obj,
+                change: widget.change,
+                navigatorKey: widget.navigatorKey,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class PlatformInitialCard extends StatefulWidget {
+  const PlatformInitialCard({
+    Key? key,
+    required this.name,
+    required this.obj,
+    required this.change,
+    required this.navigatorKey,
+  }) : super(key: key);
+
+  final String name;
+  final dynamic obj;
+  final Function change;
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  @override
+  State<PlatformInitialCard> createState() => _PlatformInitialCardState();
+}
+
+class _PlatformInitialCardState extends State<PlatformInitialCard> {
+  // final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    final NumberFormat formatter = NumberFormat('#,###');
-    return IntrinsicWidth(
-      child: IntrinsicHeight(
-        child: Navigator(
-          key: _navigatorKey,
-          onGenerateRoute: (setting) {
-            return MaterialPageRoute(
-              builder: (context) => GestureDetector(
-                onTap: () {
-                  _navigatorKey.currentState?.push(
-                    MaterialPageRoute(
-                      builder: (context) => PlatformTouchedCard(
-                        name: widget.name,
-                        obj: widget.obj,
-                        change: widget.change,
-                      ),
-                    ),
-                  );
-                },
-                child: Hero(
-                  tag: 'platformhero-${widget.name}',
-                  child: Column(
+
+    return GestureDetector(
+      onTap: () {
+        widget.navigatorKey.currentState?.pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) =>
+                PlatformTouchedCard(
+              name: widget.name,
+              obj: widget.obj,
+              change: widget.change,
+              navigatorKey: widget.navigatorKey,
+            ),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      },
+      child: Hero(
+        tag: 'platformhero-${widget.name}',
+        child: Column(
+          children: [
+            Container(
+              width: screenWidth / 390 * 326,
+              height: screenHeight / 844 * 100,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(14)),
+                color: Color(0x3FEFEFEF),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: screenHeight / 844 * 17),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(width: 16),
                       Container(
-                        width: screenWidth / 390 * 326,
-                        height: screenHeight / 844 * 100,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(14)),
-                          color: Color(0x3FEFEFEF),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: screenHeight / 844 * 17),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(width: 16),
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: CircleDesign.RedGradient,
-                                ),
-                                const SizedBox(width: 12),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 12),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          widget.name.toUpperCase(),
-                                          style: ABTextTheme.CardTitle,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: screenHeight / 844 * 25),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        width: 40,
+                        height: 40,
+                        decoration: CircleDesign.RedGradient,
                       ),
-                      SizedBox(height: screenHeight / 844 * 10),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Text(
+                                widget.name.toUpperCase(),
+                                style: ABTextTheme.CardTitle,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: screenHeight / 844 * 25),
+                        ],
+                      ),
                     ],
                   ),
-                ),
+                ],
               ),
-            );
-          },
+            ),
+            SizedBox(height: screenHeight / 844 * 10),
+          ],
         ),
       ),
     );
@@ -131,12 +166,14 @@ class PlatformTouchedCard extends StatefulWidget {
     required this.name,
     required this.obj,
     required this.change,
+    required this.navigatorKey,
   }) : super(key: key);
 
   final String name;
   final dynamic obj;
   final Function change;
   final String type = 'platform';
+  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   State<PlatformTouchedCard> createState() => _PlatformTouchedCardState();
@@ -151,7 +188,19 @@ class _PlatformTouchedCardState extends State<PlatformTouchedCard> {
     final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
+        widget.navigatorKey.currentState?.pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) =>
+                PlatformInitialCard(
+              name: widget.name,
+              obj: widget.obj,
+              change: widget.change,
+              navigatorKey: widget.navigatorKey,
+            ),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
       },
       child: Hero(
         tag: 'platformhero-${widget.name}',
