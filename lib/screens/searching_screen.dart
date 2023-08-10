@@ -105,8 +105,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   TextField(
                     decoration: InputDecoration(
                       //입력 전 디자인
-                      hintText: "원하는 정보를 입력하세요.",
-                      hintStyle: ABTextTheme.SearchingText,
+                      hintText: "원하는 정보를 검색하기",
+                      hintStyle: ABTextTheme.SearchingHintText,
                       suffixIcon: const Icon(Icons.search),
                       suffixIconColor: Colors.white, // 검색 아이콘
                       enabledBorder: OutlineInputBorder(

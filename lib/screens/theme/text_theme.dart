@@ -173,7 +173,15 @@ abstract class ABTextTheme {
     fontWeight: FontWeight.normal,
     fontSize: 16,
     height: 1.2,
-    color: ABColors.MAIN_THEME,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
+  static final SearchingHintText = TextStyle(
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.normal,
+    fontSize: 16,
+    height: 1.2,
+    color: Colors.white.withOpacity(0.7),
     letterSpacing: -0.4,
   );
   static const KeyboardNumber = TextStyle(

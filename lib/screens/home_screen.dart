@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
+import 'package:abibo/screens/notice_period_screen.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/screens/searching_screen.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +119,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         width: screenWidth / 390 * 36,
                         child: FloatingActionButton(
                           heroTag: 'notification',
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => const NoticePeriodScreen());
+                          },
                           elevation: 0,
                           backgroundColor: Colors.white,
                           foregroundColor: const Color(0xFF6B19DC),
