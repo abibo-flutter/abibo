@@ -136,6 +136,14 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const SearchTitleText = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.normal,
+    fontSize: 34,
+    height: 1.2,
+    color: Colors.white,
+    letterSpacing: -0.4,
+  );
   static const MainMainTextPurpleVer = TextStyle(
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.normal,
