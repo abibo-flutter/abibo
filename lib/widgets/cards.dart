@@ -1,7 +1,10 @@
+import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:abibo/functions/control_platform.dart';
+import '../functions/control_guarantee.dart';
 import 'edit_dialog.dart';
 import 'package:intl/intl.dart';
 
@@ -89,74 +92,97 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-      onTap: () {
-        widget.navigatorKey.currentState?.pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                PlatformTouchedCard(
-              name: widget.name,
-              obj: widget.obj,
-              change: widget.change,
-              navigatorKey: widget.navigatorKey,
-            ),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
-          ),
-        );
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) async {
+        await removePlatform(platform: widget.name, obj: widget.obj);
+        widget.change();
       },
-      child: Hero(
-        tag: 'platformhero-${widget.name}',
-        child: Column(
-          children: [
-            Container(
-              width: screenWidth / 390 * 326,
-              height: screenHeight / 844 * 82,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(14)),
-                color: const Color(0xFFF4F4F4),
-                border: Border.all(
-                  color: const Color(0xFFD6D4D4),
-                  width: 0.5,
+      background: Container(
+        width: screenWidth / 390 * 326,
+        height: screenHeight / 844 * 82,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+          ),
+        ),
+        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          widget.navigatorKey.currentState?.pushReplacement(
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  PlatformTouchedCard(
+                name: widget.name,
+                obj: widget.obj,
+                change: widget.change,
+                navigatorKey: widget.navigatorKey,
+              ),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        },
+        child: Hero(
+          tag: 'platformhero-${widget.name}',
+          child: Column(
+            children: [
+              Container(
+                width: screenWidth / 390 * 326,
+                height: screenHeight / 844 * 82,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(14)),
+                  color: const Color(0xFFF4F4F4),
+                  border: Border.all(
+                    color: const Color(0xFFD6D4D4),
+                    width: 0.5,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight / 844 * 17),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 16),
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: CircleDesign.RedGradient,
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  widget.name.toUpperCase(),
+                                  style: ABTextTheme.CardTitle,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: screenHeight / 844 * 25),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  SizedBox(height: screenHeight / 844 * 17),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 16),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: CircleDesign.RedGradient,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Text(
-                                widget.name.toUpperCase(),
-                                style: ABTextTheme.CardTitle,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 844 * 25),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight / 844 * 10),
-          ],
+              SizedBox(height: screenHeight / 844 * 10),
+            ],
+          ),
         ),
       ),
     );
@@ -421,74 +447,97 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-      onTap: () {
-        widget.navigatorKey.currentState?.pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                SubscriptionTouchedCard(
-              name: widget.name,
-              obj: widget.obj,
-              change: widget.change,
-              navigatorKey: widget.navigatorKey,
-            ),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
-          ),
-        );
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) async {
+        await removeSubscription(serviceName: widget.name, obj: widget.obj);
+        widget.change();
       },
-      child: Hero(
-        tag: 'subscriptionhero-${widget.name}',
-        child: Column(
-          children: [
-            Container(
-              width: screenWidth / 390 * 326,
-              height: screenHeight / 844 * 82,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(14)),
-                color: const Color(0xFFF4F4F4),
-                border: Border.all(
-                  color: const Color(0xFFD6D4D4),
-                  width: 0.5,
+      background: Container(
+        width: screenWidth / 390 * 326,
+        height: screenHeight / 844 * 82,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+          ),
+        ),
+        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          widget.navigatorKey.currentState?.pushReplacement(
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  SubscriptionTouchedCard(
+                name: widget.name,
+                obj: widget.obj,
+                change: widget.change,
+                navigatorKey: widget.navigatorKey,
+              ),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        },
+        child: Hero(
+          tag: 'subscriptionhero-${widget.name}',
+          child: Column(
+            children: [
+              Container(
+                width: screenWidth / 390 * 326,
+                height: screenHeight / 844 * 82,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(14)),
+                  color: const Color(0xFFF4F4F4),
+                  border: Border.all(
+                    color: const Color(0xFFD6D4D4),
+                    width: 0.5,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight / 844 * 17),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 16),
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: CircleDesign.BlueGradient,
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  widget.name.toUpperCase(),
+                                  style: ABTextTheme.CardTitle,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: screenHeight / 844 * 25),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  SizedBox(height: screenHeight / 844 * 17),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 16),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: CircleDesign.BlueGradient,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Text(
-                                widget.name.toUpperCase(),
-                                style: ABTextTheme.CardTitle,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 844 * 25),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight / 844 * 10),
-          ],
+              SizedBox(height: screenHeight / 844 * 10),
+            ],
+          ),
         ),
       ),
     );
@@ -831,74 +880,97 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-      onTap: () {
-        widget.navigatorKey.currentState?.pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                GuaranteeTouchedCard(
-              name: widget.name,
-              obj: widget.obj,
-              change: widget.change,
-              navigatorKey: widget.navigatorKey,
-            ),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
-          ),
-        );
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) async {
+        await removeGuarantee(brand: widget.name, obj: widget.obj);
+        widget.change();
       },
-      child: Hero(
-        tag: 'guaranteehero-${widget.name}',
-        child: Column(
-          children: [
-            Container(
-              width: screenWidth / 390 * 326,
-              height: screenHeight / 844 * 82,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(14)),
-                color: const Color(0xFFF4F4F4),
-                border: Border.all(
-                  color: const Color(0xFFD6D4D4),
-                  width: 0.5,
+      background: Container(
+        width: screenWidth / 390 * 326,
+        height: screenHeight / 844 * 82,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+          ),
+        ),
+        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          widget.navigatorKey.currentState?.pushReplacement(
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  GuaranteeTouchedCard(
+                name: widget.name,
+                obj: widget.obj,
+                change: widget.change,
+                navigatorKey: widget.navigatorKey,
+              ),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        },
+        child: Hero(
+          tag: 'guaranteehero-${widget.name}',
+          child: Column(
+            children: [
+              Container(
+                width: screenWidth / 390 * 326,
+                height: screenHeight / 844 * 82,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(14)),
+                  color: const Color(0xFFF4F4F4),
+                  border: Border.all(
+                    color: const Color(0xFFD6D4D4),
+                    width: 0.5,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight / 844 * 17),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 16),
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: CircleDesign.BlackGradient,
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  widget.name.toUpperCase(),
+                                  style: ABTextTheme.CardTitle,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: screenHeight / 844 * 25),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  SizedBox(height: screenHeight / 844 * 17),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 16),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: CircleDesign.BlackGradient,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Text(
-                                widget.name.toUpperCase(),
-                                style: ABTextTheme.CardTitle,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 844 * 25),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight / 844 * 10),
-          ],
+              SizedBox(height: screenHeight / 844 * 10),
+            ],
+          ),
         ),
       ),
     );

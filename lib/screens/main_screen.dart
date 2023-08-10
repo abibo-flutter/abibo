@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           extendBodyBehindAppBar: true,
           bottomNavigationBar: SizedBox(
-            height: screenHeight / 844 * 62,
+            height: 0,
             child: Padding(
               padding: EdgeInsets.only(
                   left: screenWidth / 390 * 92,
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                 ],
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorColor: ABColors.MAIN_THEME,
-                indicatorWeight: 3,
+                indicatorWeight: 4,
                 labelColor: ABColors.MAIN_THEME,
                 unselectedLabelColor: Color.fromARGB(255, 142, 142, 142),
               ),

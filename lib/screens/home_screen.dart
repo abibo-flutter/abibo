@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
-import 'package:abibo/screens/notice_period_screen.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/screens/searching_screen.dart';
+import 'package:abibo/screens/setting_screen.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -119,9 +119,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SizedBox(
                         width: screenWidth / 390 * 36,
                         child: FloatingActionButton(
-                          heroTag: 'notification',
+                          heroTag: 'search',
                           onPressed: () {
-                            Get.to(() => const NoticePeriodScreen());
+                            Get.to(() => const SearchScreen());
                           },
                           elevation: 0,
                           backgroundColor: Colors.white,
@@ -137,9 +137,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SizedBox(
                         width: screenWidth / 390 * 36,
                         child: FloatingActionButton(
-                          heroTag: 'searching',
+                          heroTag: 'setting',
                           onPressed: () {
-                            Get.to(() => const SearchScreen());
+                            Get.to(() => const SettingScreen());
                           },
                           elevation: 0,
                           backgroundColor: ABColors.MAIN_THEME,
