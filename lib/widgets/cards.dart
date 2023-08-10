@@ -112,9 +112,13 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 82,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -208,9 +212,13 @@ class _PlatformTouchedCardState extends State<PlatformTouchedCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 174,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -436,9 +444,13 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 82,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -533,9 +545,13 @@ class _SubscriptionTouchedCardState extends State<SubscriptionTouchedCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 290,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -838,9 +854,13 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 82,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -934,9 +954,13 @@ class _GuaranteeTouchedCardState extends State<GuaranteeTouchedCard> {
             Container(
               width: screenWidth / 390 * 326,
               height: screenHeight / 844 * 290,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Color(0x3FEFEFEF),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
+                color: const Color(0xFFF4F4F4),
+                border: Border.all(
+                  color: const Color(0xFFD6D4D4),
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
