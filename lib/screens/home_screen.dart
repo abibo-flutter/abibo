@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/screens/register_info_screen.dart';
+import 'package:abibo/screens/searching_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
@@ -133,7 +134,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         width: screenWidth / 390 * 36,
                         child: FloatingActionButton(
                           heroTag: 'searching',
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => const SearchScreen());
+                          },
                           elevation: 0,
                           backgroundColor: Colors.white,
                           foregroundColor: const Color(0xFF6B19DC),

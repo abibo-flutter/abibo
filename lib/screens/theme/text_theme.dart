@@ -136,6 +136,14 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const MainMainTextPurpleVer = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.normal,
+    fontSize: 40,
+    height: 1.2,
+    color: ABColors.MAIN_THEME,
+    letterSpacing: -0.4,
+  );
   static const RegiEachTitle = TextStyle(
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.normal,
@@ -157,7 +165,7 @@ abstract class ABTextTheme {
     fontWeight: FontWeight.normal,
     fontSize: 16,
     height: 1.2,
-    color: Colors.white,
+    color: ABColors.MAIN_THEME,
     letterSpacing: -0.4,
   );
   static const KeyboardNumber = TextStyle(
