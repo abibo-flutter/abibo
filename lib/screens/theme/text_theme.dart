@@ -226,6 +226,12 @@ abstract class ABTextTheme {
   );
   static const CardTitle = TextStyle(
     color: Colors.black,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+  );
+  static const InitialCardTitle = TextStyle(
+    color: Colors.black,
     fontSize: 12,
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w400,
