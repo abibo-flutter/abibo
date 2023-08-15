@@ -125,7 +125,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
             children: [
               const Text(
                 'Abibo',
-                style: ABTextTheme.MainMainText,
+                style: ABTextTheme.LoginMainText1,
               ),
               SizedBox(height: screenHeight / 844 * 42),
               const Text(
@@ -133,7 +133,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 textAlign: TextAlign.center,
                 style: ABTextTheme.FingerPrintLoginDescription,
               ),
-              SizedBox(height: screenHeight / 844 * 300),
+              SizedBox(height: screenHeight / 844 * 284),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -157,41 +157,14 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                         icon: Icon(
                           Icons.fingerprint_sharp,
                           size: 50,
-                          color: Colors.white.withOpacity(0.6),
+                          color: Colors.white.withOpacity(0.7),
                         ),
                       ),
                     ),
-                    /*  const SizedBox(width: 0),
-                      SizedBox(
-                        width: 70,
-                        child: IconButton(
-                          onPressed: () => Get.defaultDialog(
-                              title: '알림', middleText: '얼굴인식은 개발중입니다!'),
-
-                          /*showDialog(
-                              context: context,
-                              builder: (BuildContext dialogContext) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    authenticateWithFace(
-                                        context); // Call the face recognition authentication method
-                                    return Container();
-                                  },
-                                );
-                              },
-                            );*/
-
-                          icon: Icon(
-                            Icons.face_unlock_sharp,
-                            size: 50,
-                            color: Colors.white.withOpacity(0.6),
-                          ),
-                        ),
-                      ),*/
                   ],
                 ),
               ),
-              SizedBox(height: screenHeight / 844 * 30),
+              SizedBox(height: screenHeight / 844 * 36),
               InkWell(
                 onTap: () {},
                 child: const Text(
@@ -202,7 +175,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight / 844 * 24),
+              SizedBox(height: screenHeight / 844 * 12),
               InkWell(
                 onTap: () {
                   Get.offAll(() => const PINScreen());
@@ -212,6 +185,8 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xFFACA5DF),
+                    height: 1.43,
+                    fontFamily: 'Montserrat',
                     decoration: TextDecoration.underline,
                   ),
                 ),

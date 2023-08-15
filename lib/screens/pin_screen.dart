@@ -64,13 +64,17 @@ class _PINScreenState extends State<PINScreen> {
                     ),
                     const Text(
                       'PIN 번호를 입력해주세요!',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
                         color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Noto Sans KR',
+                        fontWeight: FontWeight.w500,
+                        height: 1.11,
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight / 844 * 63,
+                      height: screenHeight / 844 * 62,
                     ),
                     Container(
                       width: double.infinity,

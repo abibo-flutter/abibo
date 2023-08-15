@@ -27,7 +27,7 @@ void _showAlert(BuildContext context) {
     context: context,
     builder: (context) {
       return CupertinoAlertDialog(
-        title: const Text("전체 삭제, 초기화"),
+        title: const Text("초기화"),
         content: const Text("PIN을 포함한 \n모든 데이터를 삭제하시겠습니까?"),
         actions: [
           CupertinoDialogAction(
@@ -82,8 +82,8 @@ class _SettingScreenState extends State<SettingScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     bool capturepermit = false;
     bool entireNotificationenable = false;
-    return CupertinoPageScaffold(
-      child: Container(
+    return Scaffold(
+      body: Container(
         decoration: const BoxDecoration(color: Colors.white),
         child: Padding(
           padding: EdgeInsets.only(

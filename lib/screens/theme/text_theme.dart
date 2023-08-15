@@ -10,6 +10,13 @@ abstract class ABTextTheme {
     color: Colors.black,
     letterSpacing: -0.4,
   );
+  static const SplashMaintext = TextStyle(
+    color: Colors.white,
+    fontSize: 48,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w500,
+    height: 1.25,
+  );
   static const Introducing1 = TextStyle(
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.bold,
@@ -68,7 +75,7 @@ abstract class ABTextTheme {
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.normal,
     fontSize: 48,
-    height: 1.2,
+    height: 1.25,
     color: Colors.white,
     letterSpacing: -0.4,
   );

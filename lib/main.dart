@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _loadData() async {
     await initNotification();
     await Future.delayed(
-        const Duration(seconds: 3)); // splash screen이 표시될 시간(초)
+        const Duration(milliseconds: 2100)); // splash screen이 표시될 시간(초)
     setState(() {
       _showSplashScreen = false;
     });
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xFF6B19DC),
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
     ));
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 

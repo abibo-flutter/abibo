@@ -23,22 +23,38 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: screenHeight / 844 * 375),
-            const Text(
-              'Abibo',
-              style: ABTextTheme.MainMainText,
+            Column(
+              children: [
+                SizedBox(height: screenHeight / 844 * 320),
+                Image.asset(
+                  'assets/images/logo_white.png',
+                  width: 53.04,
+                  height: 62,
+                ),
+                SizedBox(height: screenHeight / 844 * 24),
+                const Text(
+                  'Abibo',
+                  style: ABTextTheme.SplashMaintext,
+                ),
+              ],
             ),
-            SizedBox(height: screenHeight / 844 * 180),
-            Text(
-              'Copyright 2023. Abibo All rights reserved',
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.30000001192092896),
-                fontSize: 12,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w700,
-                height: 20,
-              ),
+            Column(
+              children: [
+                Text(
+                  'Copyright 2023. Abibo All rights reserved',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.30000001192092896),
+                    fontSize: 12,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 20,
+                  ),
+                ),
+                SizedBox(height: screenHeight / 844 * 30),
+              ],
             ),
           ],
         ),
