@@ -258,4 +258,10 @@ abstract class ABTextTheme {
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w700,
   );
+  static const NoticePeriodTitle = TextStyle(
+    color: Color(0xFF6B19DC),
+    fontSize: 24,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400,
+  );
 }
