@@ -278,4 +278,10 @@ abstract class ABTextTheme {
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w700,
   );
+  static const NoticePeriodButton = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+  );
 }
