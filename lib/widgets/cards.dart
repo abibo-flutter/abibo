@@ -950,7 +950,7 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
                         Container(
                           width: 40,
                           height: 40,
-                          decoration: CircleDesign.BlueGradient,
+                          decoration: CircleDesign.BlackGradient,
                         ),
                         const SizedBox(width: 12),
                         Column(
