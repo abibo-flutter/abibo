@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _loadData() async {
     await initNotification();
     await Future.delayed(
-        const Duration(seconds: 2)); // splash screen이 표시될 시간(초)
+        const Duration(seconds: 3)); // splash screen이 표시될 시간(초)
     setState(() {
       _showSplashScreen = false;
     });
@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
       statusBarColor: Color(0xFF6B19DC),
       statusBarIconBrightness: Brightness.dark,
     ));
+    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
     return GetMaterialApp(
       theme: ThemeData(
