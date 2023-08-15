@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ChangePINScreen extends StatefulWidget {
   const ChangePINScreen({super.key});
@@ -218,25 +217,25 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           if (pin == null ||
                               newPIN == null ||
                               pinCheck == null) {
-                            Fluttertoast.showToast(
-                              msg: "PIN을 입력해주세요.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
+                            Get.snackbar(
+                              '알림',
+                              'PIN을 입력해주세요.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
                             );
                           } else if (newPIN != pinCheck) {
-                            Fluttertoast.showToast(
-                              msg: "PIN 재확인이 올바르지 않습니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
+                            Get.snackbar(
+                              '알림',
+                              'PIN 재확인이 올바르지 않습니다.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
                             );
                           } else if (pin!.length != 6 || newPIN!.length != 6) {
-                            Fluttertoast.showToast(
-                              msg: "PIN이 6자리가 아닙니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
+                            Get.snackbar(
+                              '알림',
+                              'PIN이 6자리가 아닙니다.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
                             );
                           } else if (int.tryParse(pin!) != null &&
                               int.tryParse(newPIN!) != null) {
@@ -247,21 +246,21 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                               prefs.setString('PIN', newPIN!);
                               navigateToMainScreen();
                             } else {
-                              Fluttertoast.showToast(
-                                msg: "PIN이  올바르지 않습니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
+                              Get.snackbar(
+                                '알림',
+                                'PIN이 올바르지 않습니다.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
                               );
                             }
                           }
                         } catch (err) {
                           print(err);
-                          Fluttertoast.showToast(
-                            msg: "오류가 발생했습니다, 다시 시도해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            fontSize: 20,
+                          Get.snackbar(
+                            '알림',
+                            '오류가 발생했습니다, 다시 시도해주세요.',
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 2),
                           );
                         }
                       },
