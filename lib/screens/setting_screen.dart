@@ -69,6 +69,8 @@ void navigateToChangePINScreen() {
 class _SettingScreenState extends State<SettingScreen> {
   late SharedPreferences prefs;
   String? PIN;
+  bool capturepermit = false;
+  bool entireNotificationenable = false;
 
   @override
   void initState() {
@@ -78,10 +80,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    bool capturepermit = false;
-    bool entireNotificationenable = false;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(color: Colors.white),
@@ -137,15 +136,16 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Row(
                           children: [
-                            const Text(
+                            Text(
                               'ON',
                               style: TextStyle(
                                 height: 1.2,
                                 letterSpacing: -0.4,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w700,
-                                color: Colors
-                                    .black, //!아래 버튼 눌렀을 떄 entireNotificationenable에 따라 text색이 바껴야 하는데 deadcode로 뜸
+                                color: entireNotificationenable
+                                    ? Colors.black
+                                    : const Color(0xFF000000).withOpacity(0.3),
                                 fontSize: 22,
                               ),
                             ),
@@ -170,7 +170,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 letterSpacing: -0.4,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w700,
-                                color: Colors.black.withOpacity(0.3),
+                                color: entireNotificationenable
+                                    ? Colors.black.withOpacity(0.3)
+                                    : Colors.black,
                                 fontSize: 22,
                               ),
                             ),
@@ -181,13 +183,25 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.alarm_add_sharp,
+                              color: entireNotificationenable
+                                  ? Colors.black
+                                  : const Color(0xFFD1D1D1),
                             ),
                             SizedBox(width: screenWidth / 390 * 8),
                             GestureDetector(
                               onTap: () {
-                                Get.to(() => const NoticePeriodScreen());
+                                if (entireNotificationenable == true) {
+                                  Get.to(() => const NoticePeriodScreen());
+                                } else {
+                                  Get.snackbar(
+                                    '알림',
+                                    '전체 알림을 허용한 후 다시 시도해주세요',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    duration: const Duration(seconds: 2),
+                                  );
+                                }
                               },
                               child: Container(
                                 width: screenWidth / 390 * 88,
@@ -198,11 +212,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                 ),
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     '알람 추가',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: entireNotificationenable
+                                          ? Colors.black
+                                          : const Color(0xFFD1D1D1),
                                       fontSize: 16,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
@@ -234,14 +250,16 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Row(
                           children: [
-                            const Text(
+                            Text(
                               'ON',
                               style: TextStyle(
                                 height: 1.2,
                                 letterSpacing: -0.4,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w700,
-                                color: Colors.black,
+                                color: capturepermit
+                                    ? Colors.black
+                                    : Colors.black.withOpacity(0.3),
                                 fontSize: 22,
                               ),
                             ),
@@ -251,9 +269,22 @@ class _SettingScreenState extends State<SettingScreen> {
                               height: screenHeight / 844 * 26,
                               child: CustomSwitchButton(
                                 value: capturepermit,
-                                onChanged: (bool val) {
+                                onChanged: (value) {
                                   setState(() {
-                                    capturepermit = val;
+                                    capturepermit = value;
+                                    /*if (!capturepermit) {
+                                      // 화면 캡쳐 비허용 설정
+                                      FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+                                    } else {
+                                      // 화면 캡쳐 비허용 해제
+                                      FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+                                    }*/
+                                    Get.snackbar(
+                                      '알림',
+                                      '화면 캡쳐 허용 기능은 개발중입니다.',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      duration: const Duration(seconds: 2),
+                                    );
                                   });
                                 },
                               ),
@@ -266,7 +297,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 letterSpacing: -0.4,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w700,
-                                color: Colors.black.withOpacity(0.3),
+                                color: capturepermit
+                                    ? Colors.black.withOpacity(0.3)
+                                    : Colors.black,
                                 fontSize: 22,
                               ),
                             ),
