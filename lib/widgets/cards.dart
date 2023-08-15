@@ -150,7 +150,7 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
                     SizedBox(height: screenHeight / 844 * 17),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(width: 16),
                         Container(
@@ -161,18 +161,12 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
                         const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 12),
-                            Row(
-                              children: [
-                                Text(
-                                  widget.name.toUpperCase(),
-                                  style: ABTextTheme.CardTitle,
-                                ),
-                              ],
+                            Text(
+                              widget.name.toUpperCase(),
+                              style: ABTextTheme.CardTitle,
                             ),
-                            SizedBox(height: screenHeight / 844 * 25),
                           ],
                         ),
                       ],
@@ -446,7 +440,7 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
+    final NumberFormat formatter = NumberFormat('#,###');
     return Dismissible(
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
@@ -505,7 +499,7 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
                     SizedBox(height: screenHeight / 844 * 17),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(width: 16),
                         Container(
@@ -516,18 +510,29 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
                         const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 12),
-                            Row(
-                              children: [
-                                Text(
-                                  widget.name.toUpperCase(),
-                                  style: ABTextTheme.CardTitle,
-                                ),
-                              ],
+                            Text(
+                              widget.name.toUpperCase(),
+                              style: ABTextTheme.CardTitle,
                             ),
-                            SizedBox(height: screenHeight / 844 * 25),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text:
+                                          formatter.format(widget.obj['cost']),
+                                      style: ABTextTheme.CardTitle),
+                                  const TextSpan(
+                                      text: '원', style: ABTextTheme.CardTitle),
+                                  const TextSpan(text: ', '),
+                                  TextSpan(
+                                      text: widget.obj['endDate'],
+                                      style: ABTextTheme.CardTitle),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -938,29 +943,37 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
                     SizedBox(height: screenHeight / 844 * 17),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(width: 16),
                         Container(
                           width: 40,
                           height: 40,
-                          decoration: CircleDesign.BlackGradient,
+                          decoration: CircleDesign.BlueGradient,
                         ),
                         const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 12),
-                            Row(
-                              children: [
-                                Text(
-                                  widget.name.toUpperCase(),
-                                  style: ABTextTheme.CardTitle,
-                                ),
-                              ],
+                            Text(
+                              widget.name.toUpperCase(),
+                              style: ABTextTheme.CardTitle,
                             ),
-                            SizedBox(height: screenHeight / 844 * 25),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: widget.obj['name'],
+                                      style: ABTextTheme.CardTitle),
+                                  const TextSpan(text: ', '),
+                                  TextSpan(
+                                      text: widget.obj['endDate'],
+                                      style: ABTextTheme.CardTitle),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],

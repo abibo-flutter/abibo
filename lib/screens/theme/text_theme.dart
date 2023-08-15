@@ -165,7 +165,7 @@ abstract class ABTextTheme {
     fontSize: 16,
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w700,
-    height: 1.25,
+    height: 1.2,
     letterSpacing: -0.4,
   );
   static const RegisterInfoMainText = TextStyle(
@@ -226,9 +226,9 @@ abstract class ABTextTheme {
   );
   static const CardTitle = TextStyle(
     color: Colors.black,
-    fontSize: 16,
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.w700,
+    fontSize: 12,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
   );
   static final CardMidSeperate = TextStyle(
     color: Colors.black.withOpacity(0.7),

@@ -509,14 +509,13 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               ),
                               SizedBox(
                                 child: TextField(
-                                  maxLines: 1,
                                   onChanged: (value) {
                                     setState(() {
                                       text = value;
                                     });
                                   },
                                   decoration: const InputDecoration(
-                                    hintText: "메모를 입력하세요",
+                                    hintText: "메모을 입력하세요",
                                     hintStyle: TextStyle(
                                         color: ABColors.Regi_Hint_Color),
                                     enabledBorder: UnderlineInputBorder(
