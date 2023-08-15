@@ -1,10 +1,9 @@
 //InitPINScreen.dart
+import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/main_screen.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class InitPINScreen extends StatefulWidget {
   const InitPINScreen({super.key});
@@ -31,215 +30,220 @@ class _InitPINScreenState extends State<InitPINScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color: Colors.black,
+          color: Colors.white,
         ),
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  'assets/images/signup_screen.png'), // 배경화면으로 사용할 이미지 경로
-              fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 조절하여 채우도록 설정
-            ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: screenHeight / 844 * 90,
+            bottom: 0,
+            left: screenHeight / 844 * 32,
+            right: screenHeight / 844 * 32,
           ),
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: screenHeight / 844 * 104,
-              bottom: 0,
-              left: screenHeight / 844 * 28,
-              right: screenHeight / 844 * 28,
-            ),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        child: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 30,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Get.back();
+                        },
+                      ),
+                      SizedBox(width: screenWidth / 390 * 3),
+                      const Text(
+                        'PIN 설정하기',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: screenHeight / 844 * 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: screenWidth / 390 * 5),
+                      const Text(
+                        '잠금해제에 사용할 PIN을 설정해보세요\nPIN은 언제든 변경할 수 있습니다',
+                        style: TextStyle(
+                          color: Color(0xFFA0A0A0),
+                          fontSize: 16,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          height: 1.32,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: screenHeight / 944 * 80,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "PIN 설정하기",
-                          style: ABTextTheme.LoginMainText2,
+                        SizedBox(
+                          height: screenHeight / 844 * 40,
+                          child: TextField(
+                            obscureText: true,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ), // 입력 중 텍스트 스타일
+                            decoration: InputDecoration(
+                              hintText: 'PIN',
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                              filled: false,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black.withOpacity(0.2)),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black.withOpacity(0.2)),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                pin = value;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: screenHeight / 844 * 58,
-                    ),
-                    SizedBox(
-                      height: screenHeight / 944 * 48,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: screenHeight / 844 * 40,
-                            child: TextField(
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
-                              maxLength: 6,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ), // 입력 중 텍스트 스타일
-                              decoration: InputDecoration(
-                                hintText: 'PIN',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.4),
-                                ),
-                                filled: false,
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
+                  ),
+                  SizedBox(
+                    height: screenHeight / 944 * 48,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: screenHeight / 844 * 40,
+                          child: TextField(
+                            obscureText: true,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ), // 입력 중 텍스트 스타일
+                            decoration: InputDecoration(
+                              hintText: 'PIN 확인',
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.2),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  pin = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenHeight / 944 * 48,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: screenHeight / 844 * 40,
-                            child: TextField(
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
-                              maxLength: 6,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ), // 입력 중 텍스트 스타일
-                              decoration: InputDecoration(
-                                hintText: 'PIN 확인',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.4),
-                                ),
-                                filled: false,
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
+                              filled: false,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black.withOpacity(0.2)),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  pinCheck = value;
-                                });
-                              },
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black.withOpacity(0.2)),
+                              ),
                             ),
+                            onChanged: (value) {
+                              setState(() {
+                                pinCheck = value;
+                              });
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: screenHeight / 944 * 57,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: screenHeight / 944 * 70,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            if (pin == null || pinCheck == null) {
-                              Fluttertoast.showToast(
-                                msg: "PIN과 PIN확인을 입력해주세요.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
-                              );
-                            } else if (pin!.length != 6) {
-                              Fluttertoast.showToast(
-                                msg: "PIN이 6글자가 아닙니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
-                              );
-                            } else if (pin != pinCheck) {
-                              Fluttertoast.showToast(
-                                msg: "PIN재확인이 올바르지 않습니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
-                              );
-                            } else if (int.tryParse(pin!) != null) {
-                              prefs = await SharedPreferences.getInstance();
-                              prefs.setString('PIN', pin!);
-                              navigateToMainScreen();
-                            }
-                          } catch (err) {
-                            print(err);
-                            Fluttertoast.showToast(
-                              msg: "오류가 발생했습니다, 다시 시도해주세요.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: screenHeight / 944 * 70,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        try {
+                          if (pin == null || pinCheck == null) {
+                            Get.snackbar(
+                              '알림',
+                              'PIN과 PIN확인을 입력하세요.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
                             );
+                          } else if (pin!.length != 6) {
+                            Get.snackbar(
+                              '알림',
+                              'PIN이 6글자가 아닙니다.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                            );
+                          } else if (pin != pinCheck) {
+                            Get.snackbar(
+                              '알림',
+                              'PIN 재확인이 올바르지 않습니다.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                            );
+                          } else if (int.tryParse(pin!) != null) {
+                            prefs = await SharedPreferences.getInstance();
+                            prefs.setString('PIN', pin!);
+                            navigateToMainScreen();
                           }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD08FFF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
+                        } catch (err) {
+                          print(err);
+                          Get.snackbar(
+                            '알림',
+                            '오류가 발생했습니다, 다시 시도해주세요.',
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 2),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ABColors.MAIN_THEME,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        child: const Text(
-                          "PIN 설정하기",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        elevation: 5,
+                      ),
+                      child: const Text(
+                        "PIN 변경하기",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight / 844 * 10),
-                    SizedBox(
-                      width: double.infinity,
-                      height: screenHeight / 944 * 70,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromRGBO(143, 199, 255, 1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
-                        ),
-                        child: const Text(
-                          "뒤로가기",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  SizedBox(
+                    height: screenHeight / 844 * 40,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
