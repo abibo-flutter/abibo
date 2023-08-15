@@ -454,7 +454,14 @@ class _NoticeTabState extends State<NoticeTab> {
     DateTime endDate =
         DateTime.parse(widget.obj![1]['endDate'].replaceAll('/', '-'));
     DateTime today = DateTime.now();
-    int difference = endDate.difference(today).inDays + 1;
+    today = DateTime(
+      today.year,
+      today.month,
+      today.day,
+      0,
+      0,
+    );
+    int difference = endDate.difference(today).inDays;
 
     return Padding(
       padding: const EdgeInsets.only(right: 3),
