@@ -160,6 +160,14 @@ abstract class ABTextTheme {
     color: Colors.black,
     letterSpacing: -0.4,
   );
+  static const RegiEachTitleRed = TextStyle(
+    color: Color(0xFFBB0000),
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1.25,
+    letterSpacing: -0.4,
+  );
   static const RegisterInfoMainText = TextStyle(
     fontFamily: 'NotoSansKR',
     fontWeight: FontWeight.normal,

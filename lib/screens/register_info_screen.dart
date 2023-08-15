@@ -509,7 +509,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               ),
                               SizedBox(
                                 child: TextField(
-                                  maxLines: 3,
+                                  maxLines: 1,
                                   onChanged: (value) {
                                     setState(() {
                                       text = value;
@@ -546,7 +546,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               SizedBox(height: screenHeight / 844 * 24),
                               const Row(
                                 children: [
-                                  Text('해지일', style: ABTextTheme.RegiEachTitle),
+                                  Text('해지일',
+                                      style: ABTextTheme.RegiEachTitleRed),
                                 ],
                               ),
                               SizedBox(height: screenHeight / 844 * 10),

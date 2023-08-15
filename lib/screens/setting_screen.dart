@@ -144,7 +144,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                 letterSpacing: -0.4,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w700,
-                                color: Colors.black,
+                                color: Colors
+                                    .black, //!아래 버튼 눌렀을 떄 entireNotificationenable에 따라 text색이 바껴야 하는데 deadcode로 뜸
                                 fontSize: 22,
                               ),
                             ),
