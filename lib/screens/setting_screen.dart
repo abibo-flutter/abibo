@@ -1,5 +1,6 @@
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
+import 'package:abibo/screens/notice_period_screen.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:abibo/widgets/custon_switch_button.dart';
 // import 'package:abibo/screens/notice_period_screen.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -22,7 +24,6 @@ void navigateToInitPINScreen() {
 void navigateToChangePINScreen() {
   Get.to(() => const ChangePINScreen());
 }
-
 // void navigateToNoticePeriodScreen() {
 //   Get.to(() => const NoticePeriodScreen());
 // }
@@ -41,17 +42,17 @@ class _SettingScreenState extends State<SettingScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    bool entireNotificationenable = false;
     bool capturepermit = false;
-    return Scaffold(
-      body: Container(
+    bool entireNotificationenable = false;
+    return CupertinoPageScaffold(
+      child: Container(
         decoration: const BoxDecoration(color: Colors.white),
         child: Padding(
           padding: EdgeInsets.only(
             top: screenHeight / 844 * 60,
             bottom: 0,
             left: screenWidth / 390 * 26,
-            right: screenWidth / 390 * 26,
+            right: 0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,17 +81,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: screenHeight / 844 * 70,
               ),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: screenWidth / 390 * 10),
+                padding: EdgeInsets.only(left: screenWidth / 390 * 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '전체알림',
+                          '전체 알림',
                           style: ABTextTheme.SettingMenuTitle,
                         ),
                         SizedBox(
@@ -115,9 +116,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               height: screenHeight / 844 * 26,
                               child: CustomSwitchButton(
                                 value: entireNotificationenable,
-                                onChanged: (bool val) {
+                                onChanged: (value) {
                                   setState(() {
-                                    entireNotificationenable = val;
+                                    entireNotificationenable = value;
                                   });
                                 },
                               ),
@@ -141,30 +142,32 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Row(
                           children: [
-                            GestureDetector(
-                              child: const Icon(
-                                Icons.alarm_add_sharp,
-                              ),
-                              onTap: () {},
+                            const Icon(
+                              Icons.alarm_add_sharp,
                             ),
                             SizedBox(width: screenWidth / 390 * 8),
-                            Container(
-                              width: screenWidth / 390 * 88,
-                              height: screenHeight / 844 * 32,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFFF1F1F1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => const NoticePeriodScreen());
+                              },
+                              child: Container(
+                                width: screenWidth / 390 * 88,
+                                height: screenHeight / 844 * 32,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFF1F1F1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
                                 ),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  '알람 추가',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w500,
+                                child: const Center(
+                                  child: Text(
+                                    '알람 추가',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -184,7 +187,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           height: screenHeight / 844 * 24,
                         ),
                         const Text(
-                          '화면 캡쳐 비용',
+                          '화면 캡쳐 허용',
                           style: ABTextTheme.SettingMenuTitle,
                         ),
                         SizedBox(
@@ -285,6 +288,56 @@ class _SettingScreenState extends State<SettingScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: screenHeight / 844 * 22,
+                        ),
+                        Container(
+                          width: screenWidth,
+                          height: 1,
+                          decoration:
+                              const BoxDecoration(color: Color(0xFFCCCCCC)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight / 844 * 110),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '어플리케이션 정보',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.6000000238418579),
+                            fontSize: 12,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight / 844 * 7,
+                        ),
+                        Text(
+                          '버전 : 1.0.0\n개인정보처리방침 및 법률정보',
+                          style: TextStyle(
+                            color:
+                                Colors.black.withOpacity(0.20000000298023224),
+                            fontSize: 10,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight / 844 * 5,
+                        ),
+                        Text(
+                          '고객센터 : 02-XXXX-XXXX\n                 abibo@gmail.com',
+                          style: TextStyle(
+                            color:
+                                Colors.black.withOpacity(0.20000000298023224),
+                            fontSize: 10,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
                       ],
                     ),
                   ],

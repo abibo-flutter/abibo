@@ -35,7 +35,8 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
         height: 28.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.0),
-          color: _switchValue ? Colors.blue : Colors.grey,
+          color:
+              _switchValue ? const Color(0xFFDABFFF) : const Color(0xFFD9D9D9),
         ),
         child: Padding(
           padding: const EdgeInsets.only(
@@ -55,9 +56,11 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
             child: Container(
               width: 20.0,
               height: 20.0,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: _switchValue
+                    ? const Color(0xFF6B19DD)
+                    : const Color(0xFF707070),
               ),
             ),
           ),
