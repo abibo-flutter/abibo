@@ -33,6 +33,9 @@ Future<void> setGuarantee({
 
   prefs.setString('guarantee-$brand', jsonEncode(productList));
 
+  List DateDiffs =
+      prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+
   for (String date in DateDiffs) {
     await registerNotification(
       type: "guarantee",
@@ -63,7 +66,7 @@ Future<void> removeGuarantee({
         (obj['name'] == item['name'] && obj['endDate'] == item['endDate']),
   );
 
-  await cancelNotification(
+  await cancelAllNotification(
     type: "guarantee",
     name: brand,
     detail: obj["name"],

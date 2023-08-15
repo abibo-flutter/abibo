@@ -37,6 +37,9 @@ Future<void> setSubscription({
     serviceList.add(newInfo);
   }
 
+  List DateDiffs =
+      prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+
   for (String date in DateDiffs) {
     await registerNotification(
       type: "subscription",
@@ -67,7 +70,7 @@ Future<void> removeSubscription({
     (item) => (obj['id'] == item['id']),
   );
 
-  cancelNotification(
+  cancelAllNotification(
     type: "subscription",
     name: serviceName,
     detail: obj["id"],

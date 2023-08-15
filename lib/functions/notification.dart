@@ -6,7 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
 
 final notifications = FlutterLocalNotificationsPlugin();
-late List<String> DateDiffs;
+late List<String> _DateDiffs;
 List<int> months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 Future<void> initNotification() async {
@@ -30,7 +30,7 @@ Future<void> initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
 }
 
 Future<void> registerNotification({
@@ -91,9 +91,25 @@ Future<void> cancelNotification({
   required String type,
   required String name,
   required String detail,
+  required String dateDiff,
 }) async {
   try {
-    for (String dateDiff in DateDiffs) {
+    int notificationId = '$type $name $detail $dateDiff'.hashCode;
+    await notifications.cancel(notificationId);
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future<void> cancelAllNotification({
+  required String type,
+  required String name,
+  required String detail,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  try {
+    for (String dateDiff in _DateDiffs) {
       int notificationId = '$type $name $detail $dateDiff'.hashCode;
       await notifications.cancel(notificationId);
     }

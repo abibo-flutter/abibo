@@ -1,5 +1,8 @@
 //NoticePeriodScreen.dart
 
+import 'package:abibo/functions/control_guarantee.dart';
+import 'package:abibo/functions/control_subscription.dart';
+import 'package:abibo/functions/notification.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +24,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   late SharedPreferences prefs;
   String newPeriod = '0d';
   List<String> periods = [];
+  List infos = [];
 
   Future<void> _loadPeriod() async {
     prefs = await SharedPreferences.getInstance();
@@ -28,14 +32,35 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   }
 
   Future<void> _removePeriod(value) async {
+    for (List info in infos) {
+      await cancelNotification(
+        type: info[0],
+        name: info[1],
+        detail: info[2][(info[0] == 'guarantee') ? 'name' : 'id'],
+        dateDiff: value,
+      );
+    }
     periods.remove(value);
     prefs.setStringList('periods', periods);
     setState(() {});
   }
 
+  Future<void> searchInfos() async {
+    List<List> arr = [];
+    for (List list in await getAllSubscription()) {
+      arr.add(['subscription', list[0], list[1]]);
+    }
+
+    for (List list in await getAllGuarantee()) {
+      arr.add(['guarantee', list[0], list[1]]);
+    }
+    infos = arr;
+  }
+
   @override
   void initState() {
     super.initState();
+    searchInfos();
   }
 
   @override
@@ -264,6 +289,17 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                       periods.add(newPeriod);
                     }
                     await prefs.setStringList("periods", periods);
+
+                    for (var info in infos) {
+                      await registerNotification(
+                        type: info[0],
+                        name: info[1],
+                        detail: info[2]
+                            [(info[0] == 'guarantee') ? 'name' : 'id'],
+                        endDate: info[2]['endDate'],
+                        dateDiff: newPeriod,
+                      );
+                    }
                     setState(() {});
                   },
                   style: ElevatedButton.styleFrom(
