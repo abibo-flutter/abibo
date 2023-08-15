@@ -1,12 +1,11 @@
 //NoticePeriodScreen.dart
-import 'dart:convert';
 
+import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class NoticePeriodScreen extends StatefulWidget {
   const NoticePeriodScreen({super.key});
@@ -15,17 +14,24 @@ class NoticePeriodScreen extends StatefulWidget {
   State<NoticePeriodScreen> createState() => _NoticePeriodScreenState();
 }
 
-void navigateToMainScreen() {
-  Get.back();
-}
-
 class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   final secureKeyboardController = SecureKeyboardController();
   final pinCodeEditor = TextEditingController();
   final textFieldFocusNode = FocusNode();
   late SharedPreferences prefs;
-  String? period; //전역변수
-  String? newPeriod; //신규 pin 입력
+  String newPeriod = '0d';
+  List<String> periods = [];
+
+  Future<void> _loadPeriod() async {
+    prefs = await SharedPreferences.getInstance();
+    periods = prefs.getStringList('periods') ?? [];
+  }
+
+  Future<void> _removePeriod(value) async {
+    periods.remove(value);
+    prefs.setStringList('periods', periods);
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -35,161 +41,346 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-        ),
+      body: SingleChildScrollView(
         child: Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  'assets/images/signup_screen.png'), // 배경화면으로 사용할 이미지 경로
-              fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 조절하여 채우도록 설정
-            ),
+            color: Colors.white,
           ),
           child: Padding(
-            padding: EdgeInsets.only(
-              top: screenHeight / 844 * 104,
-              bottom: 0,
-              left: screenHeight / 844 * 28,
-              right: screenHeight / 844 * 28,
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth / 390 * 16,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Row(
+                SizedBox(
+                  height: screenHeight / 844 * 43,
+                ),
+                IconButton(
+                  iconSize: 23,
+                  color: ABColors.MAIN_THEME,
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 11,
+                ),
+                const Text(
+                  '알림 발송 주기를\n설정하세요',
+                  style: ABTextTheme.NoticePeriodTitle,
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 22,
+                ),
+                Container(
+                  height: screenWidth / 390 * 43,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        newPeriod = '0d';
+                      });
+                    },
+                    child: Row(
                       children: [
-                        Text(
-                          "발송 주기 변경하기",
-                          style: ABTextTheme.LoginMainText2,
+                        const Text(
+                          '당일',
+                          style: TextStyle(color: Colors.black),
                         ),
+                        const Spacer(),
+                        if (newPeriod == '0d')
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 16,
+                          ),
                       ],
                     ),
-                    SizedBox(
-                      height: screenHeight / 844 * 58,
-                    ),
-                    SizedBox(
-                      height: screenHeight / 944 * 48,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: screenHeight / 844 * 40,
-                            child: TextField(
-                              keyboardType: TextInputType.phone,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ), // 입력 중 텍스트 스타일
-                              decoration: InputDecoration(
-                                hintText: '알림 발송 날짜',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.4),
-                                ),
-                                filled: false,
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  newPeriod = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenHeight / 944 * 48,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: screenHeight / 944 * 70,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            if (newPeriod == null ||
-                                int.tryParse(newPeriod!) == null) {
-                              Fluttertoast.showToast(
-                                msg: "발송 날짜를 입력해주세요.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
-                              );
-                            } else {
-                              prefs = await SharedPreferences.getInstance();
-                              prefs.setString('period', jsonEncode(newPeriod));
-                              navigateToMainScreen();
-                            }
-                          } catch (err) {
-                            print(err);
-                            Fluttertoast.showToast(
-                              msg: "오류가 발생했습니다, 다시 시도해주세요.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD08FFF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
-                        ),
-                        child: const Text(
-                          "발송 주기 변경하기",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight / 844 * 10),
-                    SizedBox(
-                      width: double.infinity,
-                      height: screenHeight / 944 * 70,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromRGBO(143, 199, 255, 1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
-                        ),
-                        child: const Text(
-                          "뒤로가기",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
+                SizedBox(
+                  height: screenHeight / 844 * 8,
+                ),
+                Container(
+                  height: screenWidth / 390 * 43,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        newPeriod = '1d';
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          '1일 전',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const Spacer(),
+                        if (newPeriod == '1d')
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 8,
+                ),
+                Container(
+                  height: screenWidth / 390 * 43,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        newPeriod = '3d';
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          '3일 전',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const Spacer(),
+                        if (newPeriod == '3d')
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 8,
+                ),
+                Container(
+                  height: screenWidth / 390 * 43,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        newPeriod = '7d';
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          '7일 전',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const Spacer(),
+                        if (newPeriod == '7d')
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 8,
+                ),
+                Container(
+                  height: screenWidth / 390 * 43,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 0.5,
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        newPeriod = '1m';
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          '1개월 전',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        const Spacer(),
+                        if (newPeriod == '1m')
+                          const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 23,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    periods = (prefs.getStringList("periods")) ?? [];
+                    if (!periods.contains(newPeriod)) {
+                      periods.add(newPeriod);
+                    }
+                    await prefs.setStringList("periods", periods);
+                    setState(() {});
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: screenWidth / 390 * 60,
+                    child: const Center(
+                      child: Text(
+                        '추가하기',
+                        style: ABTextTheme.NoticePeriodButton,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 23,
+                ),
+                const Divider(
+                  thickness: 1,
+                ),
+                SizedBox(
+                  height: screenHeight / 844 * 23,
+                ),
+                FutureBuilder(
+                  future: _loadPeriod(),
+                  builder: (context, snapshot) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: periods.length,
+                      itemBuilder: (context, index) => NoticePeriodCard(
+                        change: _removePeriod,
+                        period: periods[index],
+                      ),
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: screenHeight / 844 * 8,
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NoticePeriodCard extends StatefulWidget {
+  const NoticePeriodCard(
+      {super.key, required this.change, required this.period});
+  final Function change;
+  final String period;
+
+  @override
+  State<NoticePeriodCard> createState() => _NoticePeriodCardState();
+}
+
+class _NoticePeriodCardState extends State<NoticePeriodCard> {
+  String text = '1234567';
+
+  @override
+  void initState() {
+    super.initState();
+    text = widget.period.substring(0, widget.period.length - 1);
+    if (widget.period.endsWith('d')) {
+      text += '일 전';
+    } else if (widget.period.endsWith('m')) {
+      text += '개월 전';
+    }
+    if (text == '0일 전') {
+      text = '당일';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        widget.change(widget.period);
+      },
+      background: Container(
+        width: screenWidth / 390 * 326,
+        height: screenHeight / 844 * 82,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+          ),
+        ),
+        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
+      ),
+      child: Container(
+        height: screenHeight / 844 * 100,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF1F1F1),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.black.withOpacity(0.1),
+          ),
+        ),
+        child: Center(
+          child: Text('$text에 알림이 울립니다.'),
         ),
       ),
     );

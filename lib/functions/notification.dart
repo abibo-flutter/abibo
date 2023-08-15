@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
@@ -32,9 +30,7 @@ Future<void> initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  DateDiffs = jsonDecode(prefs.getString('period') ??
-          '["1d", "2d", "3d", "4d", "5d", "6d", "1w", "2w", "3w", "1m", "2m", "3m"]')
-      .cast<String>();
+  DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
 }
 
 Future<void> registerNotification({
@@ -43,6 +39,7 @@ Future<void> registerNotification({
   required String detail,
   required String endDate,
   required String dateDiff,
+  String noticeTime = '00:00',
 }) async {
   var androidDetails = const AndroidNotificationDetails(
     'ID',
@@ -58,7 +55,8 @@ Future<void> registerNotification({
     presentSound: true,
   );
 
-  DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
+  DateTime date =
+      DateTime.parse("${endDate.replaceAll('/', '-')} $noticeTime:00");
   int diff = int.parse(dateDiff.substring(0, dateDiff.length - 1));
 
   if (dateDiff.endsWith('d')) {
@@ -69,7 +67,7 @@ Future<void> registerNotification({
     date.subtract(Duration(days: diff * months[date.month - 2]));
   }
 
-  int notificationId = '$type $name $detail $dateDiff'.hashCode;
+  int notificationId = '$type $name $detail $dateDiff $noticeTime'.hashCode;
 
   tz.initializeTimeZones();
   try {
