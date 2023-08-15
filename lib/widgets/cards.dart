@@ -523,13 +523,14 @@ class _SubscriptionInitialCardState extends State<SubscriptionInitialCard> {
                                   TextSpan(
                                       text:
                                           formatter.format(widget.obj['cost']),
-                                      style: ABTextTheme.CardTitle),
+                                      style: ABTextTheme.InitialCardTitle),
                                   const TextSpan(
-                                      text: '원', style: ABTextTheme.CardTitle),
+                                      text: '원',
+                                      style: ABTextTheme.InitialCardTitle),
                                   const TextSpan(text: ', '),
                                   TextSpan(
                                       text: widget.obj['endDate'],
-                                      style: ABTextTheme.CardTitle),
+                                      style: ABTextTheme.InitialCardTitle),
                                 ],
                               ),
                             ),
@@ -949,7 +950,7 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
                         Container(
                           width: 40,
                           height: 40,
-                          decoration: CircleDesign.BlueGradient,
+                          decoration: CircleDesign.BlackGradient,
                         ),
                         const SizedBox(width: 12),
                         Column(
@@ -966,11 +967,11 @@ class _GuaranteeInitialCardState extends State<GuaranteeInitialCard> {
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: widget.obj['name'],
-                                      style: ABTextTheme.CardTitle),
+                                      style: ABTextTheme.InitialCardTitle),
                                   const TextSpan(text: ', '),
                                   TextSpan(
                                       text: widget.obj['endDate'],
-                                      style: ABTextTheme.CardTitle),
+                                      style: ABTextTheme.InitialCardTitle),
                                 ],
                               ),
                             ),

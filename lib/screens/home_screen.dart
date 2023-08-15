@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 SizedBox(
-                                  width: screenWidth / 390 * 260,
+                                  width: screenWidth / 390 * 300,
                                   child: PageView.builder(
                                     onPageChanged: (value) {
                                       setState(() {
@@ -181,17 +181,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         obj: searching[i][1],
                                       );
                                     },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 60,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.chevron_right_rounded,
-                                      color: Colors.white,
-                                      size: 45,
-                                    ),
                                   ),
                                 ),
                               ],
