@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
 import 'package:abibo/screens/finger_print_screen.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'theme/color_theme.dart';
 
 class PINScreen extends StatefulWidget {
@@ -124,18 +123,18 @@ class _PINScreenState extends State<PINScreen> {
                         onPressed: () async {
                           try {
                             if (pin == null) {
-                              Fluttertoast.showToast(
-                                msg: "PIN을 입력해주세요.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
+                              Get.snackbar(
+                                '알림',
+                                'PIN을 입력해주세요.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
                               );
                             } else if (pin!.length != 6) {
-                              Fluttertoast.showToast(
-                                msg: "PIN이 6자리가 아닙니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                fontSize: 20,
+                              Get.snackbar(
+                                '알림',
+                                'PIN이 6자리가 아닙니다.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
                               );
                             } else if (int.tryParse(pin!) != null) {
                               prefs = await SharedPreferences.getInstance();
@@ -143,21 +142,21 @@ class _PINScreenState extends State<PINScreen> {
                               if (PIN == pin) {
                                 Get.offAll(() => const MainScreen());
                               } else {
-                                Fluttertoast.showToast(
-                                  msg: "PIN이 올바르지 않습니다.",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  fontSize: 20,
+                                Get.snackbar(
+                                  '알림',
+                                  'PIN이 올바르지 않습니다.',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: const Duration(seconds: 2),
                                 );
                               }
                             }
                           } catch (err) {
                             print(err);
-                            Fluttertoast.showToast(
-                              msg: "오류가 발생했습니다, 다시 시도해주세요.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              fontSize: 20,
+                            Get.snackbar(
+                              '알림',
+                              '오류가 발생했습니다, 다시 시도해주세요.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
                             );
                           }
                         },

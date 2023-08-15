@@ -636,6 +636,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               note: text,
                             );
                           } else {
+                            Get.snackbar(
+                              '알림',
+                              '오류가 발생했습니다, 다시 시도해주세요',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                            );
                             return;
                           }
                           Get.offAll(() => const MainScreen());
