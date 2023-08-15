@@ -17,6 +17,44 @@ class SettingScreen extends StatefulWidget {
   State<SettingScreen> createState() => _SettingScreenState();
 }
 
+Future<void> resetSharedPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+}
+
+void _showAlert(BuildContext context) {
+  showCupertinoDialog(
+    context: context,
+    builder: (context) {
+      return CupertinoAlertDialog(
+        title: const Text("전체 삭제, 초기화"),
+        content: const Text("PIN을 포함한 \n모든 데이터를 삭제하시겠습니까?"),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("예"),
+            onPressed: () {
+              resetSharedPreferences();
+              Navigator.of(context).pop();
+              Get.snackbar(
+                '알림',
+                '초기화가 완료되었습니다.',
+                snackPosition: SnackPosition.BOTTOM,
+                duration: const Duration(seconds: 2),
+              );
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text("아니요"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 void navigateToInitPINScreen() {
   Get.to(() => const InitPINScreen());
 }
@@ -277,7 +315,9 @@ class _SettingScreenState extends State<SettingScreen> {
                           height: screenHeight / 844 * 12,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            _showAlert(context);
+                          },
                           child: const Text(
                             '전체 삭제 / 초기화',
                             style: TextStyle(

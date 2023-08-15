@@ -42,6 +42,7 @@ class _MainScreenState extends State<MainScreen> {
     return MaterialApp(
       home: DefaultTabController(
         length: 3,
+        initialIndex: 1,
         child: Scaffold(
           body: Container(
             decoration: const BoxDecoration(
