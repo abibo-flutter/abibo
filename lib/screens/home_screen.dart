@@ -4,8 +4,6 @@ import 'dart:math';
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/screens/register_info_screen.dart';
-import 'package:abibo/screens/searching_screen.dart';
-import 'package:abibo/screens/setting_screen.dart';
 import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/theme/text_theme.dart';
