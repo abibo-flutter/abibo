@@ -205,18 +205,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 type: searching[0][0],
                                 obj: searching[0][1],
                               ),
-                              const Spacer(),
-                              SizedBox(
-                                height: 60,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: Colors.white,
-                                    size: 45,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         );
