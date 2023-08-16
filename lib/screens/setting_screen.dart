@@ -1,12 +1,9 @@
-import 'package:abibo/functions/control_guarantee.dart';
-import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/notification.dart';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/notice_period_screen.dart';
 import 'package:abibo/screens/theme/color_theme.dart';
 import 'package:abibo/widgets/custon_switch_button.dart';
-// import 'package:abibo/screens/notice_period_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:abibo/screens/theme/text_theme.dart';
@@ -14,7 +11,12 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 
 class SettingScreen extends StatefulWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final TabController controller;
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
@@ -76,18 +78,6 @@ class _SettingScreenState extends State<SettingScreen> {
   bool entireNotificationenable = false;
   List infos = [];
 
-  Future<List> searchInfos() async {
-    List<List> arr = [];
-    for (List list in await getAllSubscription()) {
-      arr.add(['subscription', list[0], list[1]]);
-    }
-
-    for (List list in await getAllGuarantee()) {
-      arr.add(['guarantee', list[0], list[1]]);
-    }
-    return arr;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -116,7 +106,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.back();
+                      widget.controller.animateTo(1);
                     },
                     child: const Icon(
                       Icons.arrow_back_ios_rounded,
@@ -170,17 +160,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               value: entireNotificationenable,
                               onChanged: (value) async {
                                 if (value) {
-                                  infos = await searchInfos();
-                                  for (var info in infos) {
-                                    await registerAllNotification(
-                                      type: info[0],
-                                      name: info[1],
-                                      detail: info[2][(info[0] == 'guarantee')
-                                          ? 'name'
-                                          : 'id'],
-                                      endDate: info[2]['endDate'],
-                                    );
-                                  }
+                                  await updatePeriod();
                                 } else {
                                   await resetNotification();
                                 }

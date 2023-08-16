@@ -38,7 +38,7 @@ abstract class ABTextTheme {
     fontSize: 28,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w700,
-    height: 1.35,
+    height: 1,
   );
   static const UpcomingIssueHighlight = TextStyle(
     color: Color(0xFFFFE27B),

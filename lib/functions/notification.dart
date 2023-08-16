@@ -1,4 +1,5 @@
-import 'dart:convert';
+import 'package:abibo/functions/control_guarantee.dart';
+import 'package:abibo/functions/control_subscription.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -6,7 +7,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
 
 final notifications = FlutterLocalNotificationsPlugin();
-late List<String> _DateDiffs;
+late List<String> dateDiffs;
 List<int> months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 Future<void> initNotification() async {
@@ -30,7 +31,7 @@ Future<void> initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
 }
 
 Future<void> registerNotification({
@@ -94,9 +95,9 @@ Future<void> registerAllNotification({
   required String endDate,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
 
-  for (String dateDiff in _DateDiffs) {
+  for (String dateDiff in dateDiffs) {
     await registerNotification(
       type: type,
       name: name,
@@ -127,8 +128,8 @@ Future<void> cancelAllNotification({
   required String detail,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
-  for (String dateDiff in _DateDiffs) {
+  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  for (String dateDiff in dateDiffs) {
     await cancelNotification(
       type: type,
       name: name,
@@ -139,5 +140,33 @@ Future<void> cancelAllNotification({
 }
 
 Future<void> resetNotification() async {
-  notifications.cancelAll();
+  try {
+    await notifications.cancelAll();
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future<void> updatePeriod() async {
+  List<List> infos = [];
+  for (List list in await getAllSubscription()) {
+    infos.add(['subscription', list[0], list[1]]);
+  }
+
+  for (List list in await getAllGuarantee()) {
+    infos.add(['guarantee', list[0], list[1]]);
+  }
+  for (var info in infos) {
+    await cancelAllNotification(
+      type: info[0],
+      name: info[1],
+      detail: info[2][(info[0] == 'guarantee') ? 'name' : 'id'],
+    );
+    await registerAllNotification(
+      type: info[0],
+      name: info[1],
+      detail: info[2][(info[0] == 'guarantee') ? 'name' : 'id'],
+      endDate: info[2]['endDate'],
+    );
+  }
 }

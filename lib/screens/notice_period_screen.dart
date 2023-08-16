@@ -22,28 +22,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   final pinCodeEditor = TextEditingController();
   final textFieldFocusNode = FocusNode();
   late SharedPreferences prefs;
-  String newPeriod = '0d';
-  List<String> periods = [];
+  Set<String> periods = {};
   List infos = [];
-
-  Future<void> _loadPeriod() async {
-    prefs = await SharedPreferences.getInstance();
-    periods = prefs.getStringList('periods') ?? [];
-  }
-
-  Future<void> _removePeriod(value) async {
-    for (List info in infos) {
-      await cancelNotification(
-        type: info[0],
-        name: info[1],
-        detail: info[2][(info[0] == 'guarantee') ? 'name' : 'id'],
-        dateDiff: value,
-      );
-    }
-    periods.remove(value);
-    prefs.setStringList('periods', periods);
-    setState(() {});
-  }
 
   Future<void> searchInfos() async {
     List<List> arr = [];
@@ -60,7 +40,6 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
   @override
   void initState() {
     super.initState();
-    searchInfos();
   }
 
   @override
@@ -117,7 +96,9 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        newPeriod = '0d';
+                        if (!periods.add('0d')) {
+                          periods.remove('0d');
+                        }
                       });
                     },
                     child: Row(
@@ -127,7 +108,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                           style: ABTextTheme.NoticePeriodTimeButton,
                         ),
                         const Spacer(),
-                        if (newPeriod == '0d')
+                        if (periods.contains('0d'))
                           const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -153,7 +134,9 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        newPeriod = '1d';
+                        if (!periods.add('1d')) {
+                          periods.remove('1d');
+                        }
                       });
                     },
                     child: Row(
@@ -161,7 +144,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                         const Text('24시간 전',
                             style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
-                        if (newPeriod == '1d')
+                        if (periods.contains('1d'))
                           const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -187,7 +170,9 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        newPeriod = '3d';
+                        if (!periods.add('3d')) {
+                          periods.remove('3d');
+                        }
                       });
                     },
                     child: Row(
@@ -195,7 +180,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                         const Text('3일 전',
                             style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
-                        if (newPeriod == '3d')
+                        if (periods.contains('3d'))
                           const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -221,7 +206,9 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        newPeriod = '7d';
+                        if (!periods.add('7d')) {
+                          periods.remove('7d');
+                        }
                       });
                     },
                     child: Row(
@@ -229,7 +216,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                         const Text('7일 전',
                             style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
-                        if (newPeriod == '7d')
+                        if (periods.contains('7d'))
                           const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -255,7 +242,9 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        newPeriod = '1m';
+                        if (!periods.add('1m')) {
+                          periods.remove('1m');
+                        }
                       });
                     },
                     child: Row(
@@ -263,7 +252,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                         const Text('한 달 전',
                             style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
-                        if (newPeriod == '1m')
+                        if (periods.contains('1m'))
                           const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -278,23 +267,14 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    periods = (prefs.getStringList("periods")) ?? [];
-                    if (!periods.contains(newPeriod)) {
-                      periods.add(newPeriod);
-                    }
-                    await prefs.setStringList("periods", periods);
+                    if (periods.isEmpty) return;
 
-                    for (var info in infos) {
-                      await registerNotification(
-                        type: info[0],
-                        name: info[1],
-                        detail: info[2]
-                            [(info[0] == 'guarantee') ? 'name' : 'id'],
-                        endDate: info[2]['endDate'],
-                        dateDiff: newPeriod,
-                      );
-                    }
+                    prefs = await SharedPreferences.getInstance();
+                    await prefs.setStringList(
+                        "periods", periods.toList(growable: false)..sort());
+                    await updatePeriod();
                     setState(() {});
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -306,7 +286,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     height: screenWidth / 390 * 60,
                     child: const Center(
                       child: Text(
-                        '추가하기',
+                        '설정하기',
                         style: ABTextTheme.NoticePeriodButton,
                       ),
                     ),

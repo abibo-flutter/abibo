@@ -15,7 +15,12 @@ import 'package:abibo/widgets/subservices.dart';
 import 'package:abibo/widgets/guarantees.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final TabController controller;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -121,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         child: FloatingActionButton(
                           heroTag: 'search',
                           onPressed: () {
-                            Get.to(() => const SearchScreen());
+                            widget.controller.animateTo(0);
                           },
                           elevation: 0,
                           backgroundColor: Colors.white,
@@ -139,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         child: FloatingActionButton(
                           heroTag: 'setting',
                           onPressed: () {
-                            Get.to(() => const SettingScreen());
+                            widget.controller.animateTo(2);
                           },
                           elevation: 0,
                           backgroundColor: ABColors.MAIN_THEME,
