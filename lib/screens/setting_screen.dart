@@ -2,11 +2,11 @@ import 'package:abibo/functions/notification.dart';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/notice_period_screen.dart';
-import 'package:abibo/screens/theme/color_theme.dart';
-import 'package:abibo/widgets/custon_switch_button.dart';
+import 'package:abibo/theme/color_theme.dart';
+import 'package:abibo/widgets/custom_switch_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 

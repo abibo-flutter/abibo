@@ -1,4 +1,4 @@
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class KeyBoard extends StatefulWidget {

@@ -3,11 +3,11 @@
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/notification.dart';
-import 'package:abibo/screens/theme/color_theme.dart';
+import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 
 class NoticePeriodScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
 //InitPINScreen.dart
-import 'package:abibo/screens/theme/color_theme.dart';
+import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abibo/screens/main_screen.dart';

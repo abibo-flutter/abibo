@@ -1,7 +1,7 @@
 import 'package:abibo/functions/control_guarantee.dart';
-import 'package:abibo/screens/theme/color_theme.dart';
+import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:abibo/widgets/cards.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';

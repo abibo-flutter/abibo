@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:abibo/widgets/platforms.dart';
 

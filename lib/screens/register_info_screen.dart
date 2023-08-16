@@ -2,12 +2,12 @@ import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/screens/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:abibo/screens/theme/color_theme.dart';
+import 'package:abibo/theme/color_theme.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);

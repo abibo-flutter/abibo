@@ -2,10 +2,10 @@ import 'package:abibo/screens/main_screen.dart';
 import 'package:abibo/widgets/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:abibo/screens/finger_print_screen.dart';
 import 'package:get/get.dart';
-import 'theme/color_theme.dart';
+import '../theme/color_theme.dart';
 
 class PINScreen extends StatefulWidget {
   const PINScreen({Key? key}) : super(key: key);

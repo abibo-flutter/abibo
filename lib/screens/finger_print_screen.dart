@@ -1,12 +1,12 @@
 import 'package:abibo/screens/main_screen.dart';
 import 'package:abibo/screens/pin_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/text_theme.dart';
+import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'theme/color_theme.dart';
+import '../theme/color_theme.dart';
 
 class FingerPrintScreen extends StatefulWidget {
   const FingerPrintScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:abibo/screens/theme/color_theme.dart';
+import 'package:abibo/theme/color_theme.dart';
 
 abstract class ABTextTheme {
   static const MenuBar = TextStyle(
