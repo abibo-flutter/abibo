@@ -117,304 +117,300 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(
                 height: screenHeight / 844 * 70,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: screenWidth / 390 * 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '전체 알림',
-                          style: ABTextTheme.SettingMenuTitle,
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 16,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'ON',
-                              style: TextStyle(
-                                height: 1.2,
-                                letterSpacing: -0.4,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w700,
-                                color: entireNotificationenable
-                                    ? Colors.black
-                                    : const Color(0xFF000000).withOpacity(0.3),
-                                fontSize: 22,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              width: screenWidth / 390 * 50,
-                              height: screenHeight / 844 * 26,
-                              child: CustomSwitchButton(
-                                value: entireNotificationenable,
-                                onChanged: (value) {
-                                  setState(() {
-                                    entireNotificationenable = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'OFF',
-                              style: TextStyle(
-                                height: 1.2,
-                                letterSpacing: -0.4,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w700,
-                                color: entireNotificationenable
-                                    ? Colors.black.withOpacity(0.3)
-                                    : Colors.black,
-                                fontSize: 22,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 31,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.alarm_add_sharp,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: screenWidth / 390 * 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '전체 알림',
+                        style: ABTextTheme.SettingMenuTitle,
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 16,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'ON',
+                            style: TextStyle(
+                              height: 1.2,
+                              letterSpacing: -0.4,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w700,
                               color: entireNotificationenable
                                   ? Colors.black
-                                  : const Color(0xFFD1D1D1),
+                                  : const Color(0xFF000000).withOpacity(0.3),
+                              fontSize: 22,
                             ),
-                            SizedBox(width: screenWidth / 390 * 8),
-                            GestureDetector(
-                              onTap: () {
-                                if (entireNotificationenable == true) {
-                                  Get.to(() => const NoticePeriodScreen());
-                                } else {
+                          ),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: screenWidth / 390 * 50,
+                            height: screenHeight / 844 * 26,
+                            child: CustomSwitchButton(
+                              value: entireNotificationenable,
+                              onChanged: (value) {
+                                setState(() {
+                                  entireNotificationenable = value;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'OFF',
+                            style: TextStyle(
+                              height: 1.2,
+                              letterSpacing: -0.4,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w700,
+                              color: entireNotificationenable
+                                  ? Colors.black.withOpacity(0.3)
+                                  : Colors.black,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 31,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.alarm_add_sharp,
+                            color: entireNotificationenable
+                                ? Colors.black
+                                : const Color(0xFFD1D1D1),
+                          ),
+                          SizedBox(width: screenWidth / 390 * 8),
+                          GestureDetector(
+                            onTap: () {
+                              if (entireNotificationenable == true) {
+                                Get.to(() => const NoticePeriodScreen());
+                              } else {
+                                Get.snackbar(
+                                  '알림',
+                                  '전체 알림을 허용한 후 다시 시도해주세요',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: const Duration(seconds: 2),
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: screenWidth / 390 * 88,
+                              height: screenHeight / 844 * 32,
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFFF1F1F1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '알람 추가',
+                                  style: TextStyle(
+                                    color: entireNotificationenable
+                                        ? Colors.black
+                                        : const Color(0xFFD1D1D1),
+                                    fontSize: 16,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 46,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: 1,
+                        decoration:
+                            const BoxDecoration(color: Color(0xFFCCCCCC)),
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 24,
+                      ),
+                      const Text(
+                        '화면 캡쳐 허용',
+                        style: ABTextTheme.SettingMenuTitle,
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 16,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'ON',
+                            style: TextStyle(
+                              height: 1.2,
+                              letterSpacing: -0.4,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w700,
+                              color: capturepermit
+                                  ? Colors.black
+                                  : Colors.black.withOpacity(0.3),
+                              fontSize: 22,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: screenWidth / 390 * 50,
+                            height: screenHeight / 844 * 26,
+                            child: CustomSwitchButton(
+                              value: capturepermit,
+                              onChanged: (value) {
+                                setState(() {
+                                  capturepermit = value;
+                                  /*if (!capturepermit) {
+                                    // 화면 캡쳐 비허용 설정
+                                    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+                                  } else {
+                                    // 화면 캡쳐 비허용 해제
+                                    FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+                                  }*/
                                   Get.snackbar(
                                     '알림',
-                                    '전체 알림을 허용한 후 다시 시도해주세요',
+                                    '화면 캡쳐 허용 기능은 개발중입니다.',
                                     snackPosition: SnackPosition.BOTTOM,
                                     duration: const Duration(seconds: 2),
                                   );
-                                }
+                                });
                               },
-                              child: Container(
-                                width: screenWidth / 390 * 88,
-                                height: screenHeight / 844 * 32,
-                                decoration: ShapeDecoration(
-                                  color: const Color(0xFFF1F1F1),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '알람 추가',
-                                    style: TextStyle(
-                                      color: entireNotificationenable
-                                          ? Colors.black
-                                          : const Color(0xFFD1D1D1),
-                                      fontSize: 16,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 46,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: 1,
-                          decoration:
-                              const BoxDecoration(color: Color(0xFFCCCCCC)),
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 24,
-                        ),
-                        const Text(
-                          '화면 캡쳐 허용',
-                          style: ABTextTheme.SettingMenuTitle,
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 16,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'ON',
-                              style: TextStyle(
-                                height: 1.2,
-                                letterSpacing: -0.4,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w700,
-                                color: capturepermit
-                                    ? Colors.black
-                                    : Colors.black.withOpacity(0.3),
-                                fontSize: 22,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              width: screenWidth / 390 * 50,
-                              height: screenHeight / 844 * 26,
-                              child: CustomSwitchButton(
-                                value: capturepermit,
-                                onChanged: (value) {
-                                  setState(() {
-                                    capturepermit = value;
-                                    /*if (!capturepermit) {
-                                      // 화면 캡쳐 비허용 설정
-                                      FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-                                    } else {
-                                      // 화면 캡쳐 비허용 해제
-                                      FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-                                    }*/
-                                    Get.snackbar(
-                                      '알림',
-                                      '화면 캡쳐 허용 기능은 개발중입니다.',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      duration: const Duration(seconds: 2),
-                                    );
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'OFF',
-                              style: TextStyle(
-                                height: 1.2,
-                                letterSpacing: -0.4,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w700,
-                                color: capturepermit
-                                    ? Colors.black.withOpacity(0.3)
-                                    : Colors.black,
-                                fontSize: 22,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 24,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: 1,
-                          decoration:
-                              const BoxDecoration(color: Color(0xFFCCCCCC)),
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 24,
-                        ),
-                        const Text(
-                          '보안 설정',
-                          style: ABTextTheme.SettingMenuTitle,
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 22,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            prefs = await SharedPreferences.getInstance();
-                            PIN = prefs.getString('PIN');
-                            if (PIN != null) {
-                              navigateToChangePINScreen();
-                            } else {
-                              navigateToInitPINScreen();
-                            }
-                          },
-                          child: Text(
-                            'PIN 번호 변경',
-                            style: TextStyle(
-                              color:
-                                  Colors.black.withOpacity(0.699999988079071),
-                              fontSize: 18,
-                              fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 12,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showAlert(context);
-                          },
-                          child: const Text(
-                            '전체 삭제 / 초기화',
+                          const SizedBox(width: 10),
+                          Text(
+                            'OFF',
                             style: TextStyle(
-                              color: Color(0xFFE50303),
-                              fontSize: 18,
+                              height: 1.2,
+                              letterSpacing: -0.4,
                               fontFamily: 'Pretendard',
                               fontWeight: FontWeight.w700,
+                              color: capturepermit
+                                  ? Colors.black.withOpacity(0.3)
+                                  : Colors.black,
+                              fontSize: 22,
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 22,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: 1,
-                          decoration:
-                              const BoxDecoration(color: Color(0xFFCCCCCC)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight / 844 * 110),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '어플리케이션 정보',
+                        ],
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 24,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: 1,
+                        decoration:
+                            const BoxDecoration(color: Color(0xFFCCCCCC)),
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 24,
+                      ),
+                      const Text(
+                        '보안 설정',
+                        style: ABTextTheme.SettingMenuTitle,
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 22,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          prefs = await SharedPreferences.getInstance();
+                          PIN = prefs.getString('PIN');
+                          if (PIN != null) {
+                            navigateToChangePINScreen();
+                          } else {
+                            navigateToInitPINScreen();
+                          }
+                        },
+                        child: Text(
+                          'PIN 번호 변경',
                           style: TextStyle(
-                            color: Colors.black.withOpacity(0.6000000238418579),
-                            fontSize: 12,
+                            color: Colors.black.withOpacity(0.699999988079071),
+                            fontSize: 18,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 12,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _showAlert(context);
+                        },
+                        child: const Text(
+                          '전체 삭제 / 초기화',
+                          style: TextStyle(
+                            color: Color(0xFFE50303),
+                            fontSize: 18,
                             fontFamily: 'Pretendard',
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(
-                          height: screenHeight / 844 * 7,
-                        ),
-                        Text(
-                          '버전 : 1.0.0\n개인정보처리방침 및 법률정보',
-                          style: TextStyle(
-                            color:
-                                Colors.black.withOpacity(0.20000000298023224),
-                            fontSize: 10,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        height: screenHeight / 844 * 22,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: 1,
+                        decoration:
+                            const BoxDecoration(color: Color(0xFFCCCCCC)),
+                      ),
+                      const Expanded(child: SizedBox()),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '어플리케이션 정보',
+                            style: TextStyle(
+                              color:
+                                  Colors.black.withOpacity(0.6000000238418579),
+                              fontSize: 12,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: screenHeight / 844 * 5,
-                        ),
-                        Text(
-                          '고객센터 : 02-XXXX-XXXX\n                 abibo@gmail.com',
-                          style: TextStyle(
-                            color:
-                                Colors.black.withOpacity(0.20000000298023224),
-                            fontSize: 10,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w500,
+                          SizedBox(
+                            height: screenHeight / 844 * 7,
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                          Text(
+                            '버전 : 1.0.0\n개인정보처리방침 및 법률정보',
+                            style: TextStyle(
+                              color:
+                                  Colors.black.withOpacity(0.20000000298023224),
+                              fontSize: 10,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: screenHeight / 844 * 5,
+                          ),
+                          Text(
+                            '고객센터 : 02-XXXX-XXXX\n                 abibo@gmail.com',
+                            style: TextStyle(
+                              color:
+                                  Colors.black.withOpacity(0.20000000298023224),
+                              fontSize: 10,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
