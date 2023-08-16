@@ -1,3 +1,6 @@
+import 'package:abibo/functions/control_guarantee.dart';
+import 'package:abibo/functions/control_subscription.dart';
+import 'package:abibo/functions/notification.dart';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/notice_period_screen.dart';
@@ -71,6 +74,19 @@ class _SettingScreenState extends State<SettingScreen> {
   String? PIN;
   bool capturepermit = false;
   bool entireNotificationenable = false;
+  List infos = [];
+
+  Future<List> searchInfos() async {
+    List<List> arr = [];
+    for (List list in await getAllSubscription()) {
+      arr.add(['subscription', list[0], list[1]]);
+    }
+
+    for (List list in await getAllGuarantee()) {
+      arr.add(['guarantee', list[0], list[1]]);
+    }
+    return arr;
+  }
 
   @override
   void initState() {
@@ -152,7 +168,22 @@ class _SettingScreenState extends State<SettingScreen> {
                             height: screenHeight / 844 * 26,
                             child: CustomSwitchButton(
                               value: entireNotificationenable,
-                              onChanged: (value) {
+                              onChanged: (value) async {
+                                if (value) {
+                                  infos = await searchInfos();
+                                  for (var info in infos) {
+                                    await registerAllNotification(
+                                      type: info[0],
+                                      name: info[1],
+                                      detail: info[2][(info[0] == 'guarantee')
+                                          ? 'name'
+                                          : 'id'],
+                                      endDate: info[2]['endDate'],
+                                    );
+                                  }
+                                } else {
+                                  await resetNotification();
+                                }
                                 setState(() {
                                   entireNotificationenable = value;
                                 });

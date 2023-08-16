@@ -87,6 +87,26 @@ Future<void> registerNotification({
   }
 }
 
+Future<void> registerAllNotification({
+  required String type,
+  required String name,
+  required String detail,
+  required String endDate,
+}) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+
+  for (String dateDiff in _DateDiffs) {
+    await registerNotification(
+      type: type,
+      name: name,
+      detail: detail,
+      endDate: endDate,
+      dateDiff: dateDiff,
+    );
+  }
+}
+
 Future<void> cancelNotification({
   required String type,
   required String name,
@@ -108,12 +128,16 @@ Future<void> cancelAllNotification({
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   _DateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
-  try {
-    for (String dateDiff in _DateDiffs) {
-      int notificationId = '$type $name $detail $dateDiff'.hashCode;
-      await notifications.cancel(notificationId);
-    }
-  } catch (e) {
-    print(e);
+  for (String dateDiff in _DateDiffs) {
+    await cancelNotification(
+      type: type,
+      name: name,
+      detail: detail,
+      dateDiff: dateDiff,
+    );
   }
+}
+
+Future<void> resetNotification() async {
+  notifications.cancelAll();
 }
