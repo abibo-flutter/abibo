@@ -76,24 +76,26 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: screenWidth / 390 * 16,
+              horizontal: screenWidth / 390 * 26,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: screenHeight / 844 * 43,
+                  height: screenHeight / 844 * 52,
                 ),
                 IconButton(
                   iconSize: 23,
                   color: ABColors.MAIN_THEME,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
                   onPressed: () {
                     Get.back();
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
                 SizedBox(
-                  height: screenHeight / 844 * 11,
+                  height: screenHeight / 844 * 16,
                 ),
                 const Text(
                   '알림 발송 주기를\n설정하세요',
@@ -103,7 +105,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   height: screenHeight / 844 * 22,
                 ),
                 Container(
-                  height: screenWidth / 390 * 43,
+                  height: screenWidth / 390 * 50,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(10),
@@ -121,8 +123,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     child: Row(
                       children: [
                         const Text(
-                          '당일',
-                          style: TextStyle(color: Colors.black),
+                          '당일 00:00',
+                          style: ABTextTheme.NoticePeriodTimeButton,
                         ),
                         const Spacer(),
                         if (newPeriod == '0d')
@@ -139,7 +141,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   height: screenHeight / 844 * 8,
                 ),
                 Container(
-                  height: screenWidth / 390 * 43,
+                  height: screenWidth / 390 * 50,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(10),
@@ -156,10 +158,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     },
                     child: Row(
                       children: [
-                        const Text(
-                          '1일 전',
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        const Text('24시간 전',
+                            style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
                         if (newPeriod == '1d')
                           const Icon(
@@ -175,7 +175,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   height: screenHeight / 844 * 8,
                 ),
                 Container(
-                  height: screenWidth / 390 * 43,
+                  height: screenWidth / 390 * 50,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(10),
@@ -192,10 +192,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     },
                     child: Row(
                       children: [
-                        const Text(
-                          '3일 전',
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        const Text('3일 전',
+                            style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
                         if (newPeriod == '3d')
                           const Icon(
@@ -211,7 +209,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   height: screenHeight / 844 * 8,
                 ),
                 Container(
-                  height: screenWidth / 390 * 43,
+                  height: screenWidth / 390 * 50,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(10),
@@ -228,10 +226,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     },
                     child: Row(
                       children: [
-                        const Text(
-                          '7일 전',
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        const Text('7일 전',
+                            style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
                         if (newPeriod == '7d')
                           const Icon(
@@ -247,7 +243,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   height: screenHeight / 844 * 8,
                 ),
                 Container(
-                  height: screenWidth / 390 * 43,
+                  height: screenWidth / 390 * 50,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(10),
@@ -264,10 +260,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     },
                     child: Row(
                       children: [
-                        const Text(
-                          '1개월 전',
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        const Text('한 달 전',
+                            style: ABTextTheme.NoticePeriodTimeButton),
                         const Spacer(),
                         if (newPeriod == '1m')
                           const Icon(
@@ -318,11 +312,13 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                     ),
                   ),
                 ),
+                /*
                 SizedBox(
                   height: screenHeight / 844 * 23,
                 ),
-                const Divider(
+                Divider(
                   thickness: 1,
+                  color: const Color(0xffaaaaaa).withOpacity(0.3),
                 ),
                 SizedBox(
                   height: screenHeight / 844 * 23,
@@ -343,7 +339,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                       ),
                     );
                   },
-                )
+                )*/
               ],
             ),
           ),
@@ -352,7 +348,7 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
     );
   }
 }
-
+/*
 class NoticePeriodCard extends StatefulWidget {
   const NoticePeriodCard(
       {super.key, required this.change, required this.period});
@@ -392,7 +388,7 @@ class _NoticePeriodCardState extends State<NoticePeriodCard> {
       },
       background: Container(
         width: screenWidth / 390 * 326,
-        height: screenHeight / 844 * 82,
+        height: screenHeight / 844 * 100,
         padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(14)),
@@ -415,10 +411,23 @@ class _NoticePeriodCardState extends State<NoticePeriodCard> {
             color: Colors.black.withOpacity(0.1),
           ),
         ),
-        child: Center(
-          child: Text('$text에 알림이 울립니다.'),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 26),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: screenHeight / 844 * 22),
+              Text(
+                '$text에 알림이 울립니다.',
+              ),
+              SizedBox(height: screenHeight / 844 * 20),
+              Text(
+                '$text에 알림이 울립니다.',
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
+}*/

@@ -285,6 +285,12 @@ abstract class ABTextTheme {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w400,
   );
+  static const NoticePeriodTimeButton = TextStyle(
+    color: Colors.black,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400,
+  );
   static const NoticePeriodText = TextStyle(
     color: Colors.black,
     fontSize: 18,
