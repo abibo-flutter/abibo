@@ -417,6 +417,7 @@ class _NoticeTabState extends State<NoticeTab> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
     if (widget.empty) {
       return const Padding(

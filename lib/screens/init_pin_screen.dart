@@ -2,7 +2,6 @@
 import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:abibo/screens/main_screen.dart';
 import 'package:get/get.dart';
 
 class InitPINScreen extends StatefulWidget {
@@ -13,7 +12,7 @@ class InitPINScreen extends StatefulWidget {
 }
 
 void navigateToMainScreen() {
-  Get.to(() => const MainScreen());
+  Get.back();
 }
 
 class _InitPINScreenState extends State<InitPINScreen> {
