@@ -267,83 +267,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                 height: screenHeight / 844 * 24,
                               ),
                               const Text(
-                                '화면 캡쳐 허용',
-                                style: ABTextTheme.SettingMenuTitle,
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 16,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'ON',
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      letterSpacing: -0.4,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w700,
-                                      color: capturepermit
-                                          ? Colors.black
-                                          : Colors.black.withOpacity(0.3),
-                                      fontSize: 22,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  SizedBox(
-                                    width: screenWidth / 390 * 50,
-                                    height: screenHeight / 844 * 26,
-                                    child: CustomSwitchButton(
-                                      value: capturepermit,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          capturepermit = value;
-                                          /*if (!capturepermit) {
-                                          // 화면 캡쳐 비허용 설정
-                                          FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-                                        } else {
-                                          // 화면 캡쳐 비허용 해제
-                                          FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-                                        }*/
-                                          Get.snackbar(
-                                            '알림',
-                                            '화면 캡쳐 허용 기능은 개발중입니다.',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            duration:
-                                                const Duration(seconds: 2),
-                                          );
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'OFF',
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      letterSpacing: -0.4,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w700,
-                                      color: capturepermit
-                                          ? Colors.black.withOpacity(0.3)
-                                          : Colors.black,
-                                      fontSize: 22,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 24,
-                              ),
-                              Container(
-                                width: screenWidth,
-                                height: 1,
-                                decoration: const BoxDecoration(
-                                    color: Color(0xFFCCCCCC)),
-                              ),
-                              SizedBox(
-                                height: screenHeight / 844 * 24,
-                              ),
-                              const Text(
                                 '보안 설정',
                                 style: ABTextTheme.SettingMenuTitle,
                               ),
@@ -435,7 +358,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight / 844 * 56,
+                                  ),
                                 ],
                               ),
                             ],
