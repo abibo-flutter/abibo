@@ -25,24 +25,20 @@ class _KeyBoardState extends State<KeyBoard> {
     ]..shuffle();
     keys = [
       for (int i = 0; i < 10; i++)
-        ({2, 5, 8}.contains(i))
-            ? KeyBoardKey(
-                value: '${shuffled[i]}',
-                controller: widget.controller,
-              )
-            : (i == 9)
-                ? KeyBoardKey(
-                    value: '${shuffled[i]}',
-                    controller: widget.controller,
-                  )
-                : KeyBoardKey(
-                    value: '${shuffled[i]}',
-                    controller: widget.controller,
-                  )
+        KeyBoardKey(
+          vertex: (i == 0)
+              ? 0
+              : (i == 2)
+                  ? 1
+                  : null,
+          value: '${shuffled[i]}',
+          controller: widget.controller,
+        ),
     ]
       ..insert(
         9,
         KeyBoardAction(
+          vertex: 2,
           controller: widget.controller,
           onTap: () {
             String text = widget.controller.text;
@@ -51,15 +47,10 @@ class _KeyBoardState extends State<KeyBoard> {
             }
             setState(() {});
           },
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.backspace_outlined,
-                color: Colors.black,
-              ),
+          child: const Center(
+            child: Icon(
+              Icons.backspace_outlined,
+              color: Colors.black,
             ),
           ),
         ),
@@ -67,19 +58,15 @@ class _KeyBoardState extends State<KeyBoard> {
       ..insert(
         11,
         KeyBoardAction(
+          vertex: 3,
           controller: widget.controller,
           onTap: () {
             widget.enterFunc();
           },
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.keyboard_return,
-                color: Colors.black,
-              ),
+          child: const Center(
+            child: Icon(
+              Icons.keyboard_return,
+              color: Colors.black,
             ),
           ),
         ),
@@ -89,20 +76,24 @@ class _KeyBoardState extends State<KeyBoard> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
+    double width = screenWidth / 390 * 335;
+    double height = screenHeight / 844 * 250;
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.transparent),
+        border: Border.all(color: const Color(0xFF828282), width: 1),
+        borderRadius: BorderRadius.circular(15),
+        color: const Color(0xFF828282),
       ),
-      width: screenWidth / 390 * 335,
-      height: screenHeight / 844 * 250,
+      width: width,
+      height: height,
       child: GridView.count(
         padding: EdgeInsets.zero,
         crossAxisCount: 3,
         shrinkWrap: true,
-        childAspectRatio: 1.9,
+        physics: const NeverScrollableScrollPhysics(),
+        childAspectRatio: width / height * 4 / 3,
         children: List.generate(keys.length, (index) {
           Widget key = keys[index];
           key = Container(
@@ -110,16 +101,10 @@ class _KeyBoardState extends State<KeyBoard> {
               border: Border(
                 top: index < 3
                     ? BorderSide.none
-                    : const BorderSide(width: 0.3, color: Colors.black),
-                left: index == 0 || index == 3 || index == 6 || index == 9
+                    : const BorderSide(color: Color(0xFF828282), width: 1),
+                left: index % 3 == 0
                     ? BorderSide.none
-                    : const BorderSide(width: 0.3, color: Colors.black),
-                bottom: index == 9 || index == 10 || index == 11
-                    ? BorderSide.none
-                    : const BorderSide(width: 0.3, color: Colors.black),
-                right: index == 2 || index == 5 || index == 8 || index == 11
-                    ? BorderSide.none
-                    : const BorderSide(width: 0.3, color: Colors.black),
+                    : const BorderSide(color: Color(0xFF828282), width: 1),
               ),
             ),
             child: key,
@@ -134,10 +119,12 @@ class _KeyBoardState extends State<KeyBoard> {
 class KeyBoardKey extends StatefulWidget {
   final String value;
   final TextEditingController controller;
+  final int? vertex;
   const KeyBoardKey({
     Key? key,
     required this.value,
     required this.controller,
+    this.vertex,
   }) : super(key: key);
 
   @override
@@ -156,7 +143,17 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
           }
         },
         child: Ink(
-          color: Colors.white,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: (widget.vertex == 0)
+                  ? const Radius.circular(15)
+                  : Radius.zero,
+              topRight: (widget.vertex == 1)
+                  ? const Radius.circular(15)
+                  : Radius.zero,
+            ),
+          ),
           child: Center(
             child: Text(
               widget.value,
@@ -169,25 +166,45 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
   }
 }
 
-class KeyBoardAction extends StatelessWidget {
+class KeyBoardAction extends StatefulWidget {
   final void Function() onTap;
   final TextEditingController controller;
   final Widget child;
+  final int? vertex;
 
   const KeyBoardAction({
     Key? key,
     required this.controller,
     required this.onTap,
     required this.child,
+    this.vertex,
   }) : super(key: key);
 
+  @override
+  State<KeyBoardAction> createState() => _KeyBoardActionState();
+}
+
+class _KeyBoardActionState extends State<KeyBoardAction> {
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
-        child: Ink(child: child),
+        onTap: widget.onTap,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: (widget.vertex == 2)
+                  ? const Radius.circular(15)
+                  : Radius.zero,
+              bottomRight: (widget.vertex == 3)
+                  ? const Radius.circular(15)
+                  : Radius.zero,
+            ),
+          ),
+          child: widget.child,
+        ),
       ),
     );
   }

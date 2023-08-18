@@ -194,19 +194,20 @@ class _PINScreenState extends State<PINScreen> {
                       ),
                     ),
                     SizedBox(height: screenHeight / 844 * 10),
-                    InkWell(
-                      onTap: () {
-                        Get.offAll(() => const FingerPrintScreen());
-                      },
-                      child: const Text(
-                        '생체인식을 이용하여 보안 인증하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          decoration: TextDecoration.underline,
+                    if (!onKeyboard)
+                      InkWell(
+                        onTap: () {
+                          Get.offAll(() => const FingerPrintScreen());
+                        },
+                        child: const Text(
+                          '생체인식을 이용하여 보안 인증하기',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 )),
             const Expanded(

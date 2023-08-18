@@ -1,6 +1,7 @@
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -32,6 +33,10 @@ Future<void> initNotification() async {
   );
 
   dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+
+  PermissionStatus status = await Permission.notification.status;
+  if (status.isPermanentlyDenied || status.isGranted) return;
+  await Permission.notification.request();
 }
 
 Future<void> registerNotification({

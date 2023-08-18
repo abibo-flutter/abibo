@@ -13,7 +13,7 @@ class CustomSwitchButton extends StatefulWidget {
 }
 
 class _CustomSwitchButtonState extends State<CustomSwitchButton> {
-  bool _switchValue = false;
+  late bool _switchValue;
 
   @override
   void initState() {
