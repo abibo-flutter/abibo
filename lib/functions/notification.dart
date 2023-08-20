@@ -45,7 +45,6 @@ Future<void> registerNotification({
   required String detail,
   required String endDate,
   required String dateDiff,
-  String noticeTime = '00:00',
 }) async {
   var androidDetails = const AndroidNotificationDetails(
     'ID',
@@ -61,26 +60,31 @@ Future<void> registerNotification({
     presentSound: true,
   );
 
-  DateTime date =
-      DateTime.parse("${endDate.replaceAll('/', '-')} $noticeTime:00");
+  DateTime date = DateTime.parse(endDate.replaceAll('/', '-'));
   int diff = int.parse(dateDiff.substring(0, dateDiff.length - 1));
+  String text = '';
 
-  if (dateDiff.endsWith('d')) {
+  if (diff == 0) {
+    text = '$detail  ${(type == 'guarantee') ? '만료' : '해지'}일이에요!';
+  } else if (dateDiff.endsWith('d')) {
     date.subtract(Duration(days: diff));
+    text = '$detail  $diff일 남았어요!';
   } else if (dateDiff.endsWith('w')) {
     date.subtract(Duration(days: diff * 7));
+    text = '$detail  $diff주 남았어요!';
   } else if (dateDiff.endsWith('m')) {
     date.subtract(Duration(days: diff * months[date.month - 2]));
+    text = '$detail  $diff개월 남았어요!';
   }
 
-  int notificationId = '$type $name $detail $dateDiff $noticeTime'.hashCode;
+  int notificationId = '$type $name $detail $dateDiff'.hashCode;
 
   tz.initializeTimeZones();
   try {
     await notifications.zonedSchedule(
       notificationId,
       name,
-      '$detail  $dateDiff일 남았어요!',
+      text,
       tz.TZDateTime.from(date, tz.local),
       NotificationDetails(android: androidDetails, iOS: iosDetails),
       uiLocalNotificationDateInterpretation:
@@ -100,7 +104,7 @@ Future<void> registerAllNotification({
   required String endDate,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  dateDiffs = prefs.getStringList('period') ?? [];
 
   for (String dateDiff in dateDiffs) {
     await registerNotification(
@@ -133,7 +137,7 @@ Future<void> cancelAllNotification({
   required String detail,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  dateDiffs = prefs.getStringList('period') ?? [];
   for (String dateDiff in dateDiffs) {
     await cancelNotification(
       type: type,
