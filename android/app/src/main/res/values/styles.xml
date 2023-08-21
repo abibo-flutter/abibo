@@ -15,4 +15,5 @@
     <style name="NormalTheme"
         parent="@android:style/Theme.Light.NoTitleBar">
     </style>
+    <color name="launch_color">#FFFFFF</color>
 </resources>
