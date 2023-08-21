@@ -427,7 +427,7 @@ class _NoticeTabState extends State<NoticeTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('정보를\n입력하세요', style: ABTextTheme.UpcomingIssueStandard),
+            Text('정보를\n입력하세요', style: ABTextTheme.UpcomingIssueNotRegistered),
           ],
         ),
       );

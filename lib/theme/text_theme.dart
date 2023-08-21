@@ -33,6 +33,13 @@ abstract class ABTextTheme {
     color: Colors.white,
     letterSpacing: -0.4,
   );
+  static const UpcomingIssueNotRegistered = TextStyle(
+    color: Colors.white,
+    fontSize: 30,
+    fontFamily: 'Noto Sans KR',
+    fontWeight: FontWeight.w500,
+    height: 1.3,
+  );
   static const UpcomingIssueStandard = TextStyle(
     color: Colors.white,
     fontSize: 28,
