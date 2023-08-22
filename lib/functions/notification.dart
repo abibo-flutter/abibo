@@ -5,7 +5,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter/material.dart';
 
 final notifications = FlutterLocalNotificationsPlugin();
 late List<String> dateDiffs;
@@ -32,7 +31,7 @@ Future<void> initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  dateDiffs = prefs.getStringList('period') ?? ["0d", "1d", "3d", "1w", "1m"];
+  dateDiffs = prefs.getStringList('periods') ?? [];
 
   PermissionStatus status = await Permission.notification.status;
   if (status.isPermanentlyDenied || status.isGranted) return;
@@ -51,7 +50,6 @@ Future<void> registerNotification({
     'NAME',
     priority: Priority.high,
     importance: Importance.max,
-    color: Color(0xFF7000FF),
   );
 
   var iosDetails = const DarwinNotificationDetails(
@@ -67,14 +65,18 @@ Future<void> registerNotification({
   if (diff == 0) {
     text = '$detail  ${(type == 'guarantee') ? '만료' : '해지'}일이에요!';
   } else if (dateDiff.endsWith('d')) {
-    date.subtract(Duration(days: diff));
+    date = date.subtract(Duration(days: diff));
     text = '$detail  $diff일 남았어요!';
   } else if (dateDiff.endsWith('w')) {
-    date.subtract(Duration(days: diff * 7));
+    date = date.subtract(Duration(days: diff * 7));
     text = '$detail  $diff주 남았어요!';
   } else if (dateDiff.endsWith('m')) {
-    date.subtract(Duration(days: diff * months[date.month - 2]));
+    date = date.subtract(Duration(days: diff * months[date.month - 2]));
     text = '$detail  $diff개월 남았어요!';
+  }
+
+  if (date.isBefore(DateTime.now())) {
+    return;
   }
 
   int notificationId = '$type $name $detail $dateDiff'.hashCode;
@@ -104,7 +106,7 @@ Future<void> registerAllNotification({
   required String endDate,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('period') ?? [];
+  dateDiffs = prefs.getStringList('periods') ?? [];
 
   for (String dateDiff in dateDiffs) {
     await registerNotification(
@@ -137,7 +139,7 @@ Future<void> cancelAllNotification({
   required String detail,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('period') ?? [];
+  dateDiffs = prefs.getStringList('periods') ?? [];
   for (String dateDiff in dateDiffs) {
     await cancelNotification(
       type: type,
@@ -165,12 +167,10 @@ Future<void> updatePeriod() async {
   for (List list in await getAllGuarantee()) {
     infos.add(['guarantee', list[0], list[1]]);
   }
+
+  await resetNotification();
+
   for (var info in infos) {
-    await cancelAllNotification(
-      type: info[0],
-      name: info[1],
-      detail: info[2][(info[0] == 'guarantee') ? 'name' : 'id'],
-    );
     await registerAllNotification(
       type: info[0],
       name: info[1],
