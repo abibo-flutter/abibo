@@ -91,8 +91,7 @@ Future<void> registerNotification({
       NotificationDetails(android: androidDetails, iOS: iosDetails),
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      matchDateTimeComponents: DateTimeComponents.time,
+      matchDateTimeComponents: DateTimeComponents.dateAndTime,
     );
   } catch (e) {
     print(e);
