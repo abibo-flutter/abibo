@@ -48,6 +48,24 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
       initialDate: now,
       firstDate: now,
       lastDate: DateTime(now.year + 100, now.month, now.day),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: ABColors.MAIN_THEME,
+              onPrimary: Colors.white,
+              onSurface: ABColors.MAIN_THEME,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: ABColors.MAIN_THEME,
+                backgroundColor: Colors.white,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     setState(() {});
   }
