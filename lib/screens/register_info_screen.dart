@@ -125,22 +125,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         decoration: BoxDecoration(
                           color: (isSubscription)
                               ? const Color(0xFF6B19DC)
-                              : Colors.white,
+                              : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: (isSubscription)
                                 ? const Color(0xFF561CA7)
-                                : const Color(0xFF818181),
+                                : const Color(0xFFD7D5D5),
                             width: 0.5,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 0.3,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
                         child: TextButton(
                           onPressed: () => select("subscription"),
@@ -165,22 +157,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         decoration: BoxDecoration(
                           color: (isPlatform)
                               ? const Color(0xFF6B19DC)
-                              : Colors.white,
+                              : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: (isPlatform)
                                 ? const Color(0xFF561CA7)
-                                : const Color(0xFF818181),
+                                : const Color(0xFFD7D5D5),
                             width: 0.5,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 0.3,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
                         child: TextButton(
                           onPressed: () => select("platform"),
@@ -205,22 +189,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         decoration: BoxDecoration(
                           color: (isGuarantee)
                               ? const Color(0xFF6B19DC)
-                              : Colors.white,
+                              : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: (isGuarantee)
                                 ? const Color(0xFF561CA7)
-                                : const Color(0xFF818181),
+                                : const Color(0xFFD7D5D5),
                             width: 0.5,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 0.3,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
                         child: TextButton(
                           onPressed: () => select("guarantee"),

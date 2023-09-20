@@ -42,17 +42,17 @@ abstract class ABTextTheme {
   );
   static const UpcomingIssueStandard = TextStyle(
     color: Colors.white,
-    fontSize: 28,
+    fontSize: 34,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w700,
-    height: 1,
+    height: 0.7,
   );
   static const UpcomingIssueHighlight = TextStyle(
     color: Color(0xFFFFE27B),
-    fontSize: 28,
+    fontSize: 34,
     fontFamily: 'Noto Sans KR',
     fontWeight: FontWeight.w900,
-    height: 1,
+    height: 0.7,
   );
   static const BottomNavibarTextSelected = TextStyle(
     fontFamily: 'Pretendard',

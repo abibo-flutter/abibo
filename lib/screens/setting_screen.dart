@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:abibo/static.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({
@@ -283,7 +284,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   }
                                 },
                                 child: Text(
-                                  'PIN 번호 변경',
+                                  'PIN 번호 설정 / 변경',
                                   style: TextStyle(
                                     color: Colors.black
                                         .withOpacity(0.699999988079071),
@@ -337,10 +338,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: screenHeight / 844 * 7,
                                   ),
                                   Text(
-                                    '버전 : 1.0.0\n개인정보처리방침 및 법률정보',
+                                    '버전 : ${ABStatic.AppVersion}\n개인정보처리방침 및 법률정보',
                                     style: TextStyle(
-                                      color: Colors.black
-                                          .withOpacity(0.20000000298023224),
+                                      color: Colors.black.withOpacity(0.2),
                                       fontSize: 10,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
@@ -350,10 +350,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: screenHeight / 844 * 5,
                                   ),
                                   Text(
-                                    '고객센터 : 02-XXXX-XXXX\n                 abibo@gmail.com',
+                                    '고객센터 : devdoyun@gmail.com',
                                     style: TextStyle(
-                                      color: Colors.black
-                                          .withOpacity(0.20000000298023224),
+                                      color: Colors.black.withOpacity(0.2),
                                       fontSize: 10,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,

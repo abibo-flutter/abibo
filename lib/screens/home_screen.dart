@@ -127,8 +127,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             widget.controller.animateTo(0);
                           },
                           elevation: 0,
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF6B19DC),
+                          backgroundColor: Colors.transparent,
+                          foregroundColor: Colors.white,
                           child: const Icon(
                             Icons.search,
                           ),
@@ -154,9 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: screenHeight / 844 * 33,
-                  ),
+                  SizedBox(height: screenHeight / 844 * 6),
                   FutureBuilder(
                       future: searchInfos(context),
                       builder: (context, snapshot) {
@@ -194,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           return const NoticeTab(empty: true);
                         }
                         return SizedBox(
-                          height: screenHeight / 844 * 130,
+                          height: screenHeight / 844 * 110,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -208,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         );
                       }),
                   SizedBox(
-                    height: screenHeight / 844 * 32,
+                    height: screenHeight / 844 * 30,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -264,12 +262,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             decoration: BoxDecoration(
                               color: (selected == 'subscription')
                                   ? const Color(0xFF6B19DC)
-                                  : Colors.white,
+                                  : const Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: (selected == 'subscription')
                                     ? const Color(0xFF561CA7)
-                                    : const Color(0xFF818181),
+                                    : const Color(0xFFD7D5D5),
                                 width: 0.5,
                               ),
                             ),
@@ -279,6 +277,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 child: Text(
                                   '구독 서비스',
                                   style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
                                     color: (selected == 'subscription')
                                         ? Colors.white
                                         : const Color(0xFF818181),
@@ -296,12 +296,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             decoration: BoxDecoration(
                               color: (selected == 'platform')
                                   ? const Color(0xFF6B19DC)
-                                  : Colors.white,
+                                  : const Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: (selected == 'platform')
                                     ? const Color(0xFF561CA7)
-                                    : const Color(0xFF818181),
+                                    : const Color(0xFFD7D5D5),
                                 width: 0.5,
                               ),
                             ),
@@ -311,6 +311,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 child: Text(
                                   '플랫폼',
                                   style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
                                     color: (selected == 'platform')
                                         ? Colors.white
                                         : const Color(0xFF818181),
@@ -328,12 +330,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             decoration: BoxDecoration(
                               color: (selected == 'guarantee')
                                   ? const Color(0xFF6B19DC)
-                                  : Colors.white,
+                                  : const Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: (selected == 'guarantee')
                                     ? const Color(0xFF561CA7)
-                                    : const Color(0xFF818181),
+                                    : const Color(0xFFD7D5D5),
                                 width: 0.5,
                               ),
                             ),
@@ -343,6 +345,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 child: Text(
                                   '보증서',
                                   style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
                                     color: (selected == 'guarantee')
                                         ? Colors.white
                                         : const Color(0xFF818181),
@@ -460,7 +464,7 @@ class _NoticeTabState extends State<NoticeTab> {
             ),
           ),
           SizedBox(
-            height: screenHeight / 390 * 11,
+            height: screenHeight / 844 * 21,
           ),
           Text(
               (widget.type == 'subscription')

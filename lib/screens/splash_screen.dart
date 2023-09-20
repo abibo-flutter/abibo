@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:abibo/theme/text_theme.dart';
 import '../theme/color_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,11 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   'assets/images/logo_white.png',
                   width: 53.04,
                   height: 62,
-                ),
-                SizedBox(height: screenHeight / 844 * 24),
-                const Text(
-                  'Abibo',
-                  style: ABTextTheme.SplashMaintext,
                 ),
               ],
             ),
