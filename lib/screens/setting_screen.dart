@@ -2,6 +2,7 @@ import 'package:abibo/functions/notification.dart';
 import 'package:abibo/screens/init_pin_screen.dart';
 import 'package:abibo/screens/change_pin_screen.dart';
 import 'package:abibo/screens/notice_period_screen.dart';
+import 'package:abibo/screens/webview_screen.dart';
 import 'package:abibo/theme/color_theme.dart';
 import 'package:abibo/widgets/custom_switch_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -338,16 +339,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: screenHeight / 844 * 7,
                                   ),
                                   Text(
-                                    '버전 : ${ABStatic.AppVersion}\n개인정보처리방침 및 법률정보',
+                                    '버전 : ${ABStatic.AppVersion}',
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(0.2),
                                       fontSize: 10,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight / 844 * 5,
                                   ),
                                   Text(
                                     '고객센터 : devdoyun@gmail.com',
@@ -356,6 +354,26 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontSize: 10,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => const WebviewScreen());
+                                    },
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: '개인정보처리방침 및 법률정보',
+                                        style: TextStyle(
+                                          color: Colors.black.withOpacity(0.2),
+                                          fontSize: 9,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor:
+                                              Colors.black.withOpacity(0.2),
+                                          decorationThickness: 0.5,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
