@@ -12,8 +12,8 @@
     <uses-feature android:name="android.hardware.fingerprint"
         android:required="false" />
     <application android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:label="abibo">
+        android:icon="@mipmap/launcher_icon"
+        android:label="Abibo">
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
             <intent-filter>
