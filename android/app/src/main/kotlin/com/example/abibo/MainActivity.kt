@@ -1,4 +1,4 @@
-package com.example.abibo
+package com.develop.abibo
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

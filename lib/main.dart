@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Pretendard',
         colorScheme: const ColorScheme.light(
@@ -75,7 +76,6 @@ class _MyAppState extends State<MyApp> {
                 }
               },
             ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
