@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         children: [
                           Container(
                             width: screenWidth / 390 * 100,
-                            height: screenHeight / 844 * 34,
+                            height: screenHeight / 844 * 38,
                             decoration: BoxDecoration(
                               color: (selected == 'subscription')
                                   ? const Color(0xFF6B19DC)
@@ -292,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           Container(
                             width: screenWidth / 390 * 100,
-                            height: screenHeight / 844 * 34,
+                            height: screenHeight / 844 * 38,
                             decoration: BoxDecoration(
                               color: (selected == 'platform')
                                   ? const Color(0xFF6B19DC)
@@ -326,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           Container(
                             width: screenWidth / 390 * 100,
-                            height: screenHeight / 844 * 34,
+                            height: screenHeight / 844 * 38,
                             decoration: BoxDecoration(
                               color: (selected == 'guarantee')
                                   ? const Color(0xFF6B19DC)
