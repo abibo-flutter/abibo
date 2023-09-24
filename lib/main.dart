@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _showSplashScreen = true;
-  double textScaleFactor = 0.8;
+  double textScaleFactor = 0.85;
 
   @override
   void initState() {
@@ -46,6 +46,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //MediaQuery.of(context).viewInsets.bottom;
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xFF6B19DC),
       statusBarIconBrightness: Brightness.light,

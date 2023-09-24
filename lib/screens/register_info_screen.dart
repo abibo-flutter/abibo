@@ -83,6 +83,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
     return Scaffold(
       body: Container(
+        height: screenHeight,
         decoration: const BoxDecoration(color: Colors.white),
         child: SingleChildScrollView(
           child: Padding(
