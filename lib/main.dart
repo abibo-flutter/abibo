@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _showSplashScreen = true;
+  double textScaleFactor = 1;
 
   @override
   void initState() {
@@ -51,31 +52,34 @@ class _MyAppState extends State<MyApp> {
     ));
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Pretendard',
-        colorScheme: const ColorScheme.light(
-          background: Colors.white,
-          brightness: Brightness.light,
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Pretendard',
+          colorScheme: const ColorScheme.light(
+            background: Colors.white,
+            brightness: Brightness.light,
+          ),
         ),
-      ),
-      home: _showSplashScreen
-          ? const Scaffold(body: SplashScreen())
-          : FutureBuilder(
-              future: getPIN(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SplashScreen();
-                } else {
-                  if (snapshot.hasData) {
-                    return const PINScreen();
+        home: _showSplashScreen
+            ? const Scaffold(body: SplashScreen())
+            : FutureBuilder(
+                future: getPIN(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SplashScreen();
                   } else {
-                    return const MainScreen();
+                    if (snapshot.hasData) {
+                      return const PINScreen();
+                    } else {
+                      return const MainScreen();
+                    }
                   }
-                }
-              },
-            ),
+                },
+              ),
+      ),
     );
   }
 }
