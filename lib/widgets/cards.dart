@@ -5,24 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:abibo/functions/control_platform.dart';
 import '../functions/control_guarantee.dart';
-import 'edit_dialog.dart';
 import 'package:intl/intl.dart';
-
-void _showInfoDialog(context, widget) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return Scaffold(
-        body: EditDialog(
-          type: widget.type,
-          name: widget.name,
-          obj: widget.obj,
-          change: widget.change,
-        ),
-      );
-    },
-  );
-}
 
 class PlatformCard extends StatefulWidget {
   PlatformCard({
@@ -96,8 +79,19 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) async {
-        await removePlatform(platform: widget.name, obj: widget.obj);
-        widget.change();
+        widget.navigatorKey.currentState?.pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) =>
+                PlatformDismissCard(
+              name: widget.name,
+              obj: widget.obj,
+              change: widget.change,
+              navigatorKey: widget.navigatorKey,
+            ),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
       },
       background: Container(
         width: screenWidth / 390 * 326,
@@ -132,51 +126,99 @@ class _PlatformInitialCardState extends State<PlatformInitialCard> {
         },
         child: Hero(
           tag: 'platformhero-${widget.name}',
-          child: Column(
-            children: [
-              Container(
-                width: screenWidth / 390 * 326,
-                height: screenHeight / 844 * 82,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(14)),
-                  color: const Color(0xFFF4F4F4),
-                  border: Border.all(
-                    color: const Color(0xFFD6D4D4),
-                    width: 0.5,
-                  ),
-                ),
-                child: Column(
+          child: Container(
+            width: screenWidth / 390 * 326,
+            height: screenHeight / 844 * 82,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(14)),
+              color: const Color(0xFFF4F4F4),
+              border: Border.all(
+                color: const Color(0xFFD6D4D4),
+                width: 0.5,
+              ),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: screenHeight / 844 * 17),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: screenHeight / 844 * 17),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    const SizedBox(width: 16),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: CircleDesign.RedGradient,
+                    ),
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(width: 16),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: CircleDesign.RedGradient,
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.name.toUpperCase(),
-                              style: ABTextTheme.CardTitle,
-                            ),
-                          ],
+                        Text(
+                          widget.name.toUpperCase(),
+                          style: ABTextTheme.CardTitle,
                         ),
                       ],
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: screenHeight / 844 * 10),
-            ],
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlatformDismissCard extends StatefulWidget {
+  const PlatformDismissCard({
+    Key? key,
+    required this.name,
+    required this.obj,
+    required this.change,
+    required this.navigatorKey,
+  }) : super(key: key);
+
+  final String name;
+  final dynamic obj;
+  final Function change;
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  @override
+  State<PlatformDismissCard> createState() => _PlatformDismissCardState();
+}
+
+class _PlatformDismissCardState extends State<PlatformDismissCard> {
+  // final navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return GestureDetector(
+      onTap: () {
+        removePlatform(platform: widget.name, obj: widget.obj);
+        widget.change();
+      },
+      child: Hero(
+        tag: 'platformhero-${widget.name}',
+        child: Container(
+          width: screenWidth / 390 * 326,
+          height: screenHeight / 844 * 82,
+          padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(14)),
+            color: Colors.red,
+            border: Border.all(
+              color: Colors.white,
+              width: 0.5,
+            ),
+          ),
+          alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+          child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
         ),
       ),
     );
@@ -208,7 +250,6 @@ class _PlatformTouchedCardState extends State<PlatformTouchedCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () {
         widget.navigatorKey.currentState?.pushReplacement(
@@ -1016,7 +1057,6 @@ class _GuaranteeTouchedCardState extends State<GuaranteeTouchedCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
-    final NumberFormat formatter = NumberFormat('#,###');
     return GestureDetector(
       onTap: () {
         widget.navigatorKey.currentState?.pushReplacement(

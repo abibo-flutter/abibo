@@ -31,25 +31,28 @@ class _SubServicesState extends State<SubServices> {
       child: FutureBuilder(
         future: searchInfo(),
         builder: (context, snapshot) {
-          return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(
-              height: screenHeight / 844 * 16,
-            ),
-            itemCount: infos.length,
-            itemBuilder: (BuildContext context, int index) {
-              String name = infos[index][0];
-              dynamic obj = infos[index][1];
+          return GestureDetector(
+            onTap: () => setState(() {}),
+            child: ListView.separated(
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => SizedBox(
+                height: screenHeight / 844 * 16,
+              ),
+              itemCount: infos.length,
+              itemBuilder: (BuildContext context, int index) {
+                String name = infos[index][0];
+                dynamic obj = infos[index][1];
 
-              return SubscriptionCard(
-                name: name,
-                obj: obj,
-                change: () {
-                  searchInfo();
-                  setState(() {});
-                },
-              );
-            },
+                return SubscriptionCard(
+                  name: name,
+                  obj: obj,
+                  change: () {
+                    searchInfo();
+                    setState(() {});
+                  },
+                );
+              },
+            ),
           );
         },
       ),

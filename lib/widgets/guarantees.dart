@@ -31,24 +31,27 @@ class _GuaranteesState extends State<Guarantees> {
       child: FutureBuilder(
         future: searchInfos(),
         builder: (context, snapshot) {
-          return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(
-              height: screenHeight / 844 * 16,
+          return GestureDetector(
+            onTap: () => setState(() {}),
+            child: ListView.separated(
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => SizedBox(
+                height: screenHeight / 844 * 16,
+              ),
+              itemCount: infos.length,
+              itemBuilder: (BuildContext context, int index) {
+                String brand = infos[index][0];
+                dynamic obj = infos[index][1];
+                return GuaranteeCard(
+                  name: brand,
+                  obj: obj,
+                  change: () {
+                    searchInfos();
+                    setState(() {});
+                  },
+                );
+              },
             ),
-            itemCount: infos.length,
-            itemBuilder: (BuildContext context, int index) {
-              String brand = infos[index][0];
-              dynamic obj = infos[index][1];
-              return GuaranteeCard(
-                name: brand,
-                obj: obj,
-                change: () {
-                  searchInfos();
-                  setState(() {});
-                },
-              );
-            },
           );
         },
       ),

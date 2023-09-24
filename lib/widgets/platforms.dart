@@ -31,25 +31,28 @@ class _PlatformsState extends State<Platforms> {
       child: FutureBuilder(
         future: searchInfos(),
         builder: (context, snapshot) {
-          return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(
-              height: screenHeight / 844 * 16,
-            ),
-            itemCount: infos.length,
-            itemBuilder: (BuildContext context, int index) {
-              String name = infos[index][0];
-              dynamic obj = infos[index][1];
+          return GestureDetector(
+            onTap: () => setState(() {}),
+            child: ListView.separated(
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => SizedBox(
+                height: screenHeight / 844 * 16,
+              ),
+              itemCount: infos.length,
+              itemBuilder: (BuildContext context, int index) {
+                String name = infos[index][0];
+                dynamic obj = infos[index][1];
 
-              return PlatformCard(
-                name: name,
-                obj: obj,
-                change: () {
-                  searchInfos();
-                  setState(() {});
-                },
-              );
-            },
+                return PlatformCard(
+                  name: name,
+                  obj: obj,
+                  change: () {
+                    searchInfos();
+                    setState(() {});
+                  },
+                );
+              },
+            ),
           );
         },
       ),
