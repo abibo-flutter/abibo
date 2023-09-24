@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _showSplashScreen = true;
-  double textScaleFactor = 1;
+  double textScaleFactor = 0.8;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _loadData() async {
     await initNotification();
     await Future.delayed(
-        const Duration(milliseconds: 2100)); // splash screen이 표시될 시간(초)
+        const Duration(milliseconds: 2000)); // splash screen이 표시될 시간(초)
     setState(() {
       _showSplashScreen = false;
     });
