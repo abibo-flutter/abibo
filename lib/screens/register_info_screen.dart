@@ -596,7 +596,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 MaterialStateProperty.all(Colors.white),
                             foregroundColor:
                                 MaterialStateProperty.all(Colors.black),
-                            elevation: MaterialStateProperty.all(0),
+                            elevation: MaterialStateProperty.all(1),
                           ),
                           child: const CustomText(
                               text: "취소",
