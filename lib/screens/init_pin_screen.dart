@@ -125,21 +125,6 @@ class _InitPINScreenState extends State<InitPINScreen> {
                                 borderSide: BorderSide(
                                     color: Colors.black.withOpacity(0.2)),
                               ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  pinVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      pinVisible = !pinVisible;
-                                    },
-                                  );
-                                },
-                              ),
                             ),
                             onChanged: (value) {
                               setState(() {
@@ -183,21 +168,6 @@ class _InitPINScreenState extends State<InitPINScreen> {
                                 borderSide: BorderSide(
                                     color: Colors.black.withOpacity(0.2)),
                               ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  pinVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      pinCheckVisible = !pinCheckVisible;
-                                    },
-                                  );
-                                },
-                              ),
                             ),
                             onChanged: (value) {
                               setState(() {
@@ -237,6 +207,14 @@ class _InitPINScreenState extends State<InitPINScreen> {
                             Get.snackbar(
                               '알림',
                               'PIN 재확인이 올바르지 않습니다.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                            );
+                          } else if (int.tryParse(pin!) != null &&
+                              int.parse(pin!) < 0) {
+                            Get.snackbar(
+                              '알림',
+                              'PIN은 음수로 설정할 수 없습니다.',
                               snackPosition: SnackPosition.BOTTOM,
                               duration: const Duration(seconds: 2),
                             );

@@ -261,7 +261,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               },
                               decoration: InputDecoration(
                                 hintText:
-                                    "${(isGuarantee) ? '제품명' : '서비스 이름'}을 입력하세요",
+                                    (isGuarantee) ? 'ex) TV' : 'ex) Google',
                                 hintStyle: const TextStyle(
                                   color: ABColors.Regi_Hint_Color,
                                 ),
@@ -304,7 +304,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                       });
                                     },
                                     decoration: const InputDecoration(
-                                      hintText: "아이디를 입력하세요",
+                                      hintText: "ex) id1234",
                                       hintStyle: TextStyle(
                                           color: ABColors.Regi_Hint_Color),
                                       enabledBorder: UnderlineInputBorder(
@@ -349,7 +349,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                     },
                                     obscureText: !passwordVisible,
                                     decoration: InputDecoration(
-                                      hintText: "비밀번호를 입력하세요",
+                                      hintText: "ex) password1234",
                                       hintStyle: const TextStyle(
                                           color: ABColors.Regi_Hint_Color),
                                       enabledBorder: const UnderlineInputBorder(
@@ -409,7 +409,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                       });
                                     },
                                     decoration: const InputDecoration(
-                                      hintText: "브랜드를 입력하세요",
+                                      hintText: "ex) Samsung",
                                       hintStyle: TextStyle(
                                         color: ABColors.Regi_Hint_Color,
                                       ),
@@ -454,7 +454,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                       });
                                     },
                                     decoration: const InputDecoration(
-                                      hintText: "모델명을 입력하세요",
+                                      hintText: "ex) 35DF5KF-89",
                                       hintStyle: TextStyle(
                                         color: ABColors.Regi_Hint_Color,
                                       ),
@@ -502,7 +502,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                         const TextInputType.numberWithOptions(
                                             decimal: true),
                                     decoration: const InputDecoration(
-                                      hintText: "금액을 입력하세요",
+                                      hintText: "ex) 15000",
                                       hintStyle: TextStyle(
                                           color: ABColors.Regi_Hint_Color),
                                       enabledBorder: UnderlineInputBorder(
@@ -545,7 +545,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                       });
                                     },
                                     decoration: const InputDecoration(
-                                      hintText: "메모을 입력하세요",
+                                      hintText: "ex) 3년 무상수리",
                                       hintStyle: TextStyle(
                                           color: ABColors.Regi_Hint_Color),
                                       enabledBorder: UnderlineInputBorder(
@@ -591,7 +591,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                       text: (endDate != null)
                                           ? DateFormat('yyyy년 MM월 dd일')
                                               .format(endDate!)
-                                          : "날짜를 선택하세요",
+                                          : "해지일을 선택하세요",
                                       style:
                                           const TextStyle(color: Colors.white),
                                     ),

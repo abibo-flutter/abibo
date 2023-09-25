@@ -118,21 +118,6 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    pinVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        pinCheckVisible = !pinCheckVisible;
-                                      },
-                                    );
-                                  },
-                                ),
                               ),
                               onChanged: (value) {
                                 setState(() {
@@ -176,21 +161,6 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                 focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    newPINVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        newPINVisible = !newPINVisible;
-                                      },
-                                    );
-                                  },
                                 ),
                               ),
                               onChanged: (value) {
@@ -236,21 +206,6 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    pinCheckVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        pinCheckVisible = !pinCheckVisible;
-                                      },
-                                    );
-                                  },
-                                ),
                               ),
                               onChanged: (value) {
                                 setState(() {
@@ -294,6 +249,14 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                               Get.snackbar(
                                 '알림',
                                 'PIN이 6자리가 아닙니다.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
+                              );
+                            } else if (int.tryParse(pin!) != null &&
+                                int.parse(pin!) < 0) {
+                              Get.snackbar(
+                                '알림',
+                                'PIN은 음수로 설정할 수 없습니다.',
                                 snackPosition: SnackPosition.BOTTOM,
                                 duration: const Duration(seconds: 2),
                               );
