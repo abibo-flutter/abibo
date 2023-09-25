@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        splashColor: Colors.transparent,
         fontFamily: 'Pretendard',
         colorScheme: const ColorScheme.light(
           background: Colors.white,

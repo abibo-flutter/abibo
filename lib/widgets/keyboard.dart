@@ -50,7 +50,7 @@ class _KeyBoardState extends State<KeyBoard> {
           },
           child: const Center(
             child: Icon(
-              Icons.check,
+              Icons.backspace_outlined,
               color: Colors.black,
             ),
           ),
@@ -66,7 +66,7 @@ class _KeyBoardState extends State<KeyBoard> {
           },
           child: const Center(
             child: Icon(
-              Icons.backspace_outlined,
+              Icons.check,
               color: Colors.black,
             ),
           ),

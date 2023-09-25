@@ -65,8 +65,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           height: 0,
           child: Padding(
             padding: EdgeInsets.only(
-                left: screenWidth / 390 * 92,
-                right: screenWidth / 390 * 92,
+                left: screenWidth / 390 * 0,
+                right: screenWidth / 390 * 0,
                 top: screenHeight / 844 * 2),
             child: TabBar(
               controller: _tabController,
