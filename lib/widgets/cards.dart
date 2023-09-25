@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:abibo/functions/control_platform.dart';
 import '../functions/control_guarantee.dart';
 import 'package:intl/intl.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class StandardCard extends StatelessWidget {
   StandardCard({
@@ -288,8 +289,8 @@ class PlatformCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      name.toUpperCase(),
+                    CustomText(
+                      text: name.toUpperCase(),
                       style: ABTextTheme.CardTitle,
                     ),
                   ],
@@ -333,15 +334,15 @@ class PlatformCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            Text(
-                              name.toUpperCase(),
+                            CustomText(
+                              text: name.toUpperCase(),
                               style: ABTextTheme.CardTitle,
                             ),
                           ],
                         ),
                         SizedBox(height: screenHeight / 844 * 25),
-                        Text(
-                          '보안 정보',
+                        CustomText(
+                          text: '보안 정보',
                           style: ABTextTheme.CardMidSeperate,
                         ),
                         SizedBox(height: screenHeight / 844 * 8),
@@ -365,8 +366,8 @@ class PlatformCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '아이디',
+                                  CustomText(
+                                    text: '아이디',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -374,7 +375,8 @@ class PlatformCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['id'],
+                                      CustomText(
+                                          text: obj['id'],
                                           style: ABTextTheme.CardDescription),
                                       const SizedBox(width: 3),
                                       GestureDetector(
@@ -397,8 +399,8 @@ class PlatformCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '비밀번호',
+                                  CustomText(
+                                    text: '비밀번호',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -406,7 +408,8 @@ class PlatformCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['password'],
+                                      CustomText(
+                                          text: obj['password'],
                                           style: ABTextTheme.CardDescription),
                                       const SizedBox(width: 3),
                                       GestureDetector(
@@ -496,8 +499,8 @@ class SubscriptionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      name.toUpperCase(),
+                    CustomText(
+                      text: name.toUpperCase(),
                       style: ABTextTheme.CardTitle,
                     ),
                     RichText(
@@ -557,15 +560,15 @@ class SubscriptionCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            Text(
-                              name.toUpperCase(),
+                            CustomText(
+                              text: name.toUpperCase(),
                               style: ABTextTheme.CardTitle,
                             ),
                           ],
                         ),
                         SizedBox(height: screenHeight / 844 * 25),
-                        Text(
-                          '보안 정보',
+                        CustomText(
+                          text: '보안 정보',
                           style: ABTextTheme.CardMidSeperate,
                         ),
                         SizedBox(height: screenHeight / 844 * 8),
@@ -589,8 +592,8 @@ class SubscriptionCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '아이디',
+                                  CustomText(
+                                    text: '아이디',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -598,7 +601,8 @@ class SubscriptionCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['id'],
+                                      CustomText(
+                                          text: obj['id'],
                                           style: ABTextTheme.CardDescription),
                                       const SizedBox(width: 3),
                                       GestureDetector(
@@ -621,8 +625,8 @@ class SubscriptionCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '비밀번호',
+                                  CustomText(
+                                    text: '비밀번호',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -630,7 +634,8 @@ class SubscriptionCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['password'],
+                                      CustomText(
+                                          text: obj['password'],
                                           style: ABTextTheme.CardDescription),
                                       const SizedBox(width: 3),
                                       GestureDetector(
@@ -652,8 +657,8 @@ class SubscriptionCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: screenHeight / 844 * 25),
-                        Text(
-                          '구독 정보',
+                        CustomText(
+                          text: '구독 정보',
                           style: ABTextTheme.CardMidSeperate,
                         ),
                         SizedBox(height: screenHeight / 844 * 8),
@@ -677,8 +682,8 @@ class SubscriptionCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '결제 금액',
+                                  CustomText(
+                                    text: '결제 금액',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -688,11 +693,13 @@ class SubscriptionCard extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Text(formatter.format(obj['cost']),
+                                          CustomText(
+                                              text:
+                                                  formatter.format(obj['cost']),
                                               style:
                                                   ABTextTheme.CardDescription),
-                                          Text(
-                                            '원/KRW',
+                                          CustomText(
+                                            text: '원/KRW',
                                             style: ABTextTheme.CardDescription,
                                           )
                                         ],
@@ -706,8 +713,8 @@ class SubscriptionCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '다음 결제일',
+                                  CustomText(
+                                    text: '다음 결제일',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -715,7 +722,8 @@ class SubscriptionCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['endDate'],
+                                      CustomText(
+                                          text: obj['endDate'],
                                           style: ABTextTheme.CardDescription),
                                     ],
                                   ),
@@ -792,8 +800,8 @@ class GuaranteeCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      name.toUpperCase(),
+                    CustomText(
+                      text: name.toUpperCase(),
                       style: ABTextTheme.CardTitle,
                     ),
                     RichText(
@@ -851,15 +859,15 @@ class GuaranteeCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            Text(
-                              name.toUpperCase(),
+                            CustomText(
+                              text: name.toUpperCase(),
                               style: ABTextTheme.CardTitle,
                             ),
                           ],
                         ),
                         SizedBox(height: screenHeight / 844 * 25),
-                        Text(
-                          '보안 정보',
+                        CustomText(
+                          text: '보안 정보',
                           style: ABTextTheme.CardMidSeperate,
                         ),
                         SizedBox(height: screenHeight / 844 * 8),
@@ -883,8 +891,8 @@ class GuaranteeCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '제품명',
+                                  CustomText(
+                                    text: '제품명',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -892,7 +900,8 @@ class GuaranteeCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['name'],
+                                      CustomText(
+                                          text: obj['name'],
                                           style: ABTextTheme.CardDescription),
                                     ],
                                   ),
@@ -903,8 +912,8 @@ class GuaranteeCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '모델명',
+                                  CustomText(
+                                    text: '모델명',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -912,7 +921,8 @@ class GuaranteeCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['model'],
+                                      CustomText(
+                                          text: obj['model'],
                                           style: ABTextTheme.CardDescription),
                                       const SizedBox(width: 3),
                                     ],
@@ -923,8 +933,8 @@ class GuaranteeCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: screenHeight / 844 * 25),
-                        Text(
-                          '기타 정보',
+                        CustomText(
+                          text: '기타 정보',
                           style: ABTextTheme.CardMidSeperate,
                         ),
                         SizedBox(height: screenHeight / 844 * 8),
@@ -948,8 +958,8 @@ class GuaranteeCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '메모',
+                                  CustomText(
+                                    text: '메모',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -959,7 +969,8 @@ class GuaranteeCard extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Text(obj['note'],
+                                          CustomText(
+                                              text: obj['note'],
                                               style:
                                                   ABTextTheme.CardDescription),
                                         ],
@@ -973,8 +984,8 @@ class GuaranteeCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '해지일',
+                                  CustomText(
+                                    text: '해지일',
                                     style: ABTextTheme.CardDescription,
                                   ),
                                   Row(
@@ -982,7 +993,8 @@ class GuaranteeCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(obj['endDate'],
+                                      CustomText(
+                                          text: obj['endDate'],
                                           style: ABTextTheme.CardDescription),
                                     ],
                                   ),

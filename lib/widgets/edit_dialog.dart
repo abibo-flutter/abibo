@@ -5,6 +5,7 @@ import 'package:abibo/functions/control_subscription.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class EditDialog extends StatefulWidget {
   final String type;
@@ -65,8 +66,8 @@ class _EditDialogState extends State<EditDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        "정보 수정하기",
+      title: const CustomText(
+        text: "정보 수정하기",
         style: TextStyle(
           color: Colors.black,
         ),
@@ -74,7 +75,7 @@ class _EditDialogState extends State<EditDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.name.toUpperCase()),
+          CustomText(text: widget.name.toUpperCase(), style: const TextStyle()),
           const SizedBox(
             height: 10,
           ),
@@ -222,7 +223,10 @@ class _EditDialogState extends State<EditDialog> {
               ),
               onPressed: _selectDate,
               child: Center(
-                child: Text(DateFormat('yyyy년 MM월 dd일').format(endDate ?? now)),
+                child: CustomText(
+                  text: DateFormat('yyyy년 MM월 dd일').format(endDate ?? now),
+                  style: const TextStyle(),
+                ),
               ),
             ),
           if (isSubscription)
@@ -304,7 +308,7 @@ class _EditDialogState extends State<EditDialog> {
         TextButton(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.black)),
-          child: const Text("Cancel"),
+          child: const CustomText(text: "Cancel", style: TextStyle()),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -312,7 +316,10 @@ class _EditDialogState extends State<EditDialog> {
         TextButton(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.black)),
-          child: const Text("Delete"),
+          child: const CustomText(
+            text: "Delete",
+            style: TextStyle(),
+          ),
           onPressed: () async {
             if (isPlatform) {
               await removePlatform(
@@ -343,7 +350,10 @@ class _EditDialogState extends State<EditDialog> {
             backgroundColor: MaterialStateProperty.all(Colors.black),
             foregroundColor: MaterialStateProperty.all(Colors.white),
           ),
-          child: const Text("Ok"),
+          child: const CustomText(
+            text: "Ok",
+            style: TextStyle(),
+          ),
           onPressed: () async {
             if (isMemo && text != null) {
               await updateMemo(

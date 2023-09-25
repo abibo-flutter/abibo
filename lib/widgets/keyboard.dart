@@ -1,5 +1,6 @@
 import 'package:abibo/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class KeyBoard extends StatefulWidget {
   final TextEditingController controller;
@@ -155,8 +156,8 @@ class _KeyBoardKeyState extends State<KeyBoardKey> {
             ),
           ),
           child: Center(
-            child: Text(
-              widget.value,
+            child: CustomText(
+              text: widget.value,
               style: ABTextTheme.KeyboardNumber,
             ),
           ),

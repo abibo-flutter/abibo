@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/color_theme.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Column(
               children: [
-                Text(
-                  'Copyright 2023. Abibo All rights reserved',
+                CustomText(
+                  text: 'Copyright 2023. Abibo All rights reserved',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.30000001192092896),

@@ -6,6 +6,7 @@ import 'package:abibo/widgets/cards.dart';
 import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:get/get.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -95,8 +96,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Abibo',
+                      CustomText(
+                        text: 'Abibo',
                         style: ABTextTheme.SearchTitleText,
                       ),
                     ],

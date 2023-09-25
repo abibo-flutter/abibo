@@ -11,6 +11,7 @@ import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:abibo/static.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({
@@ -123,8 +124,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       color: ABColors.MAIN_THEME,
                     ),
                   ),
-                  const Text(
-                    '설정',
+                  const CustomText(
+                    text: '설정',
                     style: ABTextTheme.SettingMainText,
                   ),
                 ],
@@ -144,8 +145,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                '전체 알림',
+                              const CustomText(
+                                text: '전체 알림',
                                 style: ABTextTheme.SettingMenuTitle,
                               ),
                               SizedBox(
@@ -153,8 +154,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                               Row(
                                 children: [
-                                  Text(
-                                    'ON',
+                                  CustomText(
+                                    text: 'ON',
                                     style: TextStyle(
                                       height: 1.2,
                                       letterSpacing: -0.4,
@@ -188,8 +189,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  Text(
-                                    'OFF',
+                                  CustomText(
+                                    text: 'OFF',
                                     style: TextStyle(
                                       height: 1.2,
                                       letterSpacing: -0.4,
@@ -240,8 +241,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                         ),
                                       ),
                                       child: Center(
-                                        child: Text(
-                                          '알람 추가',
+                                        child: CustomText(
+                                          text: '알람 추가',
                                           style: TextStyle(
                                             color: entireNotificationenable
                                                 ? Colors.black
@@ -268,8 +269,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 height: screenHeight / 844 * 24,
                               ),
-                              const Text(
-                                '보안 설정',
+                              const CustomText(
+                                text: '보안 설정',
                                 style: ABTextTheme.SettingMenuTitle,
                               ),
                               SizedBox(
@@ -284,8 +285,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                     navigateToInitPINScreen();
                                   }
                                 },
-                                child: Text(
-                                  'PIN 번호 설정 / 변경',
+                                child: CustomText(
+                                  text: 'PIN 번호 설정 / 변경',
                                   style: TextStyle(
                                     color: Colors.black
                                         .withOpacity(0.699999988079071),
@@ -302,8 +303,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                 onTap: () {
                                   _showAlert(context);
                                 },
-                                child: const Text(
-                                  '전체 삭제 / 초기화',
+                                child: const CustomText(
+                                  text: '전체 삭제 / 초기화',
                                   style: TextStyle(
                                     color: Color(0xFFE50303),
                                     fontSize: 18,
@@ -325,8 +326,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '어플리케이션 정보',
+                                  CustomText(
+                                    text: '어플리케이션 정보',
                                     style: TextStyle(
                                       color: Colors.black
                                           .withOpacity(0.6000000238418579),
@@ -338,8 +339,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   SizedBox(
                                     height: screenHeight / 844 * 7,
                                   ),
-                                  Text(
-                                    '버전 : ${ABStatic.AppVersion}',
+                                  CustomText(
+                                    text: '버전 : ${ABStatic.AppVersion}',
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(0.2),
                                       fontSize: 10,
@@ -347,8 +348,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  Text(
-                                    '고객센터 : devdoyun@gmail.com',
+                                  CustomText(
+                                    text: '고객센터 : devdoyun@gmail.com',
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(0.2),
                                       fontSize: 10,

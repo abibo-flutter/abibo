@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:abibo/theme/text_theme.dart';
 import 'package:get/get.dart';
 import 'package:abibo/widgets/platforms.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class MainMenu extends StatelessWidget {
   final bool topRight;
@@ -75,8 +76,8 @@ class MainMenu extends StatelessWidget {
             SizedBox(
               height: screenHeight / 844 * 26,
             ),
-            Text(
-              headline,
+            CustomText(
+              text: headline,
               style: ABTextTheme.MainWidgetTitle,
             ),
             SizedBox(
@@ -92,8 +93,8 @@ class MainMenu extends StatelessWidget {
             SizedBox(
               height: screenHeight / 844 * 12,
             ),
-            Text(
-              text,
+            CustomText(
+              text: text,
               style: ABTextTheme.MainWidgetContext,
               textAlign: TextAlign.center,
             )
