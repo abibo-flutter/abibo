@@ -54,18 +54,17 @@ class _MyAppState extends State<MyApp> {
     ));
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Pretendard',
-          colorScheme: const ColorScheme.light(
-            background: Colors.white,
-            brightness: Brightness.light,
-          ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Pretendard',
+        colorScheme: const ColorScheme.light(
+          background: Colors.white,
+          brightness: Brightness.light,
         ),
-        home: _showSplashScreen
+      ),
+      home: Scaffold(
+        body: _showSplashScreen
             ? const Scaffold(body: SplashScreen())
             : FutureBuilder(
                 future: getPIN(),
