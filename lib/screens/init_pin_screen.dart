@@ -20,6 +20,8 @@ class _InitPINScreenState extends State<InitPINScreen> {
   late SharedPreferences prefs;
   String? pin;
   String? pinCheck;
+  bool pinVisible = false;
+  bool pinCheckVisible = false;
   String errorString = ''; //error 보려고 만든 String state
 
   @override
@@ -102,8 +104,9 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         SizedBox(
                           height: screenHeight / 844 * 40,
                           child: TextField(
-                            obscureText: true,
-                            keyboardType: TextInputType.number,
+                            obscureText: !pinVisible,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
                             maxLength: 6,
                             style: const TextStyle(
                               color: Colors.black,
@@ -121,6 +124,21 @@ class _InitPINScreenState extends State<InitPINScreen> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Colors.black.withOpacity(0.2)),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  pinVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      pinVisible = !pinVisible;
+                                    },
+                                  );
+                                },
                               ),
                             ),
                             onChanged: (value) {
@@ -144,8 +162,9 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         SizedBox(
                           height: screenHeight / 844 * 40,
                           child: TextField(
-                            obscureText: true,
-                            keyboardType: TextInputType.number,
+                            obscureText: !pinCheckVisible,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
                             maxLength: 6,
                             style: const TextStyle(
                               color: Colors.black,
@@ -163,6 +182,21 @@ class _InitPINScreenState extends State<InitPINScreen> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Colors.black.withOpacity(0.2)),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  pinVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      pinCheckVisible = !pinCheckVisible;
+                                    },
+                                  );
+                                },
                               ),
                             ),
                             onChanged: (value) {

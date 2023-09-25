@@ -33,7 +33,8 @@ Future<void> setGuarantee({
 
   prefs.setString('guarantee-$brand', jsonEncode(productList));
 
-  List DateDiffs = prefs.getStringList('periods') ?? [];
+  List DateDiffs =
+      prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'];
 
   for (String date in DateDiffs) {
     await registerNotification(

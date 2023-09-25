@@ -37,7 +37,8 @@ Future<void> setSubscription({
     serviceList.add(newInfo);
   }
 
-  List DateDiffs = prefs.getStringList('periods') ?? [];
+  List DateDiffs =
+      prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'];
 
   for (String date in DateDiffs) {
     await registerNotification(

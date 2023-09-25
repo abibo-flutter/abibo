@@ -22,6 +22,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   bool isPlatform = true;
   bool isSubscription = false;
   bool isGuarantee = false;
+  bool passwordVisible = false;
   String? name;
   String? model;
   String? brand;
@@ -346,22 +347,38 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                         password = value.removeAllWhitespace;
                                       });
                                     },
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
+                                    obscureText: !passwordVisible,
+                                    decoration: InputDecoration(
                                       hintText: "비밀번호를 입력하세요",
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                           color: ABColors.Regi_Hint_Color),
-                                      enabledBorder: UnderlineInputBorder(
+                                      enabledBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: ABColors.Regi_Hint_Color,
                                           width: 1.5,
                                         ),
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: ABColors.Regi_Hint_Color,
                                           width: 1.5,
                                         ),
+                                      ),
+                                      suffix: IconButton(
+                                        icon: Icon(
+                                          passwordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          setState(
+                                            () {
+                                              passwordVisible =
+                                                  !passwordVisible;
+                                            },
+                                          );
+                                        },
                                       ),
                                     ),
                                     style: const TextStyle(
@@ -481,6 +498,9 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                         cost = int.tryParse(value);
                                       });
                                     },
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
                                     decoration: const InputDecoration(
                                       hintText: "금액을 입력하세요",
                                       hintStyle: TextStyle(

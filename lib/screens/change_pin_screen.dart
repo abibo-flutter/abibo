@@ -27,6 +27,9 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
   String? newPIN; //신규 pin 입력
   String? pinCheck; //신규 pin 확인
   String errorString = ''; //error 보려고 만든 String state
+  bool pinVisible = false;
+  bool newPINVisible = false;
+  bool pinCheckVisible = false;
 
   @override
   void initState() {
@@ -93,8 +96,10 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           SizedBox(
                             height: screenHeight / 844 * 40,
                             child: TextField(
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
+                              obscureText: !pinVisible,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
                               maxLength: 6,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -112,6 +117,21 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                 focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    pinVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        pinCheckVisible = !pinCheckVisible;
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               onChanged: (value) {
@@ -135,8 +155,10 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           SizedBox(
                             height: screenHeight / 844 * 40,
                             child: TextField(
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
+                              obscureText: !newPINVisible,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
                               maxLength: 6,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -154,6 +176,21 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                 focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    newPINVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        newPINVisible = !newPINVisible;
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               onChanged: (value) {
@@ -177,8 +214,10 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           SizedBox(
                             height: screenHeight / 844 * 40,
                             child: TextField(
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
+                              obscureText: !pinCheckVisible,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
                               maxLength: 6,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -196,6 +235,21 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                 focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFD9D9D9), width: 2),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    pinCheckVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        pinCheckVisible = !pinCheckVisible;
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               onChanged: (value) {

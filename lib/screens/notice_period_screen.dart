@@ -39,7 +39,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
 
   Future<void> getPeriod() async {
     prefs = await SharedPreferences.getInstance();
-    periods = (prefs.getStringList('periods') ?? []).toSet();
+    periods = (prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'])
+        .toSet();
     setState(() {});
   }
 

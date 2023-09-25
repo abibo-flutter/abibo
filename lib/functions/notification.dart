@@ -31,7 +31,7 @@ Future<void> initNotification() async {
     onDidReceiveNotificationResponse: (payload) {},
   );
 
-  dateDiffs = prefs.getStringList('periods') ?? [];
+  dateDiffs = prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'];
 
   PermissionStatus status = await Permission.notification.status;
   if (status.isPermanentlyDenied || status.isGranted) return;
@@ -105,7 +105,7 @@ Future<void> registerAllNotification({
   required String endDate,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('periods') ?? [];
+  dateDiffs = prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'];
 
   for (String dateDiff in dateDiffs) {
     await registerNotification(
@@ -138,7 +138,7 @@ Future<void> cancelAllNotification({
   required String detail,
 }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  dateDiffs = prefs.getStringList('periods') ?? [];
+  dateDiffs = prefs.getStringList('periods') ?? ['0d', '1d', '3d', '7d', '1m'];
   for (String dateDiff in dateDiffs) {
     await cancelNotification(
       type: type,
