@@ -6,6 +6,7 @@ import 'package:abibo/theme/text_theme.dart';
 import 'package:abibo/screens/finger_print_screen.dart';
 import 'package:get/get.dart';
 import '../theme/color_theme.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class PINScreen extends StatefulWidget {
   const PINScreen({Key? key}) : super(key: key);
@@ -54,15 +55,15 @@ class _PINScreenState extends State<PINScreen> {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    'Abibo',
+                  const CustomText(
+                    text: 'Abibo',
                     style: ABTextTheme.LoginMainText1,
                   ),
                   SizedBox(
                     height: screenHeight / 844 * 12,
                   ),
-                  const Text(
-                    'PIN 번호를 입력해주세요!',
+                  const CustomText(
+                    text: 'PIN 번호를 입력해주세요!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -166,8 +167,8 @@ class _PINScreenState extends State<PINScreen> {
                         ),
                         elevation: 0,
                       ),
-                      child: const Text(
-                        "메인으로",
+                      child: const CustomText(
+                        text: "메인으로",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -183,8 +184,8 @@ class _PINScreenState extends State<PINScreen> {
                     onTap: () {},
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 0),
-                      child: const Text(
-                        'PIN 번호를 분실했습니까?',
+                      child: const CustomText(
+                        text: 'PIN 번호를 분실했습니까?',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
@@ -198,8 +199,8 @@ class _PINScreenState extends State<PINScreen> {
                       onTap: () {
                         Get.offAll(() => const FingerPrintScreen());
                       },
-                      child: const Text(
-                        '생체인식을 이용하여 보안 인증하기',
+                      child: const CustomText(
+                        text: '생체인식을 이용하여 보안 인증하기',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,

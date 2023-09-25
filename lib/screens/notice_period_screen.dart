@@ -1,5 +1,5 @@
 //NoticePeriodScreen.dart
-
+import 'package:abibo/widgets/custom_text.dart';
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/functions/notification.dart';
@@ -82,8 +82,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
               SizedBox(
                 height: screenHeight / 844 * 16,
               ),
-              const Text(
-                '알림 발송 주기를\n설정하세요',
+              const CustomText(
+                text: '알림 발송 주기를\n설정하세요',
                 style: ABTextTheme.NoticePeriodTitle,
               ),
               SizedBox(
@@ -109,8 +109,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   },
                   child: Row(
                     children: [
-                      const Text(
-                        '당일 00:00',
+                      const CustomText(
+                        text: '당일 00:00',
                         style: ABTextTheme.NoticePeriodTimeButton,
                       ),
                       const Spacer(),
@@ -147,7 +147,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   },
                   child: Row(
                     children: [
-                      const Text('24시간 전',
+                      const CustomText(
+                          text: '24시간 전',
                           style: ABTextTheme.NoticePeriodTimeButton),
                       const Spacer(),
                       if (periods.contains('1d'))
@@ -183,7 +184,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   },
                   child: Row(
                     children: [
-                      const Text('3일 전',
+                      const CustomText(
+                          text: '3일 전',
                           style: ABTextTheme.NoticePeriodTimeButton),
                       const Spacer(),
                       if (periods.contains('3d'))
@@ -219,7 +221,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   },
                   child: Row(
                     children: [
-                      const Text('7일 전',
+                      const CustomText(
+                          text: '7일 전',
                           style: ABTextTheme.NoticePeriodTimeButton),
                       const Spacer(),
                       if (periods.contains('7d'))
@@ -255,7 +258,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   },
                   child: Row(
                     children: [
-                      const Text('한 달 전',
+                      const CustomText(
+                          text: '한 달 전',
                           style: ABTextTheme.NoticePeriodTimeButton),
                       const Spacer(),
                       if (periods.contains('1m'))
@@ -290,8 +294,8 @@ class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
                   width: double.maxFinite,
                   height: screenWidth / 390 * 60,
                   child: const Center(
-                    child: Text(
-                      '설정하기',
+                    child: CustomText(
+                      text: '설정하기',
                       style: ABTextTheme.NoticePeriodButton,
                     ),
                   ),

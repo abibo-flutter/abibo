@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
 import 'package:get/get.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class ChangePINScreen extends StatefulWidget {
   const ChangePINScreen({super.key});
@@ -70,8 +71,8 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           },
                         ),
                         SizedBox(width: screenWidth / 390 * 3),
-                        const Text(
-                          'PIN 변경하기',
+                        const CustomText(
+                          text: 'PIN 변경하기',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 24,
@@ -276,8 +277,8 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                           ),
                           elevation: 5,
                         ),
-                        child: const Text(
-                          "PIN 변경하기",
+                        child: const CustomText(
+                          text: "PIN 변경하기",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

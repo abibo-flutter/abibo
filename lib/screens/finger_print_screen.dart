@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:abibo/widgets/custom_text.dart';
 import '../theme/color_theme.dart';
 
 class FingerPrintScreen extends StatefulWidget {
@@ -123,13 +124,13 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Abibo',
+              const CustomText(
+                text: 'Abibo',
                 style: ABTextTheme.LoginMainText1,
               ),
               SizedBox(height: screenHeight / 844 * 42),
-              const Text(
-                '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
+              const CustomText(
+                text: '아비보를 시작하기 위하여 \n생체 인식을 진행해 주세요.',
                 textAlign: TextAlign.center,
                 style: ABTextTheme.FingerPrintLoginDescription,
               ),
@@ -167,8 +168,8 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
               SizedBox(height: screenHeight / 844 * 36),
               InkWell(
                 onTap: () {},
-                child: const Text(
-                  '생체인식이 안되나요?',
+                child: const CustomText(
+                  text: '생체인식이 안되나요?',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -180,8 +181,8 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                 onTap: () {
                   Get.offAll(() => const PINScreen());
                 },
-                child: const Text(
-                  'PIN을 이용하여 보안 인증하기',
+                child: const CustomText(
+                  text: 'PIN을 이용하여 보안 인증하기',
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xFFACA5DF),

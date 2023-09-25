@@ -3,6 +3,7 @@ import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class InitPINScreen extends StatefulWidget {
   const InitPINScreen({super.key});
@@ -61,8 +62,8 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         },
                       ),
                       SizedBox(width: screenWidth / 390 * 3),
-                      const Text(
-                        'PIN 설정하기',
+                      const CustomText(
+                        text: 'PIN 설정하기',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 24,
@@ -78,8 +79,8 @@ class _InitPINScreenState extends State<InitPINScreen> {
                   Row(
                     children: [
                       SizedBox(width: screenWidth / 390 * 5),
-                      const Text(
-                        '잠금해제에 사용할 PIN을 설정해보세요\nPIN은 언제든 변경할 수 있습니다',
+                      const CustomText(
+                        text: '잠금해제에 사용할 PIN을 설정해보세요\nPIN은 언제든 변경할 수 있습니다',
                         style: TextStyle(
                           color: Color(0xFFA0A0A0),
                           fontSize: 16,
@@ -227,8 +228,8 @@ class _InitPINScreenState extends State<InitPINScreen> {
                         ),
                         elevation: 5,
                       ),
-                      child: const Text(
-                        "PIN 변경하기",
+                      child: const CustomText(
+                        text: "PIN 변경하기",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

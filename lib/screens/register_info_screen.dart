@@ -8,6 +8,7 @@ import 'package:abibo/functions/control_subscription.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/theme/color_theme.dart';
+import 'package:abibo/widgets/custom_text.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -107,8 +108,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         size: 30,
                       ),
                     ),
-                    const Text(
-                      '정보 등록하기',
+                    const CustomText(
+                      text: '정보 등록하기',
                       style: ABTextTheme.RegisterInfoMainText,
                     ),
                   ],
@@ -139,8 +140,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           child: TextButton(
                             onPressed: () => select("subscription"),
                             child: Center(
-                              child: Text(
-                                '구독 서비스',
+                              child: CustomText(
+                                text: '구독 서비스',
                                 style: TextStyle(
                                   color: (isSubscription)
                                       ? Colors.white
@@ -171,8 +172,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           child: TextButton(
                             onPressed: () => select("platform"),
                             child: Center(
-                              child: Text(
-                                '플랫폼',
+                              child: CustomText(
+                                text: '플랫폼',
                                 style: TextStyle(
                                   color: (isPlatform)
                                       ? Colors.white
@@ -203,8 +204,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           child: TextButton(
                             onPressed: () => select("guarantee"),
                             child: Center(
-                              child: Text(
-                                '보증서',
+                              child: CustomText(
+                                text: '보증서',
                                 style: TextStyle(
                                   color: (isGuarantee)
                                       ? Colors.white
@@ -243,7 +244,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                           SizedBox(height: screenHeight / 844 * 24),
                           Row(
                             children: [
-                              Text((isGuarantee) ? '제품명' : '서비스 이름',
+                              CustomText(
+                                  text: (isGuarantee) ? '제품명' : '서비스 이름',
                                   style: ABTextTheme.RegiEachTitle),
                             ],
                           ),
@@ -287,7 +289,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('아이디',
+                                    CustomText(
+                                        text: '아이디',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -330,7 +333,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('비밀번호',
+                                    CustomText(
+                                        text: '비밀번호',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -374,7 +378,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('브랜드',
+                                    CustomText(
+                                        text: '브랜드',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -418,7 +423,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('모델명',
+                                    CustomText(
+                                        text: '모델명',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -462,7 +468,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('금액',
+                                    CustomText(
+                                        text: '금액',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -505,7 +512,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('메모',
+                                    CustomText(
+                                        text: '메모',
                                         style: ABTextTheme.RegiEachTitle),
                                   ],
                                 ),
@@ -547,7 +555,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 SizedBox(height: screenHeight / 844 * 24),
                                 const Row(
                                   children: [
-                                    Text('해지일',
+                                    CustomText(
+                                        text: '해지일',
                                         style: ABTextTheme.RegiEachTitleRed),
                                   ],
                                 ),
@@ -558,11 +567,13 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   ),
                                   onPressed: _selectDate,
                                   child: Center(
-                                    child: Text(
-                                      (endDate != null)
+                                    child: CustomText(
+                                      text: (endDate != null)
                                           ? DateFormat('yyyy년 MM월 dd일')
                                               .format(endDate!)
                                           : "날짜를 선택하세요",
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -585,8 +596,11 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 MaterialStateProperty.all(Colors.white),
                             foregroundColor:
                                 MaterialStateProperty.all(Colors.black),
+                            elevation: MaterialStateProperty.all(0),
                           ),
-                          child: const Text("취소"),
+                          child: const CustomText(
+                              text: "취소",
+                              style: TextStyle(color: Colors.black)),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -601,7 +615,10 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                             foregroundColor:
                                 MaterialStateProperty.all(Colors.white),
                           ),
-                          child: const Text("완료"),
+                          child: const CustomText(
+                            text: "완료",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           onPressed: () async {
                             if (name == null) return;
                             if (isSubscription &&

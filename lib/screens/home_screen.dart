@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-
+import 'package:abibo/widgets/custom_text.dart';
 import 'package:abibo/functions/control_guarantee.dart';
 import 'package:abibo/functions/control_subscription.dart';
 import 'package:abibo/screens/register_info_screen.dart';
@@ -112,8 +112,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Abibo',
+                      const CustomText(
+                        text: 'Abibo',
                         style: ABTextTheme.MainMainText,
                       ),
                       const Expanded(
@@ -274,8 +274,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: TextButton(
                               onPressed: () => select("subscription"),
                               child: Center(
-                                child: Text(
-                                  '구독 서비스',
+                                child: CustomText(
+                                  text: '구독 서비스',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: 'NotoSansKR',
@@ -308,8 +308,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: TextButton(
                               onPressed: () => select("platform"),
                               child: Center(
-                                child: Text(
-                                  '플랫폼',
+                                child: CustomText(
+                                  text: '플랫폼',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: 'NotoSansKR',
@@ -342,8 +342,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: TextButton(
                               onPressed: () => select("guarantee"),
                               child: Center(
-                                child: Text(
-                                  '보증서',
+                                child: CustomText(
+                                  text: '보증서',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: 'NotoSansKR',
@@ -431,7 +431,9 @@ class _NoticeTabState extends State<NoticeTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('정보를\n입력해보세요!', style: ABTextTheme.UpcomingIssueNotRegistered),
+            CustomText(
+                text: '정보를\n입력해보세요!',
+                style: ABTextTheme.UpcomingIssueNotRegistered),
           ],
         ),
       );
@@ -454,8 +456,8 @@ class _NoticeTabState extends State<NoticeTab> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            (widget.type == 'subscription') ? '구독 서비스' : '보증서',
+          CustomText(
+            text: (widget.type == 'subscription') ? '구독 서비스' : '보증서',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 14,
@@ -466,8 +468,8 @@ class _NoticeTabState extends State<NoticeTab> {
           SizedBox(
             height: screenHeight / 844 * 21,
           ),
-          Text(
-              (widget.type == 'subscription')
+          CustomText(
+              text: (widget.type == 'subscription')
                   ? widget.obj![0]
                   : widget.obj![1]['name'],
               style: ABTextTheme.UpcomingIssueStandard),
@@ -478,12 +480,12 @@ class _NoticeTabState extends State<NoticeTab> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  '$difference',
+                CustomText(
+                  text: '$difference',
                   style: ABTextTheme.UpcomingIssueHighlight,
                 ),
-                const Text(
-                  '일 남았어요!',
+                const CustomText(
+                  text: '일 남았어요!',
                   style: ABTextTheme.UpcomingIssueStandard,
                 ),
               ],
@@ -492,8 +494,8 @@ class _NoticeTabState extends State<NoticeTab> {
             const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  '해지일이에요!',
+                CustomText(
+                  text: '해지일이에요!',
                   style: ABTextTheme.UpcomingIssueStandard,
                 ),
               ],
