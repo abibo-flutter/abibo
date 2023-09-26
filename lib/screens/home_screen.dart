@@ -28,7 +28,7 @@ void openRegisterInfoScreen() {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   static final HomeScreenController _controller =
-      Get.put<HomeScreenController>(HomeScreenController());
+      Get.find<HomeScreenController>();
   late Timer _timer;
   String selected = "platform";
   late PageController _pageController;

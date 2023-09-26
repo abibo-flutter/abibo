@@ -51,13 +51,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           decoration: const BoxDecoration(
             color: Color(0xFF6B19DC),
           ),
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              const SearchScreen(),
-              HomeScreen(controller: _tabController),
-              SettingScreen(controller: _tabController),
-            ],
+          child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                const SearchScreen(),
+                HomeScreen(controller: _tabController),
+                SettingScreen(controller: _tabController),
+              ],
+            ),
           ),
         ),
         extendBodyBehindAppBar: true,
@@ -100,5 +103,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
