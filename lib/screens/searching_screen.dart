@@ -79,74 +79,87 @@ class _SearchScreenState extends State<SearchScreen> {
     // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: ABColors.MAIN_THEME,
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: screenWidth / 390 * 32,
-                right: screenWidth / 390 * 32,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: screenHeight / 844 * 70),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: 'Abibo',
-                        style: ABTextTheme.SearchTitleText,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: screenHeight / 844 * 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      //입력 전 디자인
-                      hintText: "원하는 정보를 검색하기",
-                      hintStyle: ABTextTheme.SearchingHintText,
-                      suffixIcon: const Icon(Icons.search),
-                      suffixIconColor: Colors.white, // 검색 아이콘
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 1.3,
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(18.5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 1.3,
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(18.5),
-                      ),
-                    ),
-                    style: ABTextTheme.SearchingText,
-                    onChanged: (value) async {
-                      searching = value.toLowerCase().removeAllWhitespace;
-                      infos = await searchInfos(searching);
-                      setState(() {});
-                    },
-                  ),
-                  SizedBox(height: screenHeight / 844 * 30),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          setState(() {});
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            color: ABColors.MAIN_THEME,
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: screenWidth / 390 * 32,
+                  right: screenWidth / 390 * 32,
                 ),
-                child: GestureDetector(
-                  onTap: () => setState(() {}),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight / 844 * 70),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: 'Abibo',
+                          style: ABTextTheme.SearchTitleText,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight / 844 * 20),
+                    TextField(
+                      decoration: InputDecoration(
+                        //입력 전 디자인
+                        hintText: "원하는 정보를 검색하기",
+                        hintStyle: ABTextTheme.SearchingHintText,
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            setState(() {});
+                          },
+                        ),
+                        suffixIconColor: Colors.white, // 검색 아이콘
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 1.3,
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(18.5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 1.3,
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(18.5),
+                        ),
+                      ),
+                      style: ABTextTheme.SearchingText,
+                      onChanged: (value) async {
+                        searching = value.toLowerCase().removeAllWhitespace;
+                        infos = await searchInfos(searching);
+                        if (value.isEmpty) {
+                          setState(() {});
+                        }
+                      },
+                      onSubmitted: (value) {
+                        setState(() {});
+                      },
+                    ),
+                    SizedBox(height: screenHeight / 844 * 30),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
                   child: ListView.separated(
                     separatorBuilder: (context, index) => const Padding(
                       padding: EdgeInsets.symmetric(vertical: 8),
@@ -197,8 +210,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

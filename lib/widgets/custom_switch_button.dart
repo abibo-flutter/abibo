@@ -9,7 +9,7 @@ class CustomSwitchButton extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CustomSwitchButtonState createState() => _CustomSwitchButtonState();
+  State<CustomSwitchButton> createState() => _CustomSwitchButtonState();
 }
 
 class _CustomSwitchButtonState extends State<CustomSwitchButton> {
@@ -23,6 +23,7 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -31,20 +32,15 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
         widget.onChanged(_switchValue);
       },
       child: Container(
-        width: 52.0,
-        height: 28.0,
+        width: screenHeight / 844 * 52,
+        height: screenHeight / 844 * 28,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(screenHeight / 844 * 14),
           color:
               _switchValue ? const Color(0xFFDABFFF) : const Color(0xFFD9D9D9),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 2.0,
-            bottom: 2.0,
-            right: 2.0,
-            left: 2.0,
-          ),
+          padding: EdgeInsets.all(screenHeight / 844 * 2),
           child: Container(
             alignment: _switchValue
                 ? ((Directionality.of(context) == TextDirection.rtl)
@@ -54,8 +50,8 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
                     ? Alignment.centerLeft
                     : Alignment.centerRight),
             child: Container(
-              width: 20.0,
-              height: 20.0,
+              width: screenHeight / 844 * 20,
+              height: screenHeight / 844 * 20,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _switchValue

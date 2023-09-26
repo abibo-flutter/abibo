@@ -276,6 +276,13 @@ class _ChangePINScreenState extends State<ChangePINScreen> {
                                   duration: const Duration(seconds: 2),
                                 );
                               }
+                            } else if (double.tryParse(pin!) != null) {
+                              Get.snackbar(
+                                '알림',
+                                'PIN에 소수점을 입력할 수 없습니다.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 2),
+                              );
                             }
                           } catch (err) {
                             print(err);

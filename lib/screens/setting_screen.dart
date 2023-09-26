@@ -169,24 +169,20 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  SizedBox(
-                                    width: screenWidth / 390 * 50,
-                                    height: screenHeight / 844 * 26,
-                                    child: CustomSwitchButton(
-                                      value: entireNotificationenable,
-                                      onChanged: (value) async {
-                                        if (value) {
-                                          await updatePeriod();
-                                        } else {
-                                          await resetNotification();
-                                        }
-                                        await prefs.setBool(
-                                            'entireNotificationenable', value);
-                                        setState(() {
-                                          entireNotificationenable = value;
-                                        });
-                                      },
-                                    ),
+                                  CustomSwitchButton(
+                                    value: entireNotificationenable,
+                                    onChanged: (value) async {
+                                      if (value) {
+                                        await updatePeriod();
+                                      } else {
+                                        await resetNotification();
+                                      }
+                                      await prefs.setBool(
+                                          'entireNotificationenable', value);
+                                      setState(() {
+                                        entireNotificationenable = value;
+                                      });
+                                    },
                                   ),
                                   const SizedBox(width: 10),
                                   CustomText(

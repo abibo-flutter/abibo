@@ -211,6 +211,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth / 390 * 3.5),
+                          child: Container(
+                            height: screenWidth / 390 * 6,
+                            width: screenWidth / 390 * 6,
+                            decoration: const ShapeDecoration(
+                              shape: CircleBorder(),
+                            ),
+                          ),
+                        ),
                         for (int i = 0; i < controller.notice.length; i++)
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -228,6 +239,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth / 390 * 3.5),
+                          child: Container(
+                            height: screenWidth / 390 * 6,
+                            width: screenWidth / 390 * 6,
+                            decoration: const ShapeDecoration(
+                              shape: CircleBorder(),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
