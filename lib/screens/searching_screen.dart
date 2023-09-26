@@ -147,58 +147,53 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 child: GestureDetector(
                   onTap: () => setState(() {}),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth / 390 * 24,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
                     ),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                      ),
-                      itemCount: infos.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        String type = infos[index][0];
-                        String name = infos[index][1];
-                        dynamic obj = infos[index][2];
-                        if (type == 'platform') {
-                          return Center(
-                            child: PlatformCard(
-                              name: name,
-                              obj: obj,
-                              change: () async {
-                                infos = await searchInfos(searching);
-                                setState(() {});
-                              },
-                            ),
-                          );
-                        }
-                        if (type == 'subscription') {
-                          return Center(
-                            child: SubscriptionCard(
-                              name: name,
-                              obj: obj,
-                              change: () async {
-                                infos = await searchInfos(searching);
-                                setState(() {});
-                              },
-                            ),
-                          );
-                        }
-                        if (type == 'guarantee') {
-                          return Center(
-                            child: GuaranteeCard(
-                              name: name,
-                              obj: obj,
-                              change: () async {
-                                infos = await searchInfos(searching);
-                                setState(() {});
-                              },
-                            ),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
+                    itemCount: infos.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String type = infos[index][0];
+                      String name = infos[index][1];
+                      dynamic obj = infos[index][2];
+                      if (type == 'platform') {
+                        return Center(
+                          child: PlatformCard(
+                            name: name,
+                            obj: obj,
+                            change: () async {
+                              infos = await searchInfos(searching);
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      }
+                      if (type == 'subscription') {
+                        return Center(
+                          child: SubscriptionCard(
+                            name: name,
+                            obj: obj,
+                            change: () async {
+                              infos = await searchInfos(searching);
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      }
+                      if (type == 'guarantee') {
+                        return Center(
+                          child: GuaranteeCard(
+                            name: name,
+                            obj: obj,
+                            change: () async {
+                              infos = await searchInfos(searching);
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      }
+                      return null;
+                    },
                   ),
                 ),
               ),

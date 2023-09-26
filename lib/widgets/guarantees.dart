@@ -42,13 +42,15 @@ class _GuaranteesState extends State<Guarantees> {
               itemBuilder: (BuildContext context, int index) {
                 String brand = infos[index][0];
                 dynamic obj = infos[index][1];
-                return GuaranteeCard(
-                  name: brand,
-                  obj: obj,
-                  change: () {
-                    searchInfos();
-                    setState(() {});
-                  },
+                return Center(
+                  child: GuaranteeCard(
+                    name: brand,
+                    obj: obj,
+                    change: () {
+                      searchInfos();
+                      setState(() {});
+                    },
+                  ),
                 );
               },
             ),
