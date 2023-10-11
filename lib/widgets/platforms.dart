@@ -1,8 +1,6 @@
 import 'package:abibo/widgets/cards.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../controller.dart';
+import '../functions/control_platform.dart';
 
 class Platforms extends StatefulWidget {
   const Platforms({Key? key}) : super(key: key);
@@ -12,7 +10,11 @@ class Platforms extends StatefulWidget {
 }
 
 class _PlatformsState extends State<Platforms> {
-  final _controller = Get.find<HomeScreenController>();
+  List<List> infos = [];
+
+  Future<void> searchInfo() async {
+    infos = await getAllPlatform();
+  }
 
   @override
   void initState() {
@@ -27,26 +29,26 @@ class _PlatformsState extends State<Platforms> {
 
     return Expanded(
       child: FutureBuilder(
-        future: _controller.searchInfo(),
+        future: searchInfo(),
         builder: (context, snapshot) {
           return GestureDetector(
             onTap: () => setState(() {}),
             child: ListView.separated(
+              shrinkWrap: true,
               separatorBuilder: (context, index) => SizedBox(
                 height: screenHeight / 844 * 16,
               ),
-              itemCount: _controller.infos.length,
+              itemCount: infos.length,
               itemBuilder: (BuildContext context, int index) {
-                String name = _controller.infos[index][0];
-                dynamic obj = _controller.infos[index][1];
+                String name = infos[index][0];
+                dynamic obj = infos[index][1];
 
                 return Center(
                   child: PlatformCard(
                     name: name,
                     obj: obj,
                     change: () {
-                      _controller.searchInfo();
-                      _controller.searchNotice();
+                      searchInfo();
                       setState(() {});
                     },
                   ),

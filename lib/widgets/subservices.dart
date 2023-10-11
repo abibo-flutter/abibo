@@ -32,7 +32,9 @@ class _SubServicesState extends State<SubServices> {
         future: searchInfo(),
         builder: (context, snapshot) {
           return GestureDetector(
-            onTap: () => setState(() {}),
+            onTap: () => setState(() {
+              print('set state');
+            }),
             child: ListView.separated(
               shrinkWrap: true,
               separatorBuilder: (context, index) => SizedBox(

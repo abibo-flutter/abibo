@@ -1,5 +1,4 @@
 import 'package:abibo/functions/notification.dart';
-import 'controller.dart';
 import 'screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +26,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Get.put<HomeScreenController>(HomeScreenController());
     _loadData();
   }
 

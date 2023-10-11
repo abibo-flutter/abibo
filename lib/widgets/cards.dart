@@ -4,12 +4,13 @@ import 'package:abibo/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:abibo/functions/control_platform.dart';
+import 'package:get/get.dart';
 import '../functions/control_guarantee.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/widgets/custom_text.dart';
 
 class StandardCard extends StatelessWidget {
-  StandardCard({
+  const StandardCard({
     Key? key,
     required this.name,
     required this.obj,
@@ -25,24 +26,21 @@ class StandardCard extends StatelessWidget {
   final String type;
   final dynamic obj;
   final Function remove;
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: IntrinsicHeight(
         child: Navigator(
-          key: navigatorKey,
+          key: Get.nestedKey('$type $name'.hashCode),
           onGenerateRoute: (setting) {
-            return PageRouteBuilder(
+            return GetPageRoute(
               transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
-              pageBuilder: (context, anim1, anim2) => StandardInitialCard(
+              page: () => StandardInitialCard(
                 name: name,
                 obj: obj,
                 type: type,
                 remove: remove,
-                navigatorKey: navigatorKey,
                 initial: initial,
                 touched: touched,
               ),
@@ -61,7 +59,6 @@ class StandardInitialCard extends StatelessWidget {
     required this.name,
     required this.obj,
     required this.remove,
-    required this.navigatorKey,
     required this.initial,
     required this.touched,
   }) : super(key: key);
@@ -72,7 +69,6 @@ class StandardInitialCard extends StatelessWidget {
   final String name;
   final dynamic obj;
   final Function remove;
-  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -83,19 +79,15 @@ class StandardInitialCard extends StatelessWidget {
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) async {
-        navigatorKey.currentState?.pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                StandardDismissCard(
-              type: type,
-              name: name,
-              obj: obj,
-              remove: remove,
-              navigatorKey: navigatorKey,
-            ),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
+        Get.off(
+          StandardDismissCard(
+            type: type,
+            name: name,
+            obj: obj,
+            remove: remove,
           ),
+          id: '$type $name'.hashCode,
+          duration: Duration.zero,
         );
       },
       background: Container(
@@ -115,21 +107,17 @@ class StandardInitialCard extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          navigatorKey.currentState?.pushReplacement(
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  StandardTouchedCard(
-                type: type,
-                name: name,
-                obj: obj,
-                remove: remove,
-                navigatorKey: navigatorKey,
-                initial: initial,
-                touched: touched,
-              ),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
+          Get.off(
+            StandardTouchedCard(
+              type: type,
+              name: name,
+              obj: obj,
+              remove: remove,
+              initial: initial,
+              touched: touched,
             ),
+            id: '$type $name'.hashCode,
+            duration: Duration.zero,
           );
         },
         child: Hero(
@@ -148,14 +136,12 @@ class StandardDismissCard extends StatelessWidget {
     required this.name,
     required this.obj,
     required this.remove,
-    required this.navigatorKey,
   }) : super(key: key);
 
   final String type;
   final String name;
   final dynamic obj;
   final Function remove;
-  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +181,6 @@ class StandardTouchedCard extends StatelessWidget {
     required this.name,
     required this.obj,
     required this.remove,
-    required this.navigatorKey,
     required this.initial,
     required this.touched,
   }) : super(key: key);
@@ -206,27 +191,22 @@ class StandardTouchedCard extends StatelessWidget {
   final dynamic obj;
   final Function remove;
   final String type;
-  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigatorKey.currentState?.pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                StandardInitialCard(
-              type: type,
-              name: name,
-              obj: obj,
-              remove: remove,
-              navigatorKey: navigatorKey,
-              initial: initial,
-              touched: touched,
-            ),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
+        Get.off(
+          StandardInitialCard(
+            type: type,
+            name: name,
+            obj: obj,
+            remove: remove,
+            initial: initial,
+            touched: touched,
           ),
+          id: '$type $name'.hashCode,
+          duration: Duration.zero,
         );
       },
       child: Hero(

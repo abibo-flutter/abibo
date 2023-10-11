@@ -1,14 +1,11 @@
 //NoticePeriodScreen.dart
-import 'package:abibo/widgets/custom_text.dart';
-import 'package:abibo/functions/control_guarantee.dart';
-import 'package:abibo/functions/control_subscription.dart';
-import 'package:abibo/functions/notification.dart';
-import 'package:abibo/theme/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
-import 'package:abibo/theme/text_theme.dart';
+import '../widgets/custom_text.dart';
+import '../functions/notification.dart';
+import '../theme/color_theme.dart';
+import '../theme/text_theme.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NoticePeriodScreen extends StatefulWidget {
   const NoticePeriodScreen({super.key});
@@ -18,24 +15,8 @@ class NoticePeriodScreen extends StatefulWidget {
 }
 
 class _NoticePeriodScreenState extends State<NoticePeriodScreen> {
-  final secureKeyboardController = SecureKeyboardController();
-  final pinCodeEditor = TextEditingController();
-  final textFieldFocusNode = FocusNode();
   late SharedPreferences prefs;
   Set<String> periods = {};
-  List infos = [];
-
-  Future<void> searchInfos() async {
-    List<List> arr = [];
-    for (List list in await getAllSubscription()) {
-      arr.add(['subscription', list[0], list[1]]);
-    }
-
-    for (List list in await getAllGuarantee()) {
-      arr.add(['guarantee', list[0], list[1]]);
-    }
-    infos = arr;
-  }
 
   Future<void> getPeriod() async {
     prefs = await SharedPreferences.getInstance();

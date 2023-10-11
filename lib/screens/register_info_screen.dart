@@ -80,7 +80,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -637,7 +636,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 text: "취소",
                                 style: TextStyle(color: Colors.black)),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Get.back();
                             },
                           ),
                           const SizedBox(

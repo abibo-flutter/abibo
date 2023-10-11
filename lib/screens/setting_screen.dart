@@ -42,7 +42,7 @@ void _showAlert(BuildContext context) {
             child: const Text("예"),
             onPressed: () {
               resetSharedPreferences();
-              Navigator.of(context).pop();
+              Get.back();
               Get.snackbar(
                 '알림',
                 '초기화가 완료되었습니다.',
@@ -54,7 +54,7 @@ void _showAlert(BuildContext context) {
           CupertinoDialogAction(
             child: const Text("아니요"),
             onPressed: () {
-              Navigator.of(context).pop();
+              Get.back();
             },
           ),
         ],

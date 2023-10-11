@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:abibo/controller.dart';
+import 'dart:math';
 import 'package:abibo/widgets/custom_text.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/theme/color_theme.dart';
@@ -9,6 +9,9 @@ import 'package:get/get.dart';
 import 'package:abibo/widgets/platforms.dart';
 import 'package:abibo/widgets/subservices.dart';
 import 'package:abibo/widgets/guarantees.dart';
+
+import '../functions/control_guarantee.dart';
+import '../functions/control_subscription.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -27,16 +30,32 @@ void openRegisterInfoScreen() {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  static final HomeScreenController _controller =
-      Get.find<HomeScreenController>();
-  late Timer _timer;
   String selected = "platform";
-  late PageController _pageController;
+  List<List> notice = [];
   int currentPage = 0;
+  late Timer _timer;
+  late PageController _pageController;
 
   void select(type) {
     setState(() {
       selected = type;
+    });
+  }
+
+  Future<void> searchNotice() async {
+    List<List> arr = [];
+    for (List list in await getAllSubscription()) {
+      arr.add(['subscription', list]);
+    }
+
+    for (List list in await getAllGuarantee()) {
+      arr.add(['guarantee', list]);
+    }
+
+    arr.sort((a, b) => a[1][1]['endDate'].compareTo(b[1][1]['endDate']));
+
+    setState(() {
+      notice = arr.sublist(0, min(4, arr.length));
     });
   }
 
@@ -48,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _timer = Timer.periodic(
       const Duration(seconds: 5),
       (timer) {
-        if (_controller.notice.length < 2) return;
+        if (notice.length < 2) return;
         setState(() {
           currentPage++;
         });
@@ -75,113 +94,96 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return Stack(
       children: [
-        GetBuilder<HomeScreenController>(builder: (controller) {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: screenHeight / 844 * 35,
-                  bottom: 0,
-                  left: screenWidth / 390 * 32,
-                  right: screenWidth / 390 * 32,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const CustomText(
-                          text: 'Abibo',
-                          style: ABTextTheme.MainMainText,
-                        ),
-                        const Expanded(
-                          child: SizedBox(),
-                        ),
-                        SizedBox(
-                          width: screenWidth / 390 * 36,
-                          child: FloatingActionButton(
-                            heroTag: 'search',
-                            onPressed: () {
-                              widget.controller.animateTo(0);
-                            },
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Colors.white,
-                            child: const Icon(
-                              Icons.search,
-                            ),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                top: screenHeight / 844 * 35,
+                bottom: 0,
+                left: screenWidth / 390 * 32,
+                right: screenWidth / 390 * 32,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const CustomText(
+                        text: 'Abibo',
+                        style: ABTextTheme.MainMainText,
+                      ),
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                      SizedBox(
+                        width: screenWidth / 390 * 36,
+                        child: FloatingActionButton(
+                          heroTag: 'search',
+                          onPressed: () {
+                            widget.controller.animateTo(0);
+                          },
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          foregroundColor: Colors.white,
+                          child: const Icon(
+                            Icons.search,
                           ),
                         ),
-                        SizedBox(
-                          width: screenWidth / 390 * 12,
-                        ),
-                        SizedBox(
-                          width: screenWidth / 390 * 36,
-                          child: FloatingActionButton(
-                            heroTag: 'setting',
-                            onPressed: () {
-                              widget.controller.animateTo(2);
-                            },
-                            elevation: 0,
-                            backgroundColor: ABColors.MAIN_THEME,
-                            foregroundColor: Colors.white,
-                            child: const Icon(
-                              Icons.menu_rounded,
-                            ),
+                      ),
+                      SizedBox(
+                        width: screenWidth / 390 * 12,
+                      ),
+                      SizedBox(
+                        width: screenWidth / 390 * 36,
+                        child: FloatingActionButton(
+                          heroTag: 'setting',
+                          onPressed: () {
+                            widget.controller.animateTo(2);
+                          },
+                          elevation: 0,
+                          backgroundColor: ABColors.MAIN_THEME,
+                          foregroundColor: Colors.white,
+                          child: const Icon(
+                            Icons.menu_rounded,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight / 844 * 6),
-                    FutureBuilder(
-                      future: controller.searchNotice(),
-                      builder: (context, snapshot) {
-                        if (controller.notice.length > 1) {
-                          return SizedBox(
-                            height: screenHeight / 844 * 130,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: screenWidth / 390 * 300,
-                                  child: PageView.builder(
-                                    onPageChanged: (value) {
-                                      setState(() {
-                                        currentPage = value;
-                                      });
-                                    },
-                                    controller: _pageController,
-                                    itemBuilder: (context, index) {
-                                      int i = index % controller.notice.length;
-                                      return NoticeTab(
-                                        empty: false,
-                                        type: controller.notice[i][0],
-                                        obj: controller.notice[i][1],
-                                      );
-                                    },
-                                  ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight / 844 * 6),
+                  FutureBuilder(
+                    future: searchNotice(),
+                    builder: (context, snapshot) {
+                      if (notice.length > 1) {
+                        return SizedBox(
+                          height: screenHeight / 844 * 130,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: screenWidth / 390 * 300,
+                                child: PageView.builder(
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      currentPage = value;
+                                    });
+                                  },
+                                  controller: _pageController,
+                                  itemBuilder: (context, index) {
+                                    int i = index % notice.length;
+                                    return NoticeTab(
+                                      empty: false,
+                                      type: notice[i][0],
+                                      obj: notice[i][1],
+                                    );
+                                  },
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-                        if (controller.notice.isEmpty) {
-                          return SizedBox(
-                            height: screenHeight / 844 * 130,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: screenWidth / 390 * 300,
-                                  child: PageView(
-                                    controller: _pageController,
-                                    children: const [NoticeTab(empty: true)],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      if (notice.isEmpty) {
                         return SizedBox(
                           height: screenHeight / 844 * 130,
                           child: Row(
@@ -191,207 +193,220 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 width: screenWidth / 390 * 300,
                                 child: PageView(
                                   controller: _pageController,
-                                  children: [
-                                    NoticeTab(
-                                      empty: false,
-                                      type: controller.notice[0][0],
-                                      obj: controller.notice[0][1],
-                                    ),
-                                  ],
+                                  children: const [NoticeTab(empty: true)],
                                 ),
                               ),
                             ],
                           ),
                         );
-                      },
-                    ),
-                    SizedBox(
-                      height: screenHeight / 844 * 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth / 390 * 3.5),
-                          child: Container(
-                            height: screenWidth / 390 * 6,
-                            width: screenWidth / 390 * 6,
-                            decoration: const ShapeDecoration(
-                              shape: CircleBorder(),
-                            ),
-                          ),
-                        ),
-                        for (int i = 0; i < controller.notice.length; i++)
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth / 390 * 3.5),
-                            child: Container(
-                              height: screenWidth / 390 * 6,
-                              width: screenWidth / 390 * 6,
-                              decoration: ShapeDecoration(
-                                shape: const CircleBorder(),
-                                color:
-                                    (currentPage % controller.notice.length ==
-                                            i)
-                                        ? const Color(0xFF9E96D4)
-                                        : Colors.white,
-                              ),
-                            ),
-                          ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth / 390 * 3.5),
-                          child: Container(
-                            height: screenWidth / 390 * 6,
-                            width: screenWidth / 390 * 6,
-                            decoration: const ShapeDecoration(
-                              shape: CircleBorder(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenHeight / 844 * 27,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  width: screenWidth,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: screenHeight / 844 * 20,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      }
+                      return SizedBox(
+                        height: screenHeight / 844 * 130,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
-                              width: screenWidth / 390 * 100,
-                              height: screenHeight / 844 * 38,
-                              decoration: BoxDecoration(
-                                color: (selected == 'subscription')
-                                    ? const Color(0xFF6B19DC)
-                                    : const Color(0xFFF5F5F5),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: (selected == 'subscription')
-                                      ? const Color(0xFF561CA7)
-                                      : const Color(0xFFD7D5D5),
-                                  width: 0.5,
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () => select("subscription"),
-                                child: Center(
-                                  child: CustomText(
-                                    text: '구독 서비스',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'NotoSansKR',
-                                      color: (selected == 'subscription')
-                                          ? Colors.white
-                                          : const Color(0xFF818181),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
                             SizedBox(
-                              width: screenWidth / 390 * 13,
-                            ),
-                            Container(
-                              width: screenWidth / 390 * 100,
-                              height: screenHeight / 844 * 38,
-                              decoration: BoxDecoration(
-                                color: (selected == 'platform')
-                                    ? const Color(0xFF6B19DC)
-                                    : const Color(0xFFF5F5F5),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: (selected == 'platform')
-                                      ? const Color(0xFF561CA7)
-                                      : const Color(0xFFD7D5D5),
-                                  width: 0.5,
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () => select("platform"),
-                                child: Center(
-                                  child: CustomText(
-                                    text: '플랫폼',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'NotoSansKR',
-                                      color: (selected == 'platform')
-                                          ? Colors.white
-                                          : const Color(0xFF818181),
-                                    ),
+                              width: screenWidth / 390 * 300,
+                              child: PageView(
+                                controller: _pageController,
+                                children: [
+                                  NoticeTab(
+                                    empty: false,
+                                    type: notice[0][0],
+                                    obj: notice[0][1],
                                   ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: screenWidth / 390 * 13,
-                            ),
-                            Container(
-                              width: screenWidth / 390 * 100,
-                              height: screenHeight / 844 * 38,
-                              decoration: BoxDecoration(
-                                color: (selected == 'guarantee')
-                                    ? const Color(0xFF6B19DC)
-                                    : const Color(0xFFF5F5F5),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: (selected == 'guarantee')
-                                      ? const Color(0xFF561CA7)
-                                      : const Color(0xFFD7D5D5),
-                                  width: 0.5,
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () => select("guarantee"),
-                                child: Center(
-                                  child: CustomText(
-                                    text: '보증서',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'NotoSansKR',
-                                      color: (selected == 'guarantee')
-                                          ? Colors.white
-                                          : const Color(0xFF818181),
-                                    ),
-                                  ),
-                                ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   height: screenHeight / 844 * 16,
-                        // ),
-                        if (selected == 'subscription') const SubServices(),
-                        if (selected == 'platform') const Platforms(),
-                        if (selected == 'guarantee') const Guarantees(),
-                      ],
-                    ),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: screenHeight / 844 * 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth / 390 * 3.5),
+                        child: Container(
+                          height: screenWidth / 390 * 6,
+                          width: screenWidth / 390 * 6,
+                          decoration: const ShapeDecoration(
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ),
+                      for (int i = 0; i < notice.length; i++)
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth / 390 * 3.5),
+                          child: Container(
+                            height: screenWidth / 390 * 6,
+                            width: screenWidth / 390 * 6,
+                            decoration: ShapeDecoration(
+                              shape: const CircleBorder(),
+                              color: (currentPage % notice.length == i)
+                                  ? const Color(0xFF9E96D4)
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth / 390 * 3.5),
+                        child: Container(
+                          height: screenWidth / 390 * 6,
+                          width: screenWidth / 390 * 6,
+                          decoration: const ShapeDecoration(
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: screenHeight / 844 * 27,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: screenWidth,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: screenHeight / 844 * 20,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: screenWidth / 390 * 100,
+                            height: screenHeight / 844 * 38,
+                            decoration: BoxDecoration(
+                              color: (selected == 'subscription')
+                                  ? const Color(0xFF6B19DC)
+                                  : const Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: (selected == 'subscription')
+                                    ? const Color(0xFF561CA7)
+                                    : const Color(0xFFD7D5D5),
+                                width: 0.5,
+                              ),
+                            ),
+                            child: TextButton(
+                              onPressed: () => select("subscription"),
+                              child: Center(
+                                child: CustomText(
+                                  text: '구독 서비스',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
+                                    color: (selected == 'subscription')
+                                        ? Colors.white
+                                        : const Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 390 * 13,
+                          ),
+                          Container(
+                            width: screenWidth / 390 * 100,
+                            height: screenHeight / 844 * 38,
+                            decoration: BoxDecoration(
+                              color: (selected == 'platform')
+                                  ? const Color(0xFF6B19DC)
+                                  : const Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: (selected == 'platform')
+                                    ? const Color(0xFF561CA7)
+                                    : const Color(0xFFD7D5D5),
+                                width: 0.5,
+                              ),
+                            ),
+                            child: TextButton(
+                              onPressed: () => select("platform"),
+                              child: Center(
+                                child: CustomText(
+                                  text: '플랫폼',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
+                                    color: (selected == 'platform')
+                                        ? Colors.white
+                                        : const Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth / 390 * 13,
+                          ),
+                          Container(
+                            width: screenWidth / 390 * 100,
+                            height: screenHeight / 844 * 38,
+                            decoration: BoxDecoration(
+                              color: (selected == 'guarantee')
+                                  ? const Color(0xFF6B19DC)
+                                  : const Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: (selected == 'guarantee')
+                                    ? const Color(0xFF561CA7)
+                                    : const Color(0xFFD7D5D5),
+                                width: 0.5,
+                              ),
+                            ),
+                            child: TextButton(
+                              onPressed: () => select("guarantee"),
+                              child: Center(
+                                child: CustomText(
+                                  text: '보증서',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'NotoSansKR',
+                                    color: (selected == 'guarantee')
+                                        ? Colors.white
+                                        : const Color(0xFF818181),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // SizedBox(
+                      //   height: screenHeight / 844 * 16,
+                      // ),
+                      if (selected == 'subscription') const SubServices(),
+                      if (selected == 'platform') const Platforms(),
+                      if (selected == 'guarantee') const Guarantees(),
+                    ],
                   ),
                 ),
               ),
-            ],
-          );
-        }),
+            ),
+          ],
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
