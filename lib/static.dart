@@ -1,3 +1,3 @@
 abstract class ABStatic {
-  static const AppVersion = '1.0.0';
+  static const AppVersion = '1.1.0';
 }
