@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/theme/color_theme.dart';
 import 'package:abibo/widgets/custom_text.dart';
+import 'package:abibo/functions/control_number.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -81,6 +82,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    final CounterController counterController = Get.find<CounterController>();
 
     return Scaffold(
       body: GestureDetector(
@@ -660,6 +662,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   password != null &&
                                   endDate != null &&
                                   cost != null) {
+                                counterController.objectCountincrease();
                                 await setSubscription(
                                   serviceName: name!,
                                   id: id!,
@@ -671,6 +674,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               } else if (isPlatform &&
                                   id != null &&
                                   password != null) {
+                                counterController.objectCountincrease();
                                 await setPlatform(
                                   platform: name!,
                                   id: id!,
@@ -680,6 +684,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   brand != null &&
                                   model != null &&
                                   endDate != null) {
+                                counterController.objectCountincrease();
                                 await setGuarantee(
                                   brand: brand!,
                                   productName: name!,
