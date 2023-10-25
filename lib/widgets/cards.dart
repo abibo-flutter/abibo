@@ -146,9 +146,9 @@ class StandardDismissCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CounterController counterController = Get.put(CounterController());
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final CounterController counterController = Get.find<CounterController>();
 
     return GestureDetector(
       onTap: () {
@@ -236,7 +236,7 @@ class PlatformCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final CounterController counterController = Get.find<CounterController>();
+    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,
@@ -447,8 +447,8 @@ class SubscriptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final CounterController counterController = Get.find<CounterController>();
     final NumberFormat formatter = NumberFormat('#,###');
+    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,
@@ -751,7 +751,7 @@ class GuaranteeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final CounterController counterController = Get.find<CounterController>();
+    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,

@@ -82,7 +82,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    final CounterController counterController = Get.find<CounterController>();
+    CounterController counterController = Get.find<CounterController>();
 
     return Scaffold(
       body: GestureDetector(
@@ -662,7 +662,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   password != null &&
                                   endDate != null &&
                                   cost != null) {
-                                counterController.objectCountincrease();
                                 await setSubscription(
                                   serviceName: name!,
                                   id: id!,
@@ -674,7 +673,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                               } else if (isPlatform &&
                                   id != null &&
                                   password != null) {
-                                counterController.objectCountincrease();
                                 await setPlatform(
                                   platform: name!,
                                   id: id!,
@@ -684,7 +682,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                   brand != null &&
                                   model != null &&
                                   endDate != null) {
-                                counterController.objectCountincrease();
                                 await setGuarantee(
                                   brand: brand!,
                                   productName: name!,
@@ -703,6 +700,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 return;
                               }
                               Get.offAll(() => const MainScreen());
+                              counterController.objectCountincrease();
                             },
                           ),
                         ],
