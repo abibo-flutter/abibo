@@ -6,7 +6,7 @@ class CounterController extends GetxController {
 
   void objectCountincrease() {
     objectCount.value++;
-    if (objectCount.value == 1) {
+    if (objectCount.value == 2) {
       Get.defaultDialog(
         title: "더 많은 정보 등록하기",
         middleText: "아비보+를 결재해 더 많은 정보를 등록해보세요",
@@ -18,6 +18,7 @@ class CounterController extends GetxController {
             child: const Text("확인"),
           ),
         ],
+        navigatorKey: Get.nestedKey(0),
       );
     }
   }
