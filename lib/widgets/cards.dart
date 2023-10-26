@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import '../functions/control_guarantee.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/widgets/custom_text.dart';
-import 'package:abibo/functions/control_number.dart';
 
 class StandardCard extends StatelessWidget {
   const StandardCard({
@@ -146,13 +145,11 @@ class StandardDismissCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CounterController counterController = Get.put(CounterController());
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
       onTap: () {
-        counterController.objectCountdecrease();
         remove();
       },
       child: Hero(
@@ -236,12 +233,10 @@ class PlatformCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,
       remove: () async {
-        counterController.objectCountdecrease();
         await removePlatform(platform: name, obj: obj);
         change();
       },
@@ -448,12 +443,10 @@ class SubscriptionCard extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     final NumberFormat formatter = NumberFormat('#,###');
-    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,
       remove: () async {
-        counterController.objectCountdecrease();
         await removeSubscription(serviceName: name, obj: obj);
         change();
       },
@@ -751,12 +744,10 @@ class GuaranteeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    CounterController counterController = Get.put(CounterController());
     return StandardCard(
       name: name,
       obj: obj,
       remove: () async {
-        counterController.objectCountdecrease();
         await removeGuarantee(brand: name, obj: obj);
         change();
       },

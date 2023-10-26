@@ -6,11 +6,9 @@ import 'screens/pin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
-import 'package:abibo/functions/control_number.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(CounterController());
   runApp(const MyApp());
 }
 

@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/theme/color_theme.dart';
 import 'package:abibo/widgets/custom_text.dart';
-import 'package:abibo/functions/control_number.dart';
 
 class RegisterInfoScreen extends StatefulWidget {
   const RegisterInfoScreen({Key? key}) : super(key: key);
@@ -82,7 +81,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    CounterController counterController = Get.find<CounterController>();
 
     return Scaffold(
       body: GestureDetector(
@@ -700,7 +698,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                                 return;
                               }
                               Get.offAll(() => const MainScreen());
-                              counterController.objectCountincrease();
                             },
                           ),
                         ],
