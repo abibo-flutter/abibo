@@ -11,6 +11,7 @@ class SubServices extends StatefulWidget {
 
 class _SubServicesState extends State<SubServices> {
   List<List> infos = [];
+  bool updating = true;
 
   Future<void> searchInfo() async {
     infos = await getAllSubscription();
@@ -33,7 +34,7 @@ class _SubServicesState extends State<SubServices> {
         builder: (context, snapshot) {
           return GestureDetector(
             onTap: () => setState(() {
-              print('set state');
+              updating = !updating;
             }),
             child: ListView.separated(
               shrinkWrap: true,
@@ -47,6 +48,7 @@ class _SubServicesState extends State<SubServices> {
 
                 return Center(
                   child: SubscriptionCard(
+                    updating: updating,
                     name: name,
                     obj: obj,
                     change: () {

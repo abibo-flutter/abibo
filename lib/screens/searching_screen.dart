@@ -18,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<List> infos = []; //[[type, name, object], [],]
   String searching = "";
+  bool updating = true;
 
   @override
   void initState() {
@@ -82,7 +83,9 @@ class _SearchScreenState extends State<SearchScreen> {
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
-          setState(() {});
+          setState(() {
+            updating = !updating;
+          });
         },
         child: Container(
           decoration: const BoxDecoration(
@@ -178,6 +181,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               infos = await searchInfos(searching);
                               setState(() {});
                             },
+                            updating: updating,
                           ),
                         );
                       }
@@ -190,6 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               infos = await searchInfos(searching);
                               setState(() {});
                             },
+                            updating: updating,
                           ),
                         );
                       }
@@ -202,6 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               infos = await searchInfos(searching);
                               setState(() {});
                             },
+                            updating: updating,
                           ),
                         );
                       }

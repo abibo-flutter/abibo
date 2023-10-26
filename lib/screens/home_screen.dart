@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:abibo/functions/control_platform.dart';
 import 'package:abibo/widgets/custom_text.dart';
 import 'package:abibo/screens/register_info_screen.dart';
 import 'package:abibo/theme/color_theme.dart';
@@ -32,7 +33,9 @@ void openRegisterInfoScreen() {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   String selected = "platform";
   List<List> notice = [];
+  int count = 0;
   int currentPage = 0;
+  bool dialog = false;
   late Timer _timer;
   late PageController _pageController;
 
@@ -42,7 +45,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
-  Future<void> searchNotice() async {
+  void showDialog() {
+    Get.defaultDialog(
+      title: "더 많은 정보 등록하기",
+      middleText: "아비보+를 결제해\n더 많은 정보를 등록해보세요",
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Get.back(); // 다이얼로그 닫기
+          },
+          child: const Text("확인"),
+        ),
+      ],
+    );
+  }
+
+  Future<void> searchNotice(BuildContext context) async {
     List<List> arr = [];
     for (List list in await getAllSubscription()) {
       arr.add(['subscription', list]);
@@ -53,10 +71,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
 
     arr.sort((a, b) => a[1][1]['endDate'].compareTo(b[1][1]['endDate']));
+    notice = arr.sublist(0, min(4, arr.length));
 
-    setState(() {
-      notice = arr.sublist(0, min(4, arr.length));
-    });
+    count = arr.length;
+    count += (await getAllPlatform()).length;
+
+    if (context.mounted) {
+      if (count >= 30 && dialog == false) {
+        showDialog();
+        dialog = true;
+      }
+      setState(() {});
+    }
   }
 
   @override
@@ -152,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   SizedBox(height: screenHeight / 844 * 6),
                   FutureBuilder(
-                    future: searchNotice(),
+                    future: searchNotice(context),
                     builder: (context, snapshot) {
                       if (notice.length > 1) {
                         return SizedBox(

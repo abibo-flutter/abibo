@@ -11,6 +11,7 @@ class Guarantees extends StatefulWidget {
 
 class _GuaranteesState extends State<Guarantees> {
   List<List> infos = [];
+  bool updating = true;
 
   Future<void> searchInfos() async {
     infos = await getAllGuarantee();
@@ -32,7 +33,9 @@ class _GuaranteesState extends State<Guarantees> {
         future: searchInfos(),
         builder: (context, snapshot) {
           return GestureDetector(
-            onTap: () => setState(() {}),
+            onTap: () => setState(() {
+              updating = !updating;
+            }),
             child: ListView.separated(
               shrinkWrap: true,
               separatorBuilder: (context, index) => SizedBox(
@@ -44,6 +47,7 @@ class _GuaranteesState extends State<Guarantees> {
                 dynamic obj = infos[index][1];
                 return Center(
                   child: GuaranteeCard(
+                    updating: updating,
                     name: brand,
                     obj: obj,
                     change: () {
