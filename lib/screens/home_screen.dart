@@ -507,8 +507,8 @@ class _NoticeTabState extends State<NoticeTab> {
             ),
             const CustomText(
                 text: '정보를', style: ABTextTheme.UpcomingIssueStandard),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: screenHeight / 844 * 20,
             ),
             const CustomText(
               text: '입력해보세요!',
