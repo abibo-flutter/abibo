@@ -4,12 +4,11 @@ import 'package:abibo/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:abibo/functions/control_platform.dart';
-import 'package:get/get.dart';
 import '../functions/control_guarantee.dart';
 import 'package:intl/intl.dart';
 import 'package:abibo/widgets/custom_text.dart';
 
-class StandardCard extends StatelessWidget {
+class StandardCard extends StatefulWidget {
   const StandardCard({
     Key? key,
     required this.name,
@@ -18,6 +17,7 @@ class StandardCard extends StatelessWidget {
     required this.initial,
     required this.touched,
     required this.type,
+    required this.updating,
   }) : super(key: key);
 
   final Widget initial;
@@ -26,135 +26,47 @@ class StandardCard extends StatelessWidget {
   final String type;
   final dynamic obj;
   final Function remove;
+  final bool updating;
 
   @override
-  Widget build(BuildContext context) {
-    return IntrinsicWidth(
-      child: IntrinsicHeight(
-        child: Navigator(
-          key: Get.nestedKey('$type $name'.hashCode),
-          onGenerateRoute: (setting) {
-            return GetPageRoute(
-              transitionDuration: Duration.zero,
-              page: () => StandardInitialCard(
-                name: name,
-                obj: obj,
-                type: type,
-                remove: remove,
-                initial: initial,
-                touched: touched,
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
+  State<StandardCard> createState() => _StandardCardState();
 }
 
-class StandardInitialCard extends StatelessWidget {
-  const StandardInitialCard({
-    Key? key,
-    required this.type,
-    required this.name,
-    required this.obj,
-    required this.remove,
-    required this.initial,
-    required this.touched,
-  }) : super(key: key);
+class _StandardCardState extends State<StandardCard> {
+  String state = 'initial';
+  late bool updated;
 
-  final Widget initial;
-  final Widget touched;
-  final String type;
-  final String name;
-  final dynamic obj;
-  final Function remove;
+  @override
+  void initState() {
+    super.initState();
+    updated = widget.updating;
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Dismissible(
-      key: UniqueKey(),
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) async {
-        Get.off(
-          StandardDismissCard(
-            type: type,
-            name: name,
-            obj: obj,
-            remove: remove,
-          ),
-          id: '$type $name'.hashCode,
-          duration: Duration.zero,
-        );
-      },
-      background: Container(
-        width: screenWidth / 390 * 326,
-        height: screenHeight / 844 * 82,
-        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(14)),
-          color: Colors.red,
-          border: Border.all(
-            color: Colors.white,
-            width: 0.5,
-          ),
-        ),
-        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
-        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
-      ),
-      child: GestureDetector(
-        onTap: () {
-          Get.off(
-            StandardTouchedCard(
-              type: type,
-              name: name,
-              obj: obj,
-              remove: remove,
-              initial: initial,
-              touched: touched,
-            ),
-            id: '$type $name'.hashCode,
-            duration: Duration.zero,
-          );
+    if (updated != widget.updating) {
+      setState(() {
+        state = 'initial';
+        updated = widget.updating;
+      });
+    }
+
+    if (state == 'initial') {
+      return Dismissible(
+        key: UniqueKey(),
+        direction: DismissDirection.endToStart,
+        movementDuration: Duration.zero,
+        resizeDuration: const Duration(microseconds: 1),
+        confirmDismiss: (direction) async {
+          setState(() {
+            state = 'dismiss';
+          });
+          return false;
         },
-        child: Hero(
-          tag: '${type}hero-$name',
-          child: initial,
-        ),
-      ),
-    );
-  }
-}
-
-class StandardDismissCard extends StatelessWidget {
-  const StandardDismissCard({
-    Key? key,
-    required this.type,
-    required this.name,
-    required this.obj,
-    required this.remove,
-  }) : super(key: key);
-
-  final String type;
-  final String name;
-  final dynamic obj;
-  final Function remove;
-
-  @override
-  Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return GestureDetector(
-      onTap: () {
-        remove();
-      },
-      child: Hero(
-        tag: '${type}hero-$name',
-        child: Container(
+        background: Container(
           width: screenWidth / 390 * 326,
           height: screenHeight / 844 * 82,
           padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
@@ -169,49 +81,48 @@ class StandardDismissCard extends StatelessWidget {
           alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
           child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
         ),
-      ),
-    );
-  }
-}
-
-class StandardTouchedCard extends StatelessWidget {
-  const StandardTouchedCard({
-    Key? key,
-    required this.type,
-    required this.name,
-    required this.obj,
-    required this.remove,
-    required this.initial,
-    required this.touched,
-  }) : super(key: key);
-
-  final Widget initial;
-  final Widget touched;
-  final String name;
-  final dynamic obj;
-  final Function remove;
-  final String type;
-
-  @override
-  Widget build(BuildContext context) {
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              state = 'touched';
+            });
+          },
+          child: widget.initial,
+        ),
+      );
+    }
+    if (state == 'touched') {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            state = 'initial';
+          });
+        },
+        child: widget.touched,
+      );
+    }
+    //if (state == 'dismiss)
     return GestureDetector(
       onTap: () {
-        Get.off(
-          StandardInitialCard(
-            type: type,
-            name: name,
-            obj: obj,
-            remove: remove,
-            initial: initial,
-            touched: touched,
-          ),
-          id: '$type $name'.hashCode,
-          duration: Duration.zero,
-        );
+        setState(() {
+          state = 'initial';
+          widget.remove();
+        });
       },
-      child: Hero(
-        tag: '${type}hero-$name',
-        child: touched,
+      child: Container(
+        width: screenWidth / 390 * 326,
+        height: screenHeight / 844 * 82,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 390 * 20),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+          ),
+        ),
+        alignment: Alignment.centerRight, // 아이콘을 오른쪽 가운데//아이콘 PADDING
+        child: const Icon(Icons.delete_outline_rounded, color: Colors.white),
       ),
     );
   }
@@ -223,17 +134,20 @@ class PlatformCard extends StatelessWidget {
     required this.name,
     required this.obj,
     required this.change,
+    required this.updating,
   }) : super(key: key);
 
   final String name;
   final dynamic obj;
   final Function change;
+  final bool updating;
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return StandardCard(
+      updating: updating,
       name: name,
       obj: obj,
       remove: () async {
@@ -350,27 +264,28 @@ class PlatformCard extends StatelessWidget {
                                     text: '아이디',
                                     style: ABTextTheme.CardDescription,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(
-                                          text: obj['id'],
-                                          style: ABTextTheme.CardDescription),
-                                      const SizedBox(width: 3),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Clipboard.setData(
-                                              ClipboardData(text: obj['id']));
-                                        },
-                                        child: const Icon(
+                                  GestureDetector(
+                                    onTap: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: obj['id']));
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomText(
+                                            text: obj['id'],
+                                            style: ABTextTheme.CardDescription),
+                                        const SizedBox(width: 3),
+                                        const Icon(
                                           Icons.copy_rounded,
                                           color: Colors.black,
                                           size: 10,
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -383,27 +298,28 @@ class PlatformCard extends StatelessWidget {
                                     text: '비밀번호',
                                     style: ABTextTheme.CardDescription,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(
-                                          text: obj['password'],
-                                          style: ABTextTheme.CardDescription),
-                                      const SizedBox(width: 3),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Clipboard.setData(ClipboardData(
-                                              text: obj['password']));
-                                        },
-                                        child: const Icon(
+                                  GestureDetector(
+                                    onTap: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: obj['password']));
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomText(
+                                            text: obj['password'],
+                                            style: ABTextTheme.CardDescription),
+                                        const SizedBox(width: 3),
+                                        const Icon(
                                           Icons.copy_rounded,
                                           color: Colors.black,
                                           size: 10,
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -426,17 +342,18 @@ class PlatformCard extends StatelessWidget {
 }
 
 class SubscriptionCard extends StatelessWidget {
-  SubscriptionCard({
+  const SubscriptionCard({
     Key? key,
     required this.name,
     required this.obj,
     required this.change,
+    required this.updating,
   }) : super(key: key);
 
   final String name;
   final dynamic obj;
   final Function change;
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final bool updating;
 
   @override
   Widget build(BuildContext context) {
@@ -444,6 +361,7 @@ class SubscriptionCard extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     final NumberFormat formatter = NumberFormat('#,###');
     return StandardCard(
+      updating: updating,
       name: name,
       obj: obj,
       remove: () async {
@@ -728,23 +646,25 @@ class SubscriptionCard extends StatelessWidget {
 }
 
 class GuaranteeCard extends StatelessWidget {
-  GuaranteeCard({
+  const GuaranteeCard({
     Key? key,
     required this.name,
     required this.obj,
     required this.change,
+    required this.updating,
   }) : super(key: key);
 
   final String name;
   final dynamic obj;
   final Function change;
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final bool updating;
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return StandardCard(
+      updating: updating,
       name: name,
       obj: obj,
       remove: () async {

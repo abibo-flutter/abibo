@@ -11,6 +11,7 @@ class Platforms extends StatefulWidget {
 
 class _PlatformsState extends State<Platforms> {
   List<List> infos = [];
+  bool updating = true;
 
   Future<void> searchInfo() async {
     infos = await getAllPlatform();
@@ -32,7 +33,9 @@ class _PlatformsState extends State<Platforms> {
         future: searchInfo(),
         builder: (context, snapshot) {
           return GestureDetector(
-            onTap: () => setState(() {}),
+            onTap: () => setState(() {
+              updating = !updating;
+            }),
             child: ListView.separated(
               shrinkWrap: true,
               separatorBuilder: (context, index) => SizedBox(
@@ -51,6 +54,7 @@ class _PlatformsState extends State<Platforms> {
                       searchInfo();
                       setState(() {});
                     },
+                    updating: updating,
                   ),
                 );
               },
