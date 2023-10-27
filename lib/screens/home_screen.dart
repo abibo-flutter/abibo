@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     count += (await getAllPlatform()).length;
 
     if (context.mounted) {
-      if (count >= 30 && dialog == false) {
+      if (count >= 10 && dialog == false) {
         showDialog();
         dialog = true;
       }
