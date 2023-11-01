@@ -2,17 +2,6 @@ import 'dart:convert';
 import 'package:abibo/functions/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// 데이터 형식
-/*
-subscription-netflix: [
-  {'id': 'qwerty', 'password': 'qwerty', 'endDate': 2024/06/21, 'cost': 10000},
-],
-subscription-spotify: [
-  {'id': 'qwerty', 'password': 'qwerty', 'endDate': 2024/06/21, 'cost': 10000},
-  {'id': 'asdfgh', 'password': 'asdfgh', 'endDate': 2023/06/21, 'cost': 7000},
-],
-*/
-
 Future<void> setSubscription({
   required String serviceName,
   required String id,
@@ -115,7 +104,6 @@ Future<List<Map<String, dynamic>>> getSubscription({
   List<Map<String, dynamic>> result = [];
 
   List<Map<String, dynamic>> serviceList = [];
-  //[{'...':object}, {'...':object, '...':object}]
   serviceList = jsonDecode(serviceJson).cast<Map<String, dynamic>>();
 
   for (var service in serviceList) {
@@ -139,13 +127,6 @@ Future<List<List>> getAllSubscription() async {
     service = await getSubscription(serviceName: name);
     serviceList.addAll(List.generate(
         service.length, (index) => [name, service[index]])); //시간순 정렬
-    /*
-    serviceList = [
-      [name, {...}], 
-      [name, {...}], 
-      [name, {...}], 
-      ]
-    */
   }
   serviceList.sort((a, b) => a[1]['endDate'].compareTo(b[1]['endDate']));
   // 일단 버블 정렬이고 필요하면 바꿀 수 있음

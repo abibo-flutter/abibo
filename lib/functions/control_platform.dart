@@ -1,17 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// 데이터 형식
-/*
-platform-netflix: [
-  {'id': 'asdfgh', 'password': 'asdfgh'},
-],
-platform-spotify: [
-  {'id': 'asdfgh', 'password': 'asdfgh'},
-  {'id': 'qwerty', 'password': 'qwerty'},
-],
-*/
-
 Future<void> setPlatform({
   required String platform,
   required String id,

@@ -2,14 +2,6 @@ import 'dart:convert';
 import 'package:abibo/functions/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// 데이터 형식
-/*
-guarantee-apple: [
-  {'name': 'qwerty',  'endDate': 20240621, 'note': stringtextabcdefg},
-],
-
-*/
-
 Future<void> setGuarantee({
   required String brand,
   required String productName,
@@ -110,7 +102,6 @@ Future<List<Map<String, dynamic>>> getGuarantee({
   List<Map<String, dynamic>> result = [];
 
   List<Map<String, dynamic>> productList = [];
-  //[{'...':object}, {'...':object, '...':object}]
   productList = jsonDecode(productJson).cast<Map<String, dynamic>>();
 
   for (var product in productList) {
@@ -134,7 +125,6 @@ Future<List<List>> getAllGuarantee() async {
     product = await getGuarantee(brand: brand);
     productList.addAll(List.generate(
         product.length, (index) => [brand, product[index]])); //시간순 정렬
-    //productList = [{...}, {...}, {...}]
   }
   productList.sort((a, b) => a[1]['endDate'].compareTo(b[1]['endDate']));
   // 일단 버블 정렬이고 필요하면 바꿀 수 있음
