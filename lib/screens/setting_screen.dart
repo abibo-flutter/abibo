@@ -70,9 +70,6 @@ void navigateToInitPINScreen() {
 void navigateToChangePINScreen() {
   Get.to(() => const ChangePINScreen());
 }
-// void navigateToNoticePeriodScreen() {
-//   Get.to(() => const NoticePeriodScreen());
-// }
 
 class _SettingScreenState extends State<SettingScreen> {
   late SharedPreferences prefs;
